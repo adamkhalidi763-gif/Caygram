@@ -2,644 +2,521 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Caygram Shop</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Caygram</title>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
-  font-family:Arial,sans-serif;
-  background:#f5f5f7;
-  color:#111;
+ margin:0;
+ font-family:Arial,Helvetica,sans-serif;
+ background:#f4f4f7;
+ color:#111;
+ transition:.25s;
 }
-
-button,input,select{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-nav{
-  position:sticky;
-  top:0;
-  z-index:100;
-  background:white;
-  border-bottom:1px solid #ddd;
-}
+body.dark{background:#101014;color:#fff}
+button,a,input,select{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
 
 .nav{
-  max-width:1150px;
-  margin:auto;
-  padding:13px 16px;
-  display:flex;
-  align-items:center;
-  gap:15px;
+ position:sticky;
+ top:0;
+ z-index:100;
+ background:#fff;
+ border-bottom:1px solid #ddd;
+}
+.dark .nav{background:#17171c;border-color:#333}
+
+.navinner{
+ max-width:1200px;
+ margin:auto;
+ padding:12px 16px;
+ display:flex;
+ align-items:center;
+ gap:15px;
 }
 
 .logo{
-  font-size:25px;
-  font-weight:1000;
-  letter-spacing:2px;
-  background:linear-gradient(90deg,#7c3aed,#ec4899);
-  -webkit-background-clip:text;
-  color:transparent;
+ font-size:24px;
+ font-weight:1000;
+ letter-spacing:2px;
+ white-space:nowrap;
+ background:linear-gradient(90deg,#7c3aed,#ec4899);
+ -webkit-background-clip:text;
+ color:transparent;
 }
 
-.links{
-  flex:1;
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
-  gap:5px;
+.navlinks{
+ display:flex;
+ gap:4px;
+ justify-content:center;
+ flex:1;
+ flex-wrap:wrap;
 }
 
-.links button,
-.links a{
-  border:0;
-  background:none;
-  padding:8px;
-  border-radius:8px;
-  font-weight:bold;
-  text-decoration:none;
-  color:#222;
+.navlinks button{
+ border:0;
+ background:transparent;
+ padding:8px 10px;
+ border-radius:8px;
+ font-weight:bold;
+ color:inherit;
+}
+.navlinks button:hover{background:#eee}
+.dark .navlinks button:hover{background:#29292f}
+
+.cart{
+ border:0;
+ background:#111;
+ color:#fff;
+ padding:9px 14px;
+ border-radius:20px;
+ font-weight:bold;
 }
 
-.links button:hover,
-.links a:hover{
-  background:#eee;
-}
-
-.cartButton{
-  border:0;
-  background:#111;
-  color:white;
-  border-radius:20px;
-  padding:9px 14px;
-  font-weight:bold;
-}
+.page{display:none}
+.page.active{display:block}
 
 .hero{
-  padding:75px 20px;
-  text-align:center;
-  color:white;
-  background:linear-gradient(135deg,#0d0d12,#39136e,#94184f);
+ min-height:540px;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ text-align:center;
+ color:white;
+ background:
+ radial-gradient(circle at 20% 20%,#ec4899 0,transparent 25%),
+ radial-gradient(circle at 80% 20%,#7c3aed 0,transparent 28%),
+ linear-gradient(135deg,#08080c,#211044,#430b31);
+ padding:50px 20px;
 }
 
-.heroIcon{
-  font-size:60px;
+.hero-logo{
+ width:150px;
+ height:150px;
+ border-radius:35px;
+ margin:auto;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:42px;
+ font-weight:1000;
+ background:linear-gradient(135deg,#7c3aed,#ec4899);
+ box-shadow:0 20px 60px #0008;
 }
 
 .hero h1{
-  font-size:clamp(50px,10vw,90px);
-  letter-spacing:-5px;
+ font-size:clamp(55px,11vw,105px);
+ margin:25px 0 5px;
+ letter-spacing:-6px;
 }
 
 .hero p{
-  color:#ddd;
-  margin:15px auto 25px;
-  max-width:650px;
+ color:#ddd;
+ max-width:650px;
+ margin:10px auto 25px;
+ font-size:18px;
 }
 
 .btn{
-  border:0;
-  border-radius:10px;
-  padding:12px 18px;
-  font-weight:bold;
+ border:0;
+ border-radius:10px;
+ padding:12px 19px;
+ font-weight:bold;
+ margin:4px;
+ display:inline-block;
 }
-
-.white{
-  background:white;
-  color:#111;
-}
-
-.pink{
-  background:linear-gradient(90deg,#7c3aed,#ec4899);
-  color:white;
-}
-
-section{
-  padding:55px 16px;
-}
+.white{background:#fff;color:#111}
+.gradient{background:linear-gradient(90deg,#7c3aed,#ec4899);color:#fff}
+.darkbtn{background:#111;color:#fff}
 
 .container{
-  max-width:1100px;
-  margin:auto;
+ max-width:1150px;
+ margin:auto;
+ padding:55px 16px;
 }
 
-.heading{
-  text-align:center;
-  margin-bottom:28px;
-}
+.title{text-align:center;margin-bottom:30px}
+.title h2{font-size:36px;margin:0 0 8px}
+.muted{color:#777}
+.dark .muted{color:#aaa}
 
-.heading h2{
-  font-size:34px;
-  margin-bottom:7px;
-}
-
-.muted{
-  color:#777;
-}
-
-.search{
-  max-width:700px;
-  margin:auto;
-  display:flex;
-  gap:8px;
-}
-
-.search input{
-  flex:1;
-  padding:13px;
-  border:1px solid #ccc;
-  border-radius:10px;
-}
-
-.search button{
-  border:0;
-  background:#111;
-  color:white;
-  border-radius:10px;
-  padding:0 18px;
-  font-weight:bold;
-}
-
-.products{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
+.grid{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:18px;
 }
 
 .card{
-  background:white;
-  border:1px solid #ddd;
-  border-radius:16px;
-  overflow:hidden;
-  box-shadow:0 5px 20px #0000000d;
+ background:#fff;
+ border:1px solid #ddd;
+ border-radius:16px;
+ padding:18px;
+ box-shadow:0 8px 30px #0000000c;
+}
+.dark .card{background:#19191f;border-color:#333}
+
+.bigcard{
+ min-height:180px;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
 }
 
-.productImage{
-  height:280px;
-  background:radial-gradient(circle,#45454d,#101014);
-  display:flex;
-  justify-content:center;
-  align-items:center;
+.icon{font-size:45px;margin-bottom:10px}
+
+.stats{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:12px;
+}
+.stat{
+ background:#fff;
+ border:1px solid #ddd;
+ border-radius:14px;
+ padding:20px;
+ text-align:center;
+}
+.dark .stat{background:#19191f;border-color:#333}
+.stat b{font-size:28px;display:block}
+
+.productgrid{
+ display:grid;
+ grid-template-columns:repeat(3,1fr);
+ gap:18px;
+}
+
+.product{
+ overflow:hidden;
+ padding:0;
+}
+.productvisual{
+ height:290px;
+ background:radial-gradient(circle,#4b4b55,#09090c);
+ display:flex;
+ align-items:center;
+ justify-content:center;
 }
 
 .shirt{
-  width:175px;
-  height:225px;
-  position:relative;
-  filter:drop-shadow(0 18px 14px #000);
+ width:170px;
+ height:225px;
+ filter:drop-shadow(0 20px 14px #000);
+ position:relative;
 }
-
 .hoodie{
-  background:linear-gradient(145deg,#555,#050505);
-  clip-path:polygon(
-    22% 7%,38% 0%,50% 14%,62% 0%,78% 7%,
-    100% 28%,85% 43%,76% 32%,76% 100%,
-    24% 100%,24% 32%,15% 43%,0% 28%
-  );
+ background:linear-gradient(145deg,#555,#050505);
+ clip-path:polygon(
+ 22% 7%,38% 0,50% 14%,62% 0,78% 7%,
+ 100% 28%,85% 43%,76% 32%,76% 100%,
+ 24% 100%,24% 32%,15% 43%,0 28%
+ );
 }
-
-.tshirt{
-  background:linear-gradient(145deg,#555,#080808);
-  clip-path:polygon(
-    23% 0%,39% 9%,50% 15%,61% 9%,77% 0%,
-    100% 25%,84% 40%,75% 30%,75% 100%,
-    25% 100%,25% 30%,16% 40%,0% 25%
-  );
+.tshirt,.football{
+ clip-path:polygon(
+ 23% 0,39% 9%,50% 15%,61% 9%,77% 0,
+ 100% 25%,84% 40%,75% 30%,75% 100%,
+ 25% 100%,25% 30%,16% 40%,0 25%
+ );
 }
-
+.tshirt{background:linear-gradient(145deg,#eee,#555)}
 .football{
-  background:linear-gradient(
-    90deg,
-    #98000f 0 18%,
-    #df1824 18% 82%,
-    #98000f 82%
-  );
-  clip-path:polygon(
-    23% 0%,39% 9%,50% 15%,61% 9%,77% 0%,
-    100% 25%,84% 40%,75% 30%,75% 100%,
-    25% 100%,25% 30%,16% 40%,0% 25%
-  );
+ background:linear-gradient(
+  90deg,#92000d 0 18%,#e21a2b 18% 82%,#92000d 82%
+ );
 }
-
-.brand{
-  position:absolute;
-  top:43%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  color:white;
-  font-size:20px;
-  font-weight:1000;
-  white-space:nowrap;
-  text-shadow:0 2px 5px #000;
+.merchlogo{
+ position:absolute;
+ left:50%;
+ top:45%;
+ transform:translate(-50%,-50%);
+ color:#fff;
+ font-size:19px;
+ font-weight:1000;
+ white-space:nowrap;
+ text-shadow:0 2px 5px #000;
 }
-
-.brand span{
-  color:#ef3340;
-}
-
+.merchlogo span{color:#ff4050}
 .number{
-  position:absolute;
-  top:58%;
-  left:50%;
-  transform:translateX(-50%);
-  color:#ffd000;
-  font-size:50px;
-  font-weight:1000;
+ position:absolute;
+ top:58%;
+ left:50%;
+ transform:translateX(-50%);
+ font-size:48px;
+ color:#ffd400;
+ font-weight:1000;
 }
 
-.info{
-  padding:16px;
-}
-
-.price{
-  font-size:20px;
-  font-weight:1000;
-  margin:9px 0;
-}
-
+.productinfo{padding:16px}
+.price{font-size:20px;font-weight:1000;margin:8px 0}
 .stock{
-  display:block;
-  text-align:center;
-  padding:8px;
-  border-radius:8px;
-  font-size:12px;
-  font-weight:bold;
+ display:block;
+ text-align:center;
+ padding:7px;
+ border-radius:8px;
+ font-size:12px;
+ font-weight:bold;
 }
+.in{background:#e3f8ea;color:#08752d}
+.out{background:#ffe3e3;color:#a00000}
 
-.in{
-  background:#e6faed;
-  color:#08752d;
-}
-
-.out{
-  background:#ffe7e7;
-  color:#a00000;
-}
-
-.actions{
-  display:flex;
-  gap:7px;
-  margin-top:10px;
-}
-
+.actions{display:flex;gap:7px;margin-top:10px}
 .actions button{
-  flex:1;
-  border:0;
-  padding:10px;
-  border-radius:8px;
-  font-weight:bold;
+ flex:1;
+ border:0;
+ padding:10px;
+ border-radius:8px;
+ font-weight:bold;
 }
+.add{background:#111;color:#fff}
+.add:disabled{background:#ddd;color:#888}
+.fav{max-width:50px;background:#eee!important;color:#111!important}
 
-.add{
-  background:#111;
-  color:white;
+.search{
+ max-width:700px;
+ margin:0 auto 30px;
+ display:flex;
+ gap:8px;
 }
-
-.add:disabled{
-  background:#ddd;
-  color:#888;
-  cursor:not-allowed;
+.search input{
+ flex:1;
+ border:1px solid #ccc;
+ border-radius:10px;
+ padding:13px;
 }
-
-.favorite{
-  max-width:50px!important;
-  background:#eee!important;
-}
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:12px;
-}
-
-.stat{
-  background:white;
-  border:1px solid #ddd;
-  border-radius:14px;
-  padding:20px;
-  text-align:center;
-  font-weight:bold;
-}
-
-.stat strong{
-  display:block;
-  font-size:28px;
+.search button{
+ border:0;
+ background:#111;
+ color:#fff;
+ border-radius:10px;
+ padding:0 18px;
 }
 
 .order{
-  background:white;
-  border:1px solid #ddd;
-  border-radius:12px;
-  padding:15px;
-  margin:10px 0;
+ background:#fff;
+ border:1px solid #ddd;
+ border-radius:14px;
+ padding:16px;
+ margin:12px 0;
 }
+.dark .order{background:#19191f;border-color:#333}
 
 .order button{
-  border:0;
-  border-radius:8px;
-  padding:9px;
-  margin:8px 5px 0 0;
-  font-weight:bold;
-}
-
-footer{
-  text-align:center;
-  padding:35px;
-  border-top:1px solid #ddd;
-  color:#777;
-}
-
-.modal{
-  position:fixed;
-  inset:0;
-  background:#0009;
-  z-index:300;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding:15px;
-}
-
-.modal.show{
-  display:flex;
-}
-
-.box{
-  background:white;
-  width:min(560px,100%);
-  max-height:90vh;
-  overflow:auto;
-  border-radius:18px;
-  padding:22px;
-}
-
-.top{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  margin-bottom:15px;
-}
-
-.close{
-  border:0;
-  background:#eee;
-  border-radius:8px;
-  padding:7px 10px;
-}
-
-.field{
-  margin:12px 0;
-}
-
-.field label{
-  display:block;
-  font-weight:bold;
-  margin-bottom:5px;
-}
-
-.field input,
-.field select{
-  width:100%;
-  padding:11px;
-  border:1px solid #ccc;
-  border-radius:9px;
-}
-
-.row{
-  display:flex;
-  gap:8px;
-}
-
-.row>*{
-  flex:1;
-}
-
-.modalButton{
-  width:100%;
-  border:0;
-  border-radius:9px;
-  padding:12px;
-  margin-top:8px;
-  font-weight:bold;
-}
-
-.cartItem{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  padding:12px 0;
-  border-bottom:1px solid #eee;
-}
-
-.qty button{
-  border:0;
-  background:#eee;
-  padding:4px 8px;
-  border-radius:5px;
-}
-
-.total{
-  font-size:20px;
-  font-weight:1000;
-  margin:15px 0;
+ border:0;
+ padding:9px 12px;
+ border-radius:8px;
+ margin:8px 5px 0 0;
+ font-weight:bold;
 }
 
 .notice{
-  background:#fff7df;
-  border:1px solid #efd17d;
-  border-radius:9px;
-  padding:10px;
-  font-size:13px;
+ padding:12px;
+ background:#fff6dc;
+ border:1px solid #efd17b;
+ border-radius:9px;
+ margin:10px 0;
 }
 
-.track{
-  border:1px solid #ddd;
-  border-radius:13px;
-  padding:15px;
-  margin-top:12px;
+footer{
+ text-align:center;
+ padding:40px 20px;
+ background:#111;
+ color:#aaa;
+}
+
+.modal{
+ position:fixed;
+ inset:0;
+ background:#0009;
+ z-index:500;
+ display:none;
+ align-items:center;
+ justify-content:center;
+ padding:15px;
+}
+.modal.show{display:flex}
+
+.box{
+ width:min(570px,100%);
+ max-height:90vh;
+ overflow:auto;
+ background:#fff;
+ color:#111;
+ border-radius:18px;
+ padding:22px;
+}
+.dark .box{background:#19191f;color:#fff}
+
+.top{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ margin-bottom:15px;
+}
+.close{
+ border:0;
+ background:#eee;
+ border-radius:8px;
+ padding:7px 10px;
+}
+
+.field{margin:12px 0}
+.field label{
+ display:block;
+ font-weight:bold;
+ margin-bottom:5px;
+}
+.field input,.field select{
+ width:100%;
+ padding:11px;
+ border:1px solid #ccc;
+ border-radius:9px;
+}
+.row{display:flex;gap:8px}
+.row>*{flex:1}
+
+.modalbtn{
+ width:100%;
+ border:0;
+ padding:12px;
+ border-radius:9px;
+ font-weight:bold;
+ margin-top:8px;
+}
+
+.cartitem{
+ display:flex;
+ justify-content:space-between;
+ gap:10px;
+ padding:12px 0;
+ border-bottom:1px solid #ddd;
+}
+.qty button{
+ border:0;
+ padding:4px 8px;
+ border-radius:5px;
+}
+.total{
+ font-size:21px;
+ font-weight:1000;
+ margin:16px 0;
 }
 
 .steps{
-  display:flex;
-  gap:3px;
-  margin-top:18px;
+ display:flex;
+ gap:3px;
+ margin-top:18px;
 }
-
 .step{
-  flex:1;
-  text-align:center;
-  font-size:11px;
+ flex:1;
+ text-align:center;
+ font-size:11px;
 }
-
 .dot{
-  width:28px;
-  height:28px;
-  border-radius:50%;
-  background:#ddd;
-  margin:auto auto 6px;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+ width:30px;
+ height:30px;
+ margin:auto auto 6px;
+ border-radius:50%;
+ background:#ddd;
+ display:flex;
+ justify-content:center;
+ align-items:center;
 }
-
 .done .dot{
-  background:#8b5cf6;
-  color:white;
+ background:#7c3aed;
+ color:#fff;
 }
 
 .aiButton{
-  position:fixed;
-  right:15px;
-  bottom:70px;
-  width:58px;
-  height:58px;
-  border:0;
-  border-radius:50%;
-  background:linear-gradient(135deg,#7c3aed,#ec4899);
-  color:white;
-  font-size:24px;
-  z-index:150;
+ position:fixed;
+ right:16px;
+ bottom:20px;
+ z-index:450;
+ width:58px;
+ height:58px;
+ border:0;
+ border-radius:50%;
+ color:#fff;
+ font-size:24px;
+ background:linear-gradient(135deg,#7c3aed,#ec4899);
+ box-shadow:0 8px 30px #0004;
 }
 
-.aiPanel{
-  position:fixed;
-  right:15px;
-  bottom:140px;
-  width:min(360px,calc(100% - 30px));
-  background:white;
-  border:1px solid #ddd;
-  border-radius:16px;
-  z-index:160;
-  display:none;
-  overflow:hidden;
-  box-shadow:0 15px 50px #0004;
+.ai{
+ position:fixed;
+ right:16px;
+ bottom:90px;
+ width:min(370px,calc(100% - 32px));
+ z-index:440;
+ background:#fff;
+ border-radius:16px;
+ overflow:hidden;
+ box-shadow:0 15px 60px #0005;
+ display:none;
 }
-
-.aiPanel.open{
-  display:block;
+.ai.open{display:block}
+.aihead{background:#111;color:#fff;padding:14px;font-weight:bold}
+.aibody{padding:12px;max-height:280px;overflow:auto}
+.msg{
+ background:#eee9ff;
+ padding:9px;
+ border-radius:9px;
+ margin:6px 0;
 }
-
-.aiHead{
-  background:#111;
-  color:white;
-  padding:14px;
-  font-weight:bold;
-}
-
-.aiBody{
-  padding:13px;
-  max-height:270px;
-  overflow:auto;
-}
-
-.message{
-  background:#f0ecff;
-  padding:9px;
-  border-radius:10px;
-  margin:6px 0;
-}
-
-.aiInput{
-  display:flex;
-  border-top:1px solid #ddd;
-}
-
-.aiInput input{
-  flex:1;
-  border:0;
-  padding:11px;
-  outline:0;
-}
-
-.aiInput button{
-  border:0;
-  background:#111;
-  color:white;
-  padding:0 13px;
-}
+.aiinput{display:flex;border-top:1px solid #ddd}
+.aiinput input{flex:1;border:0;padding:12px;outline:0}
+.aiinput button{border:0;background:#111;color:#fff;padding:0 14px}
 
 .toast{
-  position:fixed;
-  top:70px;
-  right:15px;
-  z-index:500;
-  background:#111;
-  color:white;
-  padding:12px 16px;
-  border-radius:10px;
-  transform:translateX(150%);
-  transition:.3s;
-  font-weight:bold;
+ position:fixed;
+ top:75px;
+ right:15px;
+ z-index:900;
+ background:#111;
+ color:#fff;
+ padding:12px 16px;
+ border-radius:10px;
+ font-weight:bold;
+ transform:translateX(150%);
+ transition:.3s;
 }
+.toast.show{transform:translateX(0)}
 
-.toast.show{
-  transform:translateX(0);
+@media(max-width:850px){
+ .grid,.productgrid{grid-template-columns:repeat(2,1fr)}
+ .stats{grid-template-columns:repeat(2,1fr)}
+ .navinner{flex-wrap:wrap}
+ .navlinks{order:3;width:100%}
 }
-
-@media(max-width:800px){
-  .products{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .stats{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .nav{
-    flex-wrap:wrap;
-  }
-
-  .links{
-    order:3;
-    width:100%;
-  }
-}
-
 @media(max-width:550px){
-  .products{
-    grid-template-columns:1fr;
-  }
-
-  .hero{
-    padding:55px 15px;
-  }
-
-  .row{
-    flex-direction:column;
-  }
-
-  .links button,
-  .links a{
-    font-size:12px;
-    padding:6px;
-  }
+ .grid,.productgrid{grid-template-columns:1fr}
+ .hero h1{letter-spacing:-3px}
+ .row{flex-direction:column}
+ .navlinks button{font-size:12px;padding:6px}
 }
 </style>
 </head>
 
 <body>
 
-<nav>
-<div class="nav">
+<nav class="nav">
+<div class="navinner">
 
-<a class="logo" href="#home">CAYGRAM</a>
+<div class="logo">CAYGRAM</div>
 
-<div class="links">
-<a href="#home">Home</a>
-<a href="#shop">Shop</a>
-<a href="#orders">Orders</a>
-<a href="#help">Help</a>
+<div class="navlinks">
+<button onclick="showPage('home')">🏠 Home</button>
+<button onclick="showPage('videos')">📺 Videos</button>
+<button onclick="showPage('games')">🎮 Games</button>
+<button onclick="showPage('shop')">🛍️ Shop</button>
+<button onclick="showPage('orders')">📦 Orders</button>
 <button onclick="openAccount()">👤 Account</button>
 <button onclick="openSettings()">⚙️</button>
 </div>
 
-<button class="cartButton" onclick="openCart()">
+<button class="cart" onclick="openCart()">
 🛒 <span id="cartCount">0</span>
 </button>
 
@@ -647,109 +524,273 @@ footer{
 </nav>
 
 
-<section class="hero" id="home">
-<div class="container">
+<!-- HOME -->
 
-<div class="heroIcon">⚡</div>
+<main id="home" class="page active">
+
+<section class="hero">
+
+<div>
+
+<div class="hero-logo">CG</div>
 
 <h1>CAYGRAM</h1>
 
 <p>
-Gaming • Football • Roblox • Challenges • Official Caygram Merch
+Gaming • Football • Roblox • Challenges • Entertainment
 </p>
 
-<a class="btn white" href="#shop">Shop Now</a>
+<a
+class="btn white"
+href="https://www.youtube.com/@CaygramYT"
+target="_blank">
+▶ YouTube
+</a>
 
-</div>
-</section>
-
-
-<section>
-
-<div class="container">
-
-<div class="heading">
-<h2>🔎 Search</h2>
-<p class="muted">Find Caygram products.</p>
-</div>
-
-<div class="search">
-<input
-id="search"
-placeholder="Search hoodie, shirt..."
-oninput="renderProducts()">
-<button onclick="renderProducts()">Search</button>
-</div>
+<button
+class="btn gradient"
+onclick="showPage('shop')">
+🛍️ Merch
+</button>
 
 </div>
 
 </section>
 
 
-<section id="shop">
+<section class="container">
 
-<div class="container">
-
-<div class="heading">
-<h2>🛍️ Caygram Shop</h2>
+<div class="title">
+<h2>Welcome to Caygram</h2>
 <p class="muted">
-Demo store — no real money is charged.
+Everything Caygram in one place.
 </p>
 </div>
 
-<div class="products" id="products"></div>
+<div class="grid">
+
+<div class="card bigcard">
+<div class="icon">📺</div>
+<h3>YouTube</h3>
+<p class="muted">Watch the latest Caygram videos.</p>
+<a
+class="btn darkbtn"
+href="https://www.youtube.com/@CaygramYT"
+target="_blank">
+Open Channel
+</a>
+</div>
+
+<div class="card bigcard">
+<div class="icon">🎮</div>
+<h3>Gaming</h3>
+<p class="muted">Roblox and gaming content.</p>
+<button class="btn gradient" onclick="showPage('games')">
+Explore
+</button>
+</div>
+
+<div class="card bigcard">
+<div class="icon">👕</div>
+<h3>Official Merch</h3>
+<p class="muted">Caygram clothing and football shirts.</p>
+<button class="btn gradient" onclick="showPage('shop')">
+Shop
+</button>
+</div>
 
 </div>
 
 </section>
 
 
-<section>
-
-<div class="container">
-
-<div class="heading">
-<h2>🔥 Caygram</h2>
-</div>
+<section class="container">
 
 <div class="stats">
 
 <div class="stat">
-<strong>🎮</strong>
+<b>🎮</b>
 Gaming
 </div>
 
 <div class="stat">
-<strong>⚽</strong>
+<b>⚽</b>
 Football
 </div>
 
 <div class="stat">
-<strong>😂</strong>
+<b>🔥</b>
 Challenges
 </div>
 
 <div class="stat">
-<strong>💜</strong>
+<b>💜</b>
 Community
 </div>
 
 </div>
 
+</section>
+
+</main>
+
+
+<!-- VIDEOS -->
+
+<section id="videos" class="page">
+
+<div class="container">
+
+<div class="title">
+<h2>📺 Caygram Videos</h2>
+<p class="muted">Find Caygram on YouTube.</p>
+</div>
+
+<div class="grid">
+
+<div class="card bigcard">
+<div class="icon">▶️</div>
+<h3>YouTube Channel</h3>
+<p class="muted">
+Watch Caygram videos, Shorts and gaming content.
+</p>
+
+<a
+class="btn gradient"
+href="https://www.youtube.com/@CaygramYT"
+target="_blank">
+Open YouTube
+</a>
+
+</div>
+
+<div class="card bigcard">
+<div class="icon">🎬</div>
+<h3>Shorts</h3>
+<p class="muted">
+Watch the latest short-form videos.
+</p>
+
+<a
+class="btn darkbtn"
+href="https://www.youtube.com/@CaygramYT/shorts"
+target="_blank">
+Watch Shorts
+</a>
+
+</div>
+
+<div class="card bigcard">
+<div class="icon">🔔</div>
+<h3>Subscribe</h3>
+<p class="muted">
+Follow Caygram for new uploads.
+</p>
+
+<a
+class="btn gradient"
+href="https://www.youtube.com/@CaygramYT"
+target="_blank">
+Visit Channel
+</a>
+
+</div>
+
+</div>
+
 </div>
 
 </section>
 
 
-<section id="orders">
+<!-- GAMES -->
+
+<section id="games" class="page">
 
 <div class="container">
 
-<div class="heading">
-<h2>📦 My Orders</h2>
+<div class="title">
+<h2>🎮 Games</h2>
+<p class="muted">Caygram gaming zone.</p>
+</div>
+
+<div class="grid">
+
+<div class="card bigcard">
+<div class="icon">🟥</div>
+<h3>Roblox</h3>
 <p class="muted">
-Track and manage your demo orders.
+Play Roblox and discover Caygram gaming content.
 </p>
+<button class="btn gradient" onclick="toast('Roblox link can be added here!')">
+Play
+</button>
+</div>
+
+<div class="card bigcard">
+<div class="icon">⚽</div>
+<h3>Football</h3>
+<p class="muted">
+Football challenges and training.
+</p>
+<button class="btn gradient" onclick="toast('Football section coming soon!')">
+Open
+</button>
+</div>
+
+<div class="card bigcard">
+<div class="icon">🏆</div>
+<h3>Challenges</h3>
+<p class="muted">
+Future Caygram challenges and competitions.
+</p>
+<button class="btn gradient" onclick="toast('Challenges coming soon!')">
+Enter
+</button>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SHOP -->
+
+<section id="shop" class="page">
+
+<div class="container">
+
+<div class="title">
+<h2>🛍️ Caygram Shop</h2>
+<p class="muted">Official-style Caygram merch.</p>
+</div>
+
+<div class="search">
+<input
+id="search"
+placeholder="Search merch..."
+oninput="renderProducts()">
+<button onclick="renderProducts()">Search</button>
+</div>
+
+<div class="productgrid" id="products"></div>
+
+</div>
+
+</section>
+
+
+<!-- ORDERS -->
+
+<section id="orders" class="page">
+
+<div class="container">
+
+<div class="title">
+<h2>📦 My Orders</h2>
+<p class="muted">Track and manage your demo orders.</p>
 </div>
 
 <div id="ordersList"></div>
@@ -759,71 +800,34 @@ Track and manage your demo orders.
 </section>
 
 
-<section id="help">
-
-<div class="container">
-
-<div class="heading">
-<h2>❓ Help</h2>
-</div>
-
-<div class="products">
-
-<div class="card info">
-<h3>💳 Visa / Card</h3>
-<p class="muted">
-Demo checkout only. Never enter real card details.
-</p>
-</div>
-
-<div class="card info">
-<h3>💵 Cash on Delivery</h3>
-<p class="muted">
-Available as a demo payment option.
-</p>
-</div>
-
-<div class="card info">
-<h3>↩️ Refunds</h3>
-<p class="muted">
-Request a demo refund from My Orders.
-</p>
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-
 <footer>
-© 2026 CAYGRAM • Demo Store
+CAYGRAM © 2026<br><br>
+Gaming • Football • Roblox • Entertainment
 </footer>
 
 
+<!-- AI -->
+
 <button class="aiButton" onclick="toggleAI()">🤖</button>
 
-<div class="aiPanel" id="aiPanel">
+<div class="ai" id="ai">
 
-<div class="aiHead">
-🤖 Caygram AI
+<div class="aihead">🤖 Caygram AI</div>
+
+<div class="aibody" id="aiBody">
+
+<div class="msg">
+Hi! I'm Caygram AI. Ask me about the shop, orders, delivery or refunds.
 </div>
 
-<div class="aiBody" id="aiBody">
-
-<div class="message">
-Hi! Ask me about orders, delivery, refunds or the shop.
 </div>
 
-</div>
-
-<div class="aiInput">
+<div class="aiinput">
 
 <input
 id="aiInput"
 placeholder="Ask Caygram AI..."
-onkeydown="if(event.key==='Enter') askAI()">
+onkeydown="if(event.key==='Enter')askAI()">
 
 <button onclick="askAI()">Send</button>
 
@@ -835,14 +839,14 @@ onkeydown="if(event.key==='Enter') askAI()">
 <div class="toast" id="toast"></div>
 
 
-<!-- CART -->
+<!-- CART MODAL -->
 
 <div class="modal" id="cartModal">
 
 <div class="box">
 
 <div class="top">
-<h2>🛒 Cart</h2>
+<h2>🛒 Your Cart</h2>
 <button class="close" onclick="closeModal('cartModal')">✕</button>
 </div>
 
@@ -850,7 +854,9 @@ onkeydown="if(event.key==='Enter') askAI()">
 
 <div class="total" id="cartTotal"></div>
 
-<button class="modalButton pink" onclick="checkout()">
+<button
+class="modalbtn gradient"
+onclick="checkout()">
 Checkout
 </button>
 
@@ -859,7 +865,7 @@ Checkout
 </div>
 
 
-<!-- PRODUCT -->
+<!-- PRODUCT MODAL -->
 
 <div class="modal" id="productModal">
 
@@ -871,38 +877,30 @@ Checkout
 </div>
 
 <div class="field">
-
 <label>Size</label>
-
 <select id="size">
-
 <option>XS</option>
 <option>S</option>
 <option selected>M</option>
 <option>L</option>
 <option>XL</option>
-
 </select>
-
 </div>
 
 <div class="field">
-
 <label>Quantity</label>
-
 <select id="quantity">
-
 <option>1</option>
 <option>2</option>
 <option>3</option>
 <option>4</option>
 <option>5</option>
-
 </select>
-
 </div>
 
-<button class="modalButton pink" onclick="addToCart()">
+<button
+class="modalbtn gradient"
+onclick="addToCart()">
 🛒 Add to Cart
 </button>
 
@@ -918,101 +916,60 @@ Checkout
 <div class="box">
 
 <div class="top">
-
 <h2>💳 Checkout</h2>
-
-<button class="close"
-onclick="closeModal('checkoutModal')">
-✕
-</button>
-
+<button class="close" onclick="closeModal('checkoutModal')">✕</button>
 </div>
 
+<div class="notice">
+⚠️ Demo checkout. No real payment is processed.
+</div>
 
 <div class="field">
-
 <label>Full name</label>
-
-<input
-id="customerName"
-placeholder="Your name">
-
+<input id="customerName" placeholder="Your name">
 </div>
 
-
 <div class="field">
-
 <label>Phone</label>
-
-<input
-id="customerPhone"
-placeholder="+971...">
-
+<input id="customerPhone" placeholder="+971...">
 </div>
 
-
 <div class="field">
-
 <label>Delivery address</label>
-
-<input
-id="customerAddress"
-placeholder="Building, street, city">
-
+<input id="customerAddress" placeholder="Building, street, city">
 </div>
 
-
 <div class="field">
+<label>Payment method</label>
 
-<label>Payment</label>
-
-<select id="paymentMethod"
-onchange="showCardFields()">
-
-<option value="cod">
-💵 Cash on Delivery
-</option>
-
-<option value="card">
-💳 Visa / Card — Demo
-</option>
-
+<select id="paymentMethod" onchange="showCardFields()">
+<option value="cod">💵 Cash on Delivery</option>
+<option value="card">💳 Visa / Card Demo</option>
 </select>
 
 </div>
 
-
 <div id="cardFields" style="display:none">
 
 <div class="notice">
-
-Demo card fields only.
-<br>
-<strong>Never enter a real card number.</strong>
-
+Never enter a real card number here.
 </div>
 
 <div class="field">
-
 <label>Demo card number</label>
-
-<input
-placeholder="4242 4242 4242 4242">
-
+<input placeholder="4242 4242 4242 4242">
 </div>
 
 <div class="row">
-
 <input placeholder="MM/YY">
-
 <input placeholder="CVV">
-
 </div>
 
 </div>
 
-
-<button class="modalButton pink" onclick="placeOrder()">
+<button
+class="modalbtn gradient"
+onclick="placeOrder()">
 Place Demo Order
 </button>
 
@@ -1028,61 +985,28 @@ Place Demo Order
 <div class="box">
 
 <div class="top">
-
 <h2>👤 My Account</h2>
-
-<button class="close"
-onclick="closeModal('accountModal')">
-✕
-</button>
-
+<button class="close" onclick="closeModal('accountModal')">✕</button>
 </div>
 
-
 <div class="field">
-
 <label>Username</label>
-
 <input id="username" placeholder="CaygramFan">
-
 </div>
 
-
 <div class="field">
-
 <label>Email</label>
-
 <input id="email" placeholder="you@example.com">
-
 </div>
-
-
-<div class="field">
-
-<label>Password</label>
-
-<input
-id="password"
-type="password"
-placeholder="Demo password">
-
-</div>
-
 
 <div class="notice">
-
-This is a browser-only demo account.
-It is not a real secure login system.
-
+This demo stores your profile only in this browser.
 </div>
 
-
 <button
-class="modalButton pink"
+class="modalbtn gradient"
 onclick="saveAccount()">
-
 Save Account
-
 </button>
 
 </div>
@@ -1097,22 +1021,11 @@ Save Account
 <div class="box">
 
 <div class="top">
-
 <h2>⚙️ Settings</h2>
-
-<button
-class="close"
-onclick="closeModal('settingsModal')">
-
-✕
-
-</button>
-
+<button class="close" onclick="closeModal('settingsModal')">✕</button>
 </div>
 
-
 <div class="field">
-
 <label>🌍 Language</label>
 
 <select id="language">
@@ -1164,12 +1077,9 @@ onclick="closeModal('settingsModal')">
 <option>Afrikaans</option>
 
 </select>
-
 </div>
 
-
 <div class="field">
-
 <label>💱 Currency</label>
 
 <select id="currency">
@@ -1227,30 +1137,22 @@ onclick="closeModal('settingsModal')">
 <option>LKR</option>
 
 </select>
-
 </div>
 
-
 <div class="field">
-
 <label>Theme</label>
 
 <select id="theme">
-
 <option>Light</option>
 <option>Dark</option>
-
 </select>
 
 </div>
 
-
 <button
-class="modalButton pink"
+class="modalbtn gradient"
 onclick="saveSettings()">
-
 Save Settings
-
 </button>
 
 </div>
@@ -1258,24 +1160,15 @@ Save Settings
 </div>
 
 
-<!-- ORDER -->
+<!-- ORDER TRACKING -->
 
 <div class="modal" id="orderModal">
 
 <div class="box">
 
 <div class="top">
-
-<h2>📦 Order Tracking</h2>
-
-<button
-class="close"
-onclick="closeModal('orderModal')">
-
-✕
-
-</button>
-
+<h2>📦 Track Order</h2>
+<button class="close" onclick="closeModal('orderModal')">✕</button>
 </div>
 
 <div id="orderDetails"></div>
@@ -1288,7 +1181,6 @@ onclick="closeModal('orderModal')">
 <script>
 
 const products=[
-
 {
  id:1,
  name:"Caygram Black Hoodie",
@@ -1296,7 +1188,6 @@ const products=[
  type:"hoodie",
  stock:true
 },
-
 {
  id:2,
  name:"Caygram T-Shirt",
@@ -1304,7 +1195,6 @@ const products=[
  type:"tshirt",
  stock:false
 },
-
 {
  id:3,
  name:"Caygram Football Shirt",
@@ -1312,1085 +1202,587 @@ const products=[
  type:"football",
  stock:false
 }
-
 ];
 
-
-let cart=JSON.parse(
-localStorage.getItem("caygramCart") || "[]"
-);
-
-let orders=JSON.parse(
-localStorage.getItem("caygramOrders") || "[]"
-);
-
+let cart=JSON.parse(localStorage.getItem("cayCart")||"[]");
+let orders=JSON.parse(localStorage.getItem("cayOrders")||"[]");
 let selectedProduct=null;
 
-let currency=
-localStorage.getItem("caygramCurrency") || "AED";
-
+let currency=localStorage.getItem("cayCurrency")||"AED";
 
 const rates={
-
-AED:1,
-USD:.2723,
-EUR:.232,
-GBP:.198,
-SAR:1.021,
-QAR:.991,
-KWD:.0838,
-OMR:.1049,
-INR:22.7,
-PKR:76,
-CNY:1.96,
-JPY:40.5,
-KRW:370,
-AUD:.421,
-CAD:.371,
-CHF:.216,
-TRY:11.1,
-RUB:24.5,
-ZAR:4.87,
-BRL:1.47,
-MXN:4.96,
-NZD:.455,
-SGD:.347,
-HKD:2.13,
-SEK:2.97,
-NOK:2.98,
-DKK:1.73,
-PLN:.998,
-CZK:5.88,
-HUF:89,
-RON:1.16,
-THB:9.8,
-MYR:1.28,
-IDR:4340,
-PHP:15.8,
-VND:6900,
-ILS:1.01,
-EGP:14.1,
-NGN:418,
-KES:35.3,
-GHS:3.05,
-MAD:2.68,
-TND:.774,
-CLP:231,
-ARS:378,
-UAH:11.8,
-ISK:37.2,
-BHD:.103,
-JOD:.193,
-BDT:33,
-LKR:82
-
+AED:1,USD:.2723,EUR:.232,GBP:.198,SAR:1.021,
+QAR:.991,KWD:.0838,OMR:.1049,INR:22.7,PKR:76,
+CNY:1.96,JPY:40.5,KRW:370,AUD:.421,CAD:.371,
+CHF:.216,TRY:11.1,RUB:24.5,ZAR:4.87,BRL:1.47,
+MXN:4.96,NZD:.455,SGD:.347,HKD:2.13,SEK:2.97,
+NOK:2.98,DKK:1.73,PLN:.998,CZK:5.88,HUF:89,
+RON:1.16,THB:9.8,MYR:1.28,IDR:4340,PHP:15.8,
+VND:6900,ILS:1.01,EGP:14.1,NGN:418,KES:35.3,
+GHS:3.05,MAD:2.68,TND:.774,CLP:231,ARS:378,
+UAH:11.8,ISK:37.2,BHD:.103,JOD:.193,BDT:33,LKR:82
 };
 
-
 function money(aed){
-
-let value=aed*(rates[currency]||1);
-
-try{
-
-return new Intl.NumberFormat(
-undefined,
-{
- style:"currency",
- currency:currency,
- maximumFractionDigits:value<10?2:0
-}
-).format(value);
-
-}catch(e){
-
-return value.toFixed(2)+" "+currency;
-
+ let value=aed*(rates[currency]||1);
+ try{
+  return new Intl.NumberFormat(undefined,{
+   style:"currency",
+   currency:currency,
+   maximumFractionDigits:value<10?2:0
+  }).format(value);
+ }catch{
+  return value.toFixed(2)+" "+currency;
+ }
 }
 
+function showPage(id){
+ document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ window.scrollTo({top:0,behavior:"smooth"});
 }
-
 
 function renderProducts(){
 
-let query=
-(document.getElementById("search").value || "")
-.toLowerCase();
+ let q=(document.getElementById("search")?.value||"").toLowerCase();
 
-document.getElementById("products").innerHTML=
+ document.getElementById("products").innerHTML=
+ products
+ .filter(p=>p.name.toLowerCase().includes(q))
+ .map(p=>`
 
-products
+ <article class="card product">
 
-.filter(p=>
-p.name.toLowerCase().includes(query)
-)
+ <div class="productvisual">
 
-.map(p=>`
+ <div class="shirt ${p.type}">
 
-<article class="card">
+ ${p.type==="football"
+ ?'<div class="number">7</div>':""}
 
-<div class="productImage">
+ <div class="merchlogo">
+ CAY<span>GRAM</span>
+ </div>
 
-<div class="shirt ${p.type}">
+ </div>
 
-${p.type==="football"
-?'<div class="number">7</div>'
-:""}
+ </div>
 
-<div class="brand">
-CAY<span>GRAM</span>
-</div>
+ <div class="productinfo">
 
-</div>
+ <h3>${p.name}</h3>
 
-</div>
+ <div class="price">${money(p.price)}</div>
 
-<div class="info">
+ <span class="stock ${p.stock?"in":"out"}">
+ ${p.stock?"🟢 IN STOCK":"🔴 OUT OF STOCK"}
+ </span>
 
-<h3>${p.name}</h3>
+ <div class="actions">
 
-<div class="price">
-${money(p.price)}
-</div>
+ <button class="fav" onclick="favorite(${p.id})">♡</button>
 
-<span class="stock ${p.stock?"in":"out"}">
+ <button
+ class="add"
+ ${p.stock?"":"disabled"}
+ onclick="openProduct(${p.id})">
 
-${p.stock
-?"🟢 IN STOCK"
-:"🔴 OUT OF STOCK"}
+ ${p.stock?"Add to Cart":"OUT OF STOCK"}
 
-</span>
+ </button>
 
-<div class="actions">
+ </div>
 
-<button
-class="favorite"
-onclick="favorite(${p.id})">
+ </div>
 
-♡
-</button>
+ </article>
 
-<button
-class="add"
-${p.stock?"":"disabled"}
-onclick="openProduct(${p.id})">
-
-${p.stock
-?"Add to Cart"
-:"OUT OF STOCK"}
-
-</button>
-
-</div>
-
-</div>
-
-</article>
-
-`).join("");
-
+ `).join("");
 }
-
 
 function openProduct(id){
-
-selectedProduct=
-products.find(p=>p.id===id);
-
-document.getElementById(
-"productTitle"
-).textContent=selectedProduct.name;
-
-document.getElementById(
-"productModal"
-).classList.add("show");
-
+ selectedProduct=products.find(p=>p.id===id);
+ document.getElementById("productTitle").textContent=selectedProduct.name;
+ document.getElementById("productModal").classList.add("show");
 }
-
 
 function addToCart(){
 
-let size=
-document.getElementById("size").value;
+ let size=document.getElementById("size").value;
+ let quantity=Number(document.getElementById("quantity").value);
 
-let quantity=
-Number(
-document.getElementById("quantity").value
-);
+ let existing=cart.find(
+  x=>x.id===selectedProduct.id&&x.size===size
+ );
 
-let existing=
-cart.find(
-item=>
-item.id===selectedProduct.id &&
-item.size===size
-);
+ if(existing)existing.quantity+=quantity;
+ else cart.push({
+  id:selectedProduct.id,
+  size,
+  quantity
+ });
 
-if(existing){
-
-existing.quantity+=quantity;
-
-}else{
-
-cart.push({
- id:selectedProduct.id,
- size:size,
- quantity:quantity
-});
-
+ saveCart();
+ closeModal("productModal");
+ toast("🛒 Added to cart");
 }
-
-saveCart();
-
-closeModal("productModal");
-
-toast("🛒 Added to cart");
-
-}
-
 
 function saveCart(){
-
-localStorage.setItem(
-"caygramCart",
-JSON.stringify(cart)
-);
-
-updateCartCount();
-
+ localStorage.setItem("cayCart",JSON.stringify(cart));
+ updateCartCount();
 }
-
 
 function updateCartCount(){
-
-document.getElementById(
-"cartCount"
-).textContent=
-cart.reduce(
-(total,item)=>total+item.quantity,
-0
-);
-
+ document.getElementById("cartCount").textContent=
+ cart.reduce((a,b)=>a+b.quantity,0);
 }
-
 
 function openCart(){
 
-let total=0;
+ let total=0;
 
-let html="";
+ if(!cart.length){
 
-if(!cart.length){
+  document.getElementById("cartItems").innerHTML=
+  '<p class="muted">Your cart is empty.</p>';
 
-html=
-'<p class="muted">Your cart is empty.</p>';
+  document.getElementById("cartTotal").textContent="";
 
-}else{
+ }else{
 
-cart.forEach((item,index)=>{
+  document.getElementById("cartItems").innerHTML=
+  cart.map((item,index)=>{
 
-let product=
-products.find(p=>p.id===item.id);
+   let p=products.find(x=>x.id===item.id);
+   total+=p.price*item.quantity;
 
-let itemTotal=
-product.price*item.quantity;
+   return `
+   <div class="cartitem">
 
-total+=itemTotal;
+   <div>
+   <b>${p.name}</b><br>
+   <small>Size ${item.size} · ${money(p.price)}</small>
+   </div>
 
-html+=`
+   <div class="qty">
+   <button onclick="changeQty(${index},-1)">−</button>
+   ${item.quantity}
+   <button onclick="changeQty(${index},1)">+</button>
+   </div>
 
-<div class="cartItem">
+   </div>
+   `;
 
-<div>
+  }).join("");
 
-<b>${product.name}</b>
+  document.getElementById("cartTotal").textContent=
+  "Total: "+money(total);
+ }
 
-<br>
-
-<small>
-Size ${item.size} ·
-${money(product.price)}
-</small>
-
-</div>
-
-<div class="qty">
-
-<button onclick="changeQuantity(${index},-1)">
-−
-</button>
-
-${item.quantity}
-
-<button onclick="changeQuantity(${index},1)">
-+
-</button>
-
-</div>
-
-</div>
-
-`;
-
-});
-
+ document.getElementById("cartModal").classList.add("show");
 }
 
-document.getElementById(
-"cartItems"
-).innerHTML=html;
+function changeQty(index,amount){
 
-document.getElementById(
-"cartTotal"
-).textContent=
-cart.length
-?"Total: "+money(total)
-:"";
+ cart[index].quantity+=amount;
 
-document.getElementById(
-"cartModal"
-).classList.add("show");
+ if(cart[index].quantity<=0)cart.splice(index,1);
 
+ saveCart();
+ openCart();
 }
-
-
-function changeQuantity(index,change){
-
-cart[index].quantity+=change;
-
-if(cart[index].quantity<=0){
-
-cart.splice(index,1);
-
-}
-
-saveCart();
-
-openCart();
-
-}
-
 
 function checkout(){
 
-if(!cart.length){
+ if(!cart.length){
+  toast("Your cart is empty");
+  return;
+ }
 
-toast("Your cart is empty");
-
-return;
-
+ closeModal("cartModal");
+ document.getElementById("checkoutModal").classList.add("show");
 }
-
-closeModal("cartModal");
-
-document.getElementById(
-"checkoutModal"
-).classList.add("show");
-
-}
-
 
 function showCardFields(){
 
-document.getElementById(
-"cardFields"
-).style.display=
-document.getElementById(
-"paymentMethod"
-).value==="card"
-?"block"
-:"none";
-
+ document.getElementById("cardFields").style.display=
+ document.getElementById("paymentMethod").value==="card"
+ ?"block":"none";
 }
-
 
 function placeOrder(){
 
-let name=
-document.getElementById(
-"customerName"
-).value.trim();
+ let name=document.getElementById("customerName").value.trim();
+ let phone=document.getElementById("customerPhone").value.trim();
+ let address=document.getElementById("customerAddress").value.trim();
 
-let phone=
-document.getElementById(
-"customerPhone"
-).value.trim();
+ if(!name||!phone||!address){
+  toast("Please complete your details");
+  return;
+ }
 
-let address=
-document.getElementById(
-"customerAddress"
-).value.trim();
+ let total=cart.reduce(
+  (sum,item)=>
+  sum+products.find(p=>p.id===item.id).price*item.quantity,
+  0
+ );
 
-if(!name||!phone||!address){
+ let id="CAY-"+Math.floor(100000+Math.random()*900000);
 
-toast("Please fill in all delivery details");
+ let order={
+  id,
+  name,
+  phone,
+  address,
+  total,
+  payment:document.getElementById("paymentMethod").value,
+  status:"Preparing",
+  items:[...cart],
+  created:Date.now()
+ };
 
-return;
+ orders.unshift(order);
 
+ localStorage.setItem("cayOrders",JSON.stringify(orders));
+
+ cart=[];
+ saveCart();
+
+ closeModal("checkoutModal");
+ renderOrders();
+
+ toast("✅ Order placed — demo delivery: 10 minutes");
+
+ showOrder(id);
+
+ setTimeout(()=>updateStatus(id,"Out for delivery"),20000);
+ setTimeout(()=>updateStatus(id,"Delivered"),60000);
 }
 
+function updateStatus(id,status){
 
-let total=
-cart.reduce(
+ let o=orders.find(x=>x.id===id);
+ if(!o)return;
 
-(sum,item)=>
-sum+
-products.find(p=>p.id===item.id).price*
-item.quantity,
+ o.status=status;
 
-0
+ localStorage.setItem("cayOrders",JSON.stringify(orders));
 
-);
+ renderOrders();
 
-
-let orderID=
-"CAY-"+Math.floor(
-100000+Math.random()*900000
-);
-
-
-let order={
-
-id:orderID,
-
-name:name,
-
-phone:phone,
-
-address:address,
-
-total:total,
-
-payment:
-document.getElementById(
-"paymentMethod"
-).value,
-
-status:"Preparing",
-
-created:Date.now(),
-
-items:[...cart]
-
-};
-
-
-orders.unshift(order);
-
-localStorage.setItem(
-"caygramOrders",
-JSON.stringify(orders)
-);
-
-
-cart=[];
-
-saveCart();
-
-closeModal("checkoutModal");
-
-renderOrders();
-
-showOrder(orderID);
-
-toast(
-"✅ Order placed! Demo delivery: about 10 minutes"
-);
-
-
-/*
- Demo notification simulation.
- These timers are only for testing.
- */
-
-setTimeout(
-()=>updateOrderStatus(orderID,"Out for delivery"),
-20000
-);
-
-setTimeout(
-()=>updateOrderStatus(orderID,"Delivered"),
-60000
-);
-
+ toast(status==="Delivered"
+ ?"📦 Delivered!"
+ :"🚚 "+status);
 }
-
-
-function updateOrderStatus(id,status){
-
-let order=
-orders.find(o=>o.id===id);
-
-if(!order)return;
-
-order.status=status;
-
-localStorage.setItem(
-"caygramOrders",
-JSON.stringify(orders)
-);
-
-renderOrders();
-
-toast(
-status==="Delivered"
-?"📦 Order delivered!"
-:"🚚 "+status
-);
-
-}
-
 
 function renderOrders(){
 
-let element=
-document.getElementById("ordersList");
+ let el=document.getElementById("ordersList");
 
-if(!orders.length){
+ if(!orders.length){
+  el.innerHTML=
+  '<div class="order"><p class="muted">No orders yet.</p></div>';
+  return;
+ }
 
-element.innerHTML=
-'<div class="order"><p class="muted">No orders yet.</p></div>';
+ el.innerHTML=orders.map(o=>`
 
-return;
+ <div class="order">
 
+ <b>${o.id}</b>
+
+ <p>
+ ${o.status} · ${money(o.total)}
+ </p>
+
+ <small>
+ ${o.payment==="cod"
+ ?"💵 Cash on Delivery"
+ :"💳 Card Demo"}
+ </small>
+
+ <br>
+
+ <button onclick="showOrder('${o.id}')">
+ Track
+ </button>
+
+ <button onclick="cancelOrder('${o.id}')">
+ Cancel
+ </button>
+
+ <button onclick="refundOrder('${o.id}')">
+ Refund
+ </button>
+
+ </div>
+
+ `).join("");
 }
-
-
-element.innerHTML=
-orders.map(order=>`
-
-<div class="order">
-
-<b>${order.id}</b>
-
-<p>
-${order.status} ·
-${money(order.total)}
-</p>
-
-<small>
-
-${order.payment==="cod"
-?"💵 Cash on Delivery"
-:"💳 Card Demo"}
-
-</small>
-
-<br>
-
-<button
-onclick="showOrder('${order.id}')">
-
-Track
-
-</button>
-
-<button
-onclick="cancelOrder('${order.id}')">
-
-Cancel
-
-</button>
-
-<button
-onclick="refundOrder('${order.id}')">
-
-Refund
-
-</button>
-
-</div>
-
-`).join("");
-
-}
-
 
 function showOrder(id){
 
-let order=
-orders.find(o=>o.id===id);
+ let o=orders.find(x=>x.id===id);
+ if(!o)return;
 
-if(!order)return;
+ let states=["Preparing","Out for delivery","Delivered"];
+ let current=states.indexOf(o.status);
 
-let states=[
-"Preparing",
-"Out for delivery",
-"Delivered"
-];
+ document.getElementById("orderDetails").innerHTML=`
 
-let current=
-states.indexOf(order.status);
+ <h3>${o.id}</h3>
 
-document.getElementById(
-"orderDetails"
-).innerHTML=`
+ <p>
+ Status: <b>${o.status}</b>
+ </p>
 
-<h3>${order.id}</h3>
+ <div class="notice">
+ ⏱️ Demo estimated delivery: about 10 minutes.
+ </div>
 
-<p style="margin-top:7px">
+ <div class="steps">
 
-Status:
-<b>${order.status}</b>
+ ${states.map((s,i)=>`
 
-</p>
+ <div class="step ${i<=current?"done":""}">
 
-<div class="track">
+ <div class="dot">
+ ${i<=current?"✓":""}
+ </div>
 
-<b>
-⏱️ Estimated demo delivery:
-10 minutes
-</b>
+ ${s}
 
-<div class="steps">
+ </div>
 
-<div class="step done">
+ `).join("")}
 
-<div class="dot">✓</div>
+ </div>
 
-Ordered
+ <p>
+ <b>Address:</b>
+ ${escapeHTML(o.address)}
+ </p>
 
-</div>
+ <p>
+ <b>Total:</b> ${money(o.total)}
+ </p>
 
-${states.map(
-(state,index)=>`
+ `;
 
-<div class="step ${
-index<=current?"done":""
-}">
-
-<div class="dot">
-
-${index===1?"🚚":"✓"}
-
-</div>
-
-${state}
-
-</div>
-
-`).join("")}
-
-</div>
-
-</div>
-
-<p style="margin-top:12px">
-
-<b>Address:</b>
-${escapeHTML(order.address)}
-
-</p>
-
-<p>
-
-<b>Total:</b>
-${money(order.total)}
-
-</p>
-
-<button
-class="modalButton"
-style="background:#eee"
-onclick="closeModal('orderModal')">
-
-Close
-
-</button>
-
-`;
-
-document.getElementById(
-"orderModal"
-).classList.add("show");
-
+ document.getElementById("orderModal").classList.add("show");
 }
-
 
 function cancelOrder(id){
 
-let order=
-orders.find(o=>o.id===id);
+ let o=orders.find(x=>x.id===id);
 
-if(!order)return;
+ if(!o)return;
 
-if(order.status==="Delivered"){
+ if(o.status==="Delivered"){
+  toast("Delivered orders cannot be cancelled");
+  return;
+ }
 
-toast("Delivered orders cannot be cancelled");
+ o.status="Cancelled";
 
-return;
+ localStorage.setItem("cayOrders",JSON.stringify(orders));
 
+ renderOrders();
+
+ toast("❌ Order cancelled");
 }
-
-order.status="Cancelled";
-
-localStorage.setItem(
-"caygramOrders",
-JSON.stringify(orders)
-);
-
-renderOrders();
-
-toast("❌ Order cancelled");
-
-}
-
 
 function refundOrder(id){
 
-let order=
-orders.find(o=>o.id===id);
+ let o=orders.find(x=>x.id===id);
 
-if(!order)return;
+ if(!o)return;
 
-order.status="Refund requested";
+ o.status="Refund requested";
 
-localStorage.setItem(
-"caygramOrders",
-JSON.stringify(orders)
-);
+ localStorage.setItem("cayOrders",JSON.stringify(orders));
 
-renderOrders();
+ renderOrders();
 
-toast("💰 Refund request submitted");
-
+ toast("💰 Refund requested");
 }
-
 
 function openAccount(){
 
-let account=
-JSON.parse(
-localStorage.getItem("caygramAccount") || "{}"
-);
+ let a=JSON.parse(
+ localStorage.getItem("cayAccount")||"{}"
+ );
 
-document.getElementById(
-"username"
-).value=account.username||"";
+ document.getElementById("username").value=a.username||"";
+ document.getElementById("email").value=a.email||"";
 
-document.getElementById(
-"email"
-).value=account.email||"";
-
-document.getElementById(
-"accountModal"
-).classList.add("show");
-
+ document.getElementById("accountModal").classList.add("show");
 }
-
 
 function saveAccount(){
 
-let username=
-document.getElementById(
-"username"
-).value.trim();
+ let username=document.getElementById("username").value.trim();
+ let email=document.getElementById("email").value.trim();
 
-let email=
-document.getElementById(
-"email"
-).value.trim();
+ if(!username){
+  toast("Enter a username");
+  return;
+ }
 
-if(!username){
+ localStorage.setItem(
+ "cayAccount",
+ JSON.stringify({username,email})
+ );
 
-toast("Enter a username");
+ closeModal("accountModal");
 
-return;
-
+ toast("👤 Account saved");
 }
-
-localStorage.setItem(
-"caygramAccount",
-JSON.stringify({
- username:username,
- email:email
-})
-);
-
-closeModal("accountModal");
-
-toast("👤 Account saved");
-
-}
-
 
 function openSettings(){
 
-document.getElementById(
-"currency"
-).value=currency;
+ document.getElementById("currency").value=currency;
 
-document.getElementById(
-"language"
-).value=
-localStorage.getItem(
-"caygramLanguage"
-)||"English";
+ document.getElementById("language").value=
+ localStorage.getItem("cayLanguage")||"English";
 
-document.getElementById(
-"theme"
-).value=
-localStorage.getItem(
-"caygramTheme"
-)||"Light";
+ document.getElementById("theme").value=
+ localStorage.getItem("cayTheme")||"Light";
 
-document.getElementById(
-"settingsModal"
-).classList.add("show");
-
+ document.getElementById("settingsModal").classList.add("show");
 }
-
 
 function saveSettings(){
 
-currency=
-document.getElementById(
-"currency"
-).value;
+ currency=document.getElementById("currency").value;
 
-let language=
-document.getElementById(
-"language"
-).value;
+ localStorage.setItem("cayCurrency",currency);
+ localStorage.setItem(
+  "cayLanguage",
+  document.getElementById("language").value
+ );
 
-let theme=
-document.getElementById(
-"theme"
-).value;
+ let theme=document.getElementById("theme").value;
 
-localStorage.setItem(
-"caygramCurrency",
-currency
-);
+ localStorage.setItem("cayTheme",theme);
 
-localStorage.setItem(
-"caygramLanguage",
-language
-);
+ document.body.classList.toggle("dark",theme==="Dark");
 
-localStorage.setItem(
-"caygramTheme",
-theme
-);
+ renderProducts();
+ renderOrders();
 
-if(theme==="Dark"){
+ closeModal("settingsModal");
 
-document.body.style.background="#101014";
-document.body.style.color="white";
-
-}else{
-
-document.body.style.background="#f5f5f7";
-document.body.style.color="#111";
-
+ toast("⚙️ Settings saved");
 }
-
-renderProducts();
-
-renderOrders();
-
-closeModal("settingsModal");
-
-toast("⚙️ Settings saved");
-
-}
-
 
 function favorite(id){
 
-let favorites=
-JSON.parse(
-localStorage.getItem(
-"caygramFavorites"
-)||"[]"
-);
+ let f=JSON.parse(
+ localStorage.getItem("cayFavorites")||"[]"
+ );
 
-if(favorites.includes(id)){
+ if(f.includes(id)){
+  f=f.filter(x=>x!==id);
+  toast("Removed from favorites");
+ }else{
+  f.push(id);
+  toast("❤️ Added to favorites");
+ }
 
-favorites=
-favorites.filter(
-item=>item!==id
-);
-
-toast("Removed from favorites");
-
-}else{
-
-favorites.push(id);
-
-toast("❤️ Added to favorites");
-
+ localStorage.setItem("cayFavorites",JSON.stringify(f));
 }
-
-localStorage.setItem(
-"caygramFavorites",
-JSON.stringify(favorites)
-);
-
-}
-
 
 function toggleAI(){
-
-document.getElementById(
-"aiPanel"
-).classList.toggle("open");
-
+ document.getElementById("ai").classList.toggle("open");
 }
-
 
 function askAI(){
 
-let input=
-document.getElementById(
-"aiInput"
-);
+ let input=document.getElementById("aiInput");
+ let q=input.value.trim();
 
-let question=
-input.value.trim();
+ if(!q)return;
 
-if(!question)return;
+ let body=document.getElementById("aiBody");
 
-let body=
-document.getElementById(
-"aiBody"
-);
+ body.innerHTML+=`
+ <div class="msg">
+ <b>You:</b> ${escapeHTML(q)}
+ </div>
+ `;
 
-body.innerHTML+=`
+ let answer=
+ "I can help with Caygram, the shop, orders, delivery, refunds and settings.";
 
-<div class="message">
+ if(/order|track|delivery/i.test(q)){
+  answer=orders.length
+  ?`Your latest order is <b>${orders[0].status}</b>.`
+  :"You don't have any orders yet.";
+ }
 
-<b>You:</b>
-${escapeHTML(question)}
+ if(/refund/i.test(q))
+ answer="Open Orders and press Refund.";
 
-</div>
+ if(/cancel/i.test(q))
+ answer="Open Orders and press Cancel.";
 
-`;
+ if(/shop|shirt|hoodie|merch/i.test(q))
+ answer="Open Shop to see Caygram merch.";
 
-let answer=
-"I can help with the shop, cart, orders, delivery, cancellation and refunds.";
+ if(/language|currency|settings/i.test(q))
+ answer="Open ⚙️ Settings to change language, currency and theme.";
 
+ if(/youtube|video/i.test(q))
+ answer="Tap Videos or the YouTube button on Home.";
 
-if(/order|track|where/i.test(question)){
+ body.innerHTML+=`
+ <div class="msg">
+ <b>🤖 Caygram AI:</b> ${answer}
+ </div>
+ `;
 
-if(orders.length){
+ body.scrollTop=body.scrollHeight;
 
-answer=
-`Your latest order
-<b>${orders[0].id}</b>
-is currently
-<b>${orders[0].status}</b>.
-Demo delivery is about 10 minutes.`;
-
-}else{
-
-answer=
-"You don't have an order yet.";
-
+ input.value="";
 }
 
+function escapeHTML(x){
+ return String(x)
+ .replaceAll("&","&amp;")
+ .replaceAll("<","&lt;")
+ .replaceAll(">","&gt;")
+ .replaceAll('"',"&quot;")
+ .replaceAll("'","&#039;");
 }
-
-
-else if(/refund|money/i.test(question)){
-
-answer=
-"Open My Orders and tap Refund on the order.";
-
-}
-
-
-else if(/cancel/i.test(question)){
-
-answer=
-"Open My Orders and tap Cancel. Delivered orders cannot be cancelled.";
-
-}
-
-
-else if(/cash|cod/i.test(question)){
-
-answer=
-"Cash on Delivery is available in the demo checkout.";
-
-}
-
-
-else if(/visa|card/i.test(question)){
-
-answer=
-"Visa/Card is demo-only. Never enter real card details into this GitHub demo.";
-
-}
-
-
-body.innerHTML+=`
-
-<div class="message">
-
-<b>🤖 Caygram AI:</b>
-${answer}
-
-</div>
-
-`;
-
-body.scrollTop=
-body.scrollHeight;
-
-input.value="";
-
-}
-
-
-function escapeHTML(text){
-
-return String(text)
-
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;")
-.replaceAll('"',"&quot;")
-.replaceAll("'","&#039;");
-
-}
-
 
 function closeModal(id){
-
-document.getElementById(
-id
-).classList.remove("show");
-
+ document.getElementById(id).classList.remove("show");
 }
-
 
 function toast(message){
 
-let element=
-document.getElementById("toast");
+ let t=document.getElementById("toast");
 
-element.textContent=message;
+ t.textContent=message;
+ t.classList.add("show");
 
-element.classList.add("show");
+ clearTimeout(window.toastTimer);
 
-clearTimeout(window.toastTimer);
-
-window.toastTimer=
-setTimeout(
-()=>{
-element.classList.remove("show");
-},
-2400
-);
-
+ window.toastTimer=setTimeout(
+ ()=>t.classList.remove("show"),
+ 2400
+ );
 }
 
+document.body.classList.toggle(
+ "dark",
+ localStorage.getItem("cayTheme")==="Dark"
+);
 
 renderProducts();
-
-updateCartCount();
-
 renderOrders();
+updateCartCount();
 
 </script>
 
