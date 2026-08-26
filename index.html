@@ -3,567 +3,364 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>CAYGRAM | Official</title>
+<title>CAYGRAM</title>
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
 font-family:Arial,Helvetica,sans-serif;
-background:#07070b;color:white;
-line-height:1.5;
+background:#07070b;color:#fff;line-height:1.5;
 transition:.25s
 }
 body.light{background:#f4f4f6;color:#111}
 body.light nav{background:#fffffff0;border-color:#ddd}
-body.light .card,
-body.light .box,
-body.light .modalBox{background:white;border-color:#ddd}
-body.light input,body.light select{background:#f1f1f3;color:#111}
+body.light .card,body.light .modalBox,body.light .panel{
+background:#fff;color:#111;border-color:#ddd
+}
+body.light input,body.light select{
+background:#eee;color:#111
+}
 a{text-decoration:none;color:inherit}
-button{cursor:pointer;font-family:inherit}
+button{font-family:inherit;cursor:pointer}
+
 nav{
 position:sticky;top:0;z-index:100;
-background:#07070bf0;
+background:#07070bf2;
 backdrop-filter:blur(15px);
 border-bottom:1px solid #292932
 }
 .nav{
-max-width:1200px;margin:auto;padding:13px 16px;
-display:flex;align-items:center;
-justify-content:space-between;gap:12px
+max-width:1150px;margin:auto;padding:13px 16px;
+display:flex;align-items:center;justify-content:space-between;
+gap:10px
 }
 .logo{
-font-weight:1000;font-size:1.35rem;
-letter-spacing:2px;
+font-size:1.35rem;font-weight:1000;letter-spacing:2px;
 background:linear-gradient(90deg,#9b5cff,#ff4fa3);
 -webkit-background-clip:text;color:transparent
 }
-.links{
-display:flex;gap:3px;flex-wrap:wrap;
-justify-content:center
-}
+.links{display:flex;flex-wrap:wrap;gap:3px;justify-content:center}
 .links a,.navButton{
-border:0;background:none;color:#aaa;
+background:none;border:0;color:#aaa;
 padding:8px;border-radius:8px;
 font-size:.75rem;font-weight:900
 }
-.links a:hover,.navButton:hover{
-background:#202027;color:white
-}
+.links a:hover,.navButton:hover{background:#222;color:#fff}
+
 section{padding:70px 17px}
 .container{max-width:1100px;margin:auto}
 .hero{
-min-height:82vh;display:flex;
-align-items:center;text-align:center;
-background:
-radial-gradient(circle at 50% 5%,#7c3aed66,transparent 42%)
+min-height:82vh;display:flex;align-items:center;
+text-align:center;
+background:radial-gradient(circle at 50% 5%,#7c3aed66,transparent 42%)
 }
 .heroInner{max-width:850px;margin:auto}
 .logoCircle{
-width:125px;height:125px;margin:auto auto 25px;
-border-radius:30px;
-display:flex;align-items:center;
-justify-content:center;
-font-size:4rem;
+width:125px;height:125px;margin:0 auto 25px;
+border-radius:30px;display:flex;align-items:center;
+justify-content:center;font-size:4rem;
 background:linear-gradient(145deg,#33333d,#09090d);
 box-shadow:0 20px 70px #000
 }
 h1{
 font-size:clamp(4rem,15vw,8rem);
-line-height:.9;
-letter-spacing:-5px;
+line-height:.9;letter-spacing:-5px;
 background:linear-gradient(90deg,#fff,#c4b5fd,#f9a8d4);
--webkit-background-clip:text;
-color:transparent
+-webkit-background-clip:text;color:transparent
 }
-.hero p{
-max-width:700px;margin:25px auto;
-font-size:1.1rem;color:#aaa
-}
-.buttons{
-display:flex;gap:10px;
-justify-content:center;flex-wrap:wrap
-}
+.hero p{color:#aaa;font-size:1.1rem;margin:25px auto}
+.buttons{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
 .btn{
-padding:13px 19px;
-border-radius:12px;
-border:1px solid #444;
-font-weight:900;
-display:inline-block
+display:inline-block;padding:13px 19px;
+border-radius:12px;border:1px solid #444;
+font-weight:900
 }
 .primary{
-background:linear-gradient(135deg,#8b5cf6,#ec4899);
-border:0
+border:0;background:linear-gradient(135deg,#8b5cf6,#ec4899)
 }
-.youtube{
-background:#f03;border-color:#f03
-}
+.youtube{background:#f03;border-color:#f03}
+
 .heading{text-align:center;margin-bottom:32px}
 .heading small{
-color:#a78bfa;
-font-weight:900;
-letter-spacing:3px;
-text-transform:uppercase
+color:#a78bfa;font-weight:900;letter-spacing:3px
 }
 .heading h2{font-size:clamp(2rem,6vw,3rem);margin:7px 0}
 .heading p,.muted{color:#999}
+
 .grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:18px
+display:grid;grid-template-columns:repeat(3,1fr);gap:18px
 }
-.card,.box{
+.card{
 background:linear-gradient(145deg,#17171f,#0d0d11);
-border:1px solid #292932;
-border-radius:20px;
-overflow:hidden
+border:1px solid #292932;border-radius:20px;overflow:hidden
 }
 
-/* SEARCH */
-.search{
-display:flex;
-gap:8px;
-max-width:700px;
-margin:auto
-}
-.search input{
-flex:1;padding:14px;
-border-radius:12px;
-border:1px solid #444;
-background:#111117;color:white;
-outline:0
-}
-.search button{
-border:0;border-radius:12px;
-padding:12px 18px;
-background:#8b5cf6;color:white;
-font-weight:900
-}
-
-/* VIDEOS */
 .thumb{
 aspect-ratio:16/9;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:4rem;
-background:linear-gradient(135deg,#4c1d95,#831843);
-position:relative
+display:flex;align-items:center;justify-content:center;
+font-size:4rem;position:relative;
+background:linear-gradient(135deg,#4c1d95,#831843)
 }
 .play{
-position:absolute;
-width:58px;height:58px;
-border-radius:50%;
-background:#000b;
-display:flex;
-align-items:center;
-justify-content:center;
+position:absolute;width:58px;height:58px;
+border-radius:50%;background:#000b;
+display:flex;align-items:center;justify-content:center;
 font-size:1.2rem
 }
 .info{padding:17px}
 .info p{color:#999;margin:6px 0 13px}
 .watch{
-background:#292930;
-padding:8px 12px;
-border-radius:8px;
-font-size:.8rem;
-font-weight:900;
-display:inline-block
+display:inline-block;padding:8px 12px;
+background:#292930;border-radius:8px;font-size:.8rem;font-weight:900
 }
 
-/* CONTENT */
 .category{
-min-height:210px;
-padding:25px;
-display:flex;
-flex-direction:column;
-justify-content:flex-end;
+min-height:210px;padding:25px;
+display:flex;flex-direction:column;justify-content:flex-end;
 position:relative
 }
 .category .icon{
-position:absolute;
-right:20px;
-top:15px;
-font-size:4rem
+position:absolute;right:20px;top:15px;font-size:4rem
 }
 .category p{color:#aaa}
 .roblox{
-background:
-radial-gradient(circle at 80% 20%,#8b5cf655,transparent 45%),#14141a
+background:radial-gradient(circle at 80% 20%,#8b5cf655,transparent 45%),#14141a
 }
 .football{
-background:
-radial-gradient(circle at 80% 20%,#22c55e44,transparent 45%),#121815
+background:radial-gradient(circle at 80% 20%,#22c55e44,transparent 45%),#121815
 }
 .challenge{
-background:
-radial-gradient(circle at 80% 20%,#ec489944,transparent 45%),#171217
+background:radial-gradient(circle at 80% 20%,#ec489944,transparent 45%),#171217
 }
 
-/* STATS */
 .stats{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:12px
+display:grid;grid-template-columns:repeat(4,1fr);gap:12px
 }
 .stat{
-padding:25px;
-text-align:center;
-border:1px solid #292932;
-border-radius:17px;
+padding:25px;text-align:center;
+border:1px solid #292932;border-radius:17px;
 background:#ffffff06
 }
 .stat strong{
-display:block;
-font-size:2rem;
+display:block;font-size:2rem;
 background:linear-gradient(90deg,#a78bfa,#f9a8d4);
--webkit-background-clip:text;
-color:transparent
+-webkit-background-clip:text;color:transparent
 }
 
-/* PROGRESS */
 .progressBox{
-padding:28px;
-border:1px solid #292932;
-border-radius:18px;
-background:#ffffff06
+padding:28px;border:1px solid #292932;
+border-radius:18px;background:#ffffff06
 }
 .progress{
-height:14px;
-background:#292932;
-border-radius:20px;
-overflow:hidden;
-margin:15px 0
+height:14px;background:#292932;
+border-radius:20px;overflow:hidden;margin:15px 0
 }
 .progressBar{
-height:100%;
-width:68%;
+height:100%;width:68%;
 background:linear-gradient(90deg,#8b5cf6,#ec4899)
 }
 
-/* MERCH */
+/* SHOP */
 .productImage{
-height:280px;
-display:flex;
-align-items:center;
+height:280px;display:flex;align-items:center;
 justify-content:center;
-background:
-radial-gradient(circle at 50% 20%,#3c3c48,transparent 40%),#0d0d12
+background:radial-gradient(circle at 50% 20%,#3c3c48,transparent 40%),#0d0d12
 }
 .cloth{
-width:175px;height:220px;
-position:relative;
+width:175px;height:220px;position:relative;
 filter:drop-shadow(0 20px 15px #000)
 }
 .hoodie{
 background:linear-gradient(145deg,#414149,#050507);
-clip-path:
-polygon(22% 7%,38% 0,50% 14%,62% 0,78% 7%,100% 28%,85% 43%,76% 32%,76% 100%,24% 100%,24% 32%,15% 43%,0 28%)
+clip-path:polygon(
+22% 7%,38% 0,50% 14%,62% 0,78% 7%,
+100% 28%,85% 43%,76% 32%,76% 100%,
+24% 100%,24% 32%,15% 43%,0 28%
+)
 }
 .hoodie:before{
-content:"";
-position:absolute;
-width:65px;height:42px;
-left:55px;top:8px;
-border:5px solid #111;
-border-radius:50%
+content:"";position:absolute;
+width:65px;height:42px;left:55px;top:8px;
+border:5px solid #111;border-radius:50%
 }
 .tshirt{
 background:linear-gradient(145deg,#414149,#070709);
-clip-path:
-polygon(23% 0,39% 9%,50% 15%,61% 9%,77% 0,100% 25%,84% 40%,75% 30%,75% 100%,25% 100%,25% 30%,16% 40%,0 25%)
+clip-path:polygon(
+23% 0,39% 9%,50% 15%,61% 9%,77% 0,
+100% 25%,84% 40%,75% 30%,75% 100%,
+25% 100%,25% 30%,16% 40%,0 25%
+)
 }
 .jersey{
-background:
-linear-gradient(90deg,#a70016 0 17%,#d71920 17% 83%,#a70016 83%);
-clip-path:
-polygon(23% 0,39% 9%,50% 15%,61% 9%,77% 0,100% 25%,84% 40%,75% 30%,75% 100%,25% 100%,25% 30%,16% 40%,0 25%)
+background:linear-gradient(
+90deg,#a70016 0 17%,#d71920 17% 83%,#a70016 83%
+);
+clip-path:polygon(
+23% 0,39% 9%,50% 15%,61% 9%,77% 0,
+100% 25%,84% 40%,75% 30%,75% 100%,
+25% 100%,25% 30%,16% 40%,0 25%
+)
 }
 .print{
-position:absolute;
-left:50%;top:44%;
+position:absolute;left:50%;top:44%;
 transform:translate(-50%,-50%);
-font-weight:1000;
-font-size:20px;
-white-space:nowrap;
-text-shadow:0 2px 3px #000
+font-weight:1000;font-size:20px;
+white-space:nowrap;text-shadow:0 2px 3px #000
 }
 .print span{color:#ef3340}
 .number{
-position:absolute;
-left:50%;top:57%;
+position:absolute;left:50%;top:57%;
 transform:translateX(-50%);
-font-size:48px;
-font-weight:1000;
-color:#f5c400
+font-size:48px;font-weight:1000;color:#f5c400
 }
-.price{
-font-size:1.2rem;
-font-weight:1000;
-margin-top:7px
-}
+.price{font-size:1.2rem;font-weight:1000;margin-top:7px}
 .stock{
-display:block;
-padding:9px;
-margin-top:10px;
-text-align:center;
-border-radius:9px;
-font-size:.75rem;
-font-weight:900
+display:block;padding:9px;margin-top:10px;
+text-align:center;border-radius:9px;
+font-size:.75rem;font-weight:900
 }
-.in{
-background:#16a34a22;
-color:#62ff97;
-border:1px solid #22c55e55
-}
-.out{
-background:#ef44441a;
-color:#ff9999;
-border:1px solid #ef444455
-}
-.productActions{
-display:flex;
-gap:7px;
-margin-top:9px
-}
+.in{background:#16a34a22;color:#62ff97;border:1px solid #22c55e55}
+.out{background:#ef44441a;color:#ff9999;border:1px solid #ef444455}
+
+.productActions{display:flex;gap:7px;margin-top:9px}
 .buy{
-flex:1;
-padding:11px;
-border:0;
-border-radius:9px;
+flex:1;padding:11px;border:0;border-radius:9px;
 background:linear-gradient(135deg,#8b5cf6,#ec4899);
-color:white;
-font-weight:900
+color:white;font-weight:900
 }
-.buy:disabled{
-background:#29292f;
-color:#777
-}
+.buy:disabled{background:#29292f;color:#777;cursor:not-allowed}
 .heart{
-width:48px;
-border:1px solid #444;
-border-radius:9px;
-background:#202027;
-color:white;
-font-size:1.2rem
+width:48px;border:1px solid #444;border-radius:9px;
+background:#202027;color:white;font-size:1.2rem
 }
 .heart.liked{color:#ff4d8d}
 
+/* SEARCH */
+.search{
+display:flex;gap:8px;max-width:700px;margin:auto
+}
+.search input{
+flex:1;padding:14px;border-radius:12px;
+border:1px solid #444;background:#111117;
+color:white;outline:0
+}
+.search button{
+border:0;border-radius:12px;padding:12px 18px;
+background:#8b5cf6;color:white;font-weight:900
+}
+
 /* ACHIEVEMENTS */
-.achievement{
-padding:25px;
-text-align:center
-}
-.achievement .emoji{
-font-size:3rem;
-margin-bottom:8px
-}
+.achievement{padding:25px;text-align:center}
+.achievement .emoji{font-size:3rem}
 .locked{opacity:.35}
 
 /* SOCIAL */
 .social{
-padding:22px;
-text-align:center
+padding:22px;text-align:center
 }
-.social span{
-display:block;
-color:#999;
-font-size:.8rem;
-margin-top:4px
-}
+.social span{display:block;color:#999;font-size:.8rem;margin-top:4px}
 
 /* CART */
 .cartButton{
-position:fixed;
-right:18px;
-bottom:18px;
-z-index:150;
-width:62px;height:62px;
-border:0;border-radius:50%;
+position:fixed;right:18px;bottom:18px;z-index:150;
+width:62px;height:62px;border:0;border-radius:50%;
 background:linear-gradient(135deg,#8b5cf6,#ec4899);
 color:white;font-size:1.5rem;
 box-shadow:0 10px 35px #000
 }
 .badge{
-position:absolute;
-right:-3px;top:-4px;
-width:22px;height:22px;
-border-radius:50%;
-background:#f33;
-font-size:.7rem;
-display:flex;
-align-items:center;
-justify-content:center
+position:absolute;right:-3px;top:-4px;
+width:22px;height:22px;border-radius:50%;
+background:#f33;font-size:.7rem;
+display:flex;align-items:center;justify-content:center
 }
 .panel{
-position:fixed;
-right:15px;
-bottom:90px;
-z-index:200;
+position:fixed;right:15px;bottom:90px;z-index:200;
 width:min(430px,calc(100% - 30px));
-background:#15151c;
-border:1px solid #444;
-border-radius:20px;
-padding:20px;
-box-shadow:0 20px 70px #000;
-display:none
+background:#15151c;border:1px solid #444;
+border-radius:20px;padding:20px;
+box-shadow:0 20px 70px #000;display:none
 }
 .panel.open{display:block}
 .panelTop{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:15px
+display:flex;justify-content:space-between;
+align-items:center;margin-bottom:15px
 }
 .close{
-border:0;
-background:#292930;
-color:white;
-padding:6px 10px;
-border-radius:8px
+border:0;background:#292930;color:white;
+padding:6px 10px;border-radius:8px
 }
 .cartItem{
-display:flex;
-justify-content:space-between;
-gap:10px;
-padding:12px 0;
-border-bottom:1px solid #292932
+display:flex;justify-content:space-between;
+gap:10px;padding:12px 0;border-bottom:1px solid #292932
 }
 .qty button{
-border:0;
-background:#292932;
-color:white;
-padding:4px 8px;
-border-radius:5px
+border:0;background:#292932;color:white;
+padding:4px 8px;border-radius:5px
 }
-.total{
-font-size:1.2rem;
-font-weight:900;
-margin-top:15px
-}
+.total{font-size:1.2rem;font-weight:900;margin-top:15px}
 .checkout{
-width:100%;
-margin-top:15px;
-padding:13px;
-border:0;
-border-radius:10px;
-background:white;
-color:black;
-font-weight:900
+width:100%;margin-top:15px;padding:13px;
+border:0;border-radius:10px;background:white;
+color:black;font-weight:900
 }
 
 /* MODALS */
 .modal{
-position:fixed;
-inset:0;
-background:#000c;
-z-index:300;
-display:none;
-align-items:center;
-justify-content:center;
-padding:18px
+position:fixed;inset:0;background:#000c;z-index:300;
+display:none;align-items:center;justify-content:center;padding:18px
 }
 .modal.show{display:flex}
 .modalBox{
-width:min(530px,100%);
-max-height:90vh;
-overflow:auto;
-background:#15151c;
-border:1px solid #444;
-border-radius:20px;
-padding:24px
+width:min(530px,100%);max-height:90vh;overflow:auto;
+background:#15151c;border:1px solid #444;
+border-radius:20px;padding:24px
 }
 .field{margin:13px 0}
-.field label{
-display:block;
-color:#aaa;
-margin-bottom:6px
-}
+.field label{display:block;color:#aaa;margin-bottom:6px}
 .field input,.field select{
-width:100%;
-padding:11px;
-border-radius:9px;
-border:1px solid #444;
-background:#0b0b10;
-color:white
+width:100%;padding:11px;border-radius:9px;
+border:1px solid #444;background:#0b0b10;color:white
 }
-.modalActions{
-display:flex;
-gap:9px;
-margin-top:18px
-}
+.modalActions{display:flex;gap:9px;margin-top:18px}
 .modalActions button{
-flex:1;
-padding:11px;
-border:0;
-border-radius:9px;
-font-weight:900
+flex:1;padding:11px;border:0;border-radius:9px;font-weight:900
 }
 .save{
-background:linear-gradient(135deg,#8b5cf6,#ec4899);
-color:white
+background:linear-gradient(135deg,#8b5cf6,#ec4899);color:white
 }
-.cancel{
-background:#29292f;
-color:white
-}
+.cancel{background:#29292f;color:white}
 .notice{
-padding:12px;
-margin-top:13px;
-background:#f59e0b18;
-border:1px solid #f59e0b44;
-border-radius:10px;
-color:#ffc85c;
-font-size:.82rem
+padding:12px;margin-top:13px;
+background:#f59e0b18;border:1px solid #f59e0b44;
+border-radius:10px;color:#ffc85c;font-size:.82rem
 }
 .avatar{
-width:82px;height:82px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-margin:0 auto 10px;
-font-size:2rem;
-font-weight:1000;
+width:82px;height:82px;border-radius:50%;
+display:flex;align-items:center;justify-content:center;
+margin:0 auto 10px;font-size:2rem;font-weight:1000;
 background:linear-gradient(135deg,#8b5cf6,#ec4899)
 }
 .accountHead{text-align:center}
 
 /* FAQ */
-.faq{
-padding:18px;
-cursor:pointer
-}
-.faq p{
-display:none;
-color:#aaa;
-margin-top:9px
-}
+.faq{padding:18px;cursor:pointer}
+.faq p{display:none;color:#aaa;margin-top:9px}
 .faq.open p{display:block}
 
-/* NOTIFICATION */
 .notification{
-position:fixed;
-top:80px;
-right:18px;
-z-index:250;
-background:#fff;
-color:#111;
-padding:14px 18px;
-border-radius:12px;
-font-weight:900;
+position:fixed;top:80px;right:18px;z-index:500;
+background:#fff;color:#111;padding:14px 18px;
+border-radius:12px;font-weight:900;
 box-shadow:0 10px 30px #000;
-transform:translateX(130%);
-transition:.3s
+transform:translateX(130%);transition:.3s
 }
 .notification.show{transform:translateX(0)}
 
 footer{
-text-align:center;
-padding:35px;
-border-top:1px solid #222;
-color:#888
+text-align:center;padding:35px;
+border-top:1px solid #222;color:#888
 }
 
 @media(max-width:850px){
@@ -574,10 +371,7 @@ color:#888
 @media(max-width:550px){
 .grid{grid-template-columns:1fr}
 .stats{grid-template-columns:1fr 1fr}
-.links a,.navButton{
-font-size:.65rem;
-padding:6px
-}
+.links a,.navButton{font-size:.65rem;padding:6px}
 .search{flex-direction:column}
 h1{letter-spacing:-3px}
 }
@@ -600,13 +394,8 @@ h1{letter-spacing:-3px}
 <a href="#shop">Shop</a>
 <a href="#social">Social</a>
 
-<button class="navButton" onclick="openAccount()">
-👤 Account
-</button>
-
-<button class="navButton" onclick="openSettings()">
-⚙️
-</button>
+<button class="navButton" onclick="openAccount()">👤 Account</button>
+<button class="navButton" onclick="openSettings()">⚙️ Settings</button>
 </div>
 
 </div>
@@ -620,25 +409,17 @@ h1{letter-spacing:-3px}
 
 <h1>CAYGRAM</h1>
 
-<p>
-Gaming 🎮 • Football ⚽ • Roblox • Challenges 🔥
-</p>
+<p>Gaming 🎮 • Football ⚽ • Roblox • Challenges 🔥</p>
 
 <div class="buttons">
 
 <a class="btn youtube"
 href="https://www.youtube.com/@CaygramYT"
-target="_blank">
-▶ YouTube
-</a>
+target="_blank">▶ YouTube</a>
 
-<a class="btn primary" href="#shop">
-🛍️ Shop
-</a>
+<a class="btn primary" href="#shop">🛍️ Shop</a>
 
-<a class="btn" href="#videos">
-🎬 Videos
-</a>
+<a class="btn" href="#videos">🎬 Videos</a>
 
 </div>
 
@@ -653,20 +434,14 @@ target="_blank">
 <div class="heading">
 <small>Search</small>
 <h2>🔎 Find Caygram</h2>
-<p>Search the website.</p>
+<p>Search videos, products and content.</p>
 </div>
 
 <div class="search">
-
-<input
-id="searchInput"
-placeholder="Search videos, merch, football..."
+<input id="searchInput"
+placeholder="Search..."
 oninput="searchSite()">
-
-<button onclick="searchSite()">
-Search
-</button>
-
+<button onclick="searchSite()">Search</button>
 </div>
 
 <p id="noResults"
@@ -676,7 +451,6 @@ Nothing found.
 </p>
 
 </div>
-
 </section>
 
 
@@ -692,73 +466,51 @@ Nothing found.
 
 <div class="grid">
 
-<article class="card searchable"
-data-search="roblox gaming">
+<article class="card searchable" data-search="roblox gaming">
 
-<div class="thumb">
-🎮
-<span class="play">▶</span>
-</div>
+<div class="thumb">🎮<span class="play">▶</span></div>
 
 <div class="info">
 <h3>🎮 Roblox</h3>
 <p>Gaming and funny moments.</p>
-
 <a class="watch"
 href="https://www.youtube.com/@CaygramYT"
-target="_blank">
-Watch →
-</a>
+target="_blank">Watch →</a>
 </div>
 
 </article>
 
 
-<article class="card searchable"
-data-search="football soccer">
+<article class="card searchable" data-search="football soccer">
 
-<div class="thumb">
-⚽
-<span class="play">▶</span>
-</div>
+<div class="thumb">⚽<span class="play">▶</span></div>
 
 <div class="info">
 <h3>⚽ Football</h3>
 <p>Football skills and challenges.</p>
-
 <a class="watch"
 href="https://www.youtube.com/@CaygramYT"
-target="_blank">
-Watch →
-</a>
+target="_blank">Watch →</a>
 </div>
 
 </article>
 
 
-<article class="card searchable"
-data-search="challenge funny">
+<article class="card searchable" data-search="challenge funny">
 
-<div class="thumb">
-😂
-<span class="play">▶</span>
-</div>
+<div class="thumb">😂<span class="play">▶</span></div>
 
 <div class="info">
 <h3>😂 Challenges</h3>
 <p>Crazy Caygram challenges.</p>
-
 <a class="watch"
 href="https://www.youtube.com/@CaygramYT"
-target="_blank">
-Watch →
-</a>
+target="_blank">Watch →</a>
 </div>
 
 </article>
 
 </div>
-
 </div>
 </section>
 
@@ -777,31 +529,25 @@ Watch →
 <a class="card category roblox"
 href="https://www.youtube.com/@CaygramYT"
 target="_blank">
-
 <span class="icon">🎮</span>
 <h3>Roblox</h3>
 <p>Gaming, funny moments and challenges.</p>
-
 </a>
 
 <a class="card category football"
 href="https://www.youtube.com/@CaygramYT"
 target="_blank">
-
 <span class="icon">⚽</span>
 <h3>Football</h3>
 <p>Skills, training and challenges.</p>
-
 </a>
 
 <a class="card category challenge"
 href="https://www.youtube.com/@CaygramYT"
 target="_blank">
-
 <span class="icon">😂</span>
 <h3>Challenges</h3>
 <p>Crazy Caygram challenges.</p>
-
 </a>
 
 </div>
@@ -820,28 +566,12 @@ target="_blank">
 
 <div class="stats">
 
-<div class="stat">
-<strong>🎥</strong>
-Videos
-</div>
-
-<div class="stat">
-<strong>⚽</strong>
-Football
-</div>
-
-<div class="stat">
-<strong>🎮</strong>
-Roblox
-</div>
-
-<div class="stat">
-<strong>🔥</strong>
-Growing
-</div>
+<div class="stat"><strong>🎥</strong>Videos</div>
+<div class="stat"><strong>⚽</strong>Football</div>
+<div class="stat"><strong>🎮</strong>Roblox</div>
+<div class="stat"><strong>🔥</strong>Growing</div>
 
 </div>
-
 </div>
 </section>
 
@@ -863,12 +593,9 @@ Growing
 <div class="progressBar"></div>
 </div>
 
-<p class="muted">
-68% progress toward the next milestone.
-</p>
+<p class="muted">68% progress toward the next milestone.</p>
 
 </div>
-
 </div>
 </section>
 
@@ -893,7 +620,7 @@ Growing
 <div class="card achievement">
 <div class="emoji">🥈</div>
 <h3>1,000 Subscribers</h3>
-<p class="muted">Next goal</p>
+<p class="muted">Next Goal</p>
 </div>
 
 <div class="card achievement locked">
@@ -920,11 +647,13 @@ Growing
 <div class="heading">
 <small>Official Merch</small>
 <h2>🛍️ Caygram Shop</h2>
-<p>Products and prices.</p>
+<p>One product is available for testing the cart.</p>
 </div>
 
 <div class="grid">
 
+
+<!-- HOODIE -->
 
 <article class="card searchable"
 data-search="hoodie black caygram">
@@ -946,26 +675,16 @@ CAY<span>GRAM</span>
 <h3>🖤 Caygram Hoodie</h3>
 <p>Black Caygram hoodie.</p>
 
-<div
-class="price"
-data-aed="99">
-AED 99
-</div>
+<div class="price" data-aed="99">AED 99</div>
 
-<span class="stock in">
-🟢 IN STOCK
-</span>
+<span class="stock in">🟢 IN STOCK</span>
 
 <div class="productActions">
 
-<button
-class="heart"
-onclick="favorite(this,'Caygram Hoodie')">
-♡
-</button>
+<button class="heart"
+onclick="favorite(this,'Caygram Hoodie')">♡</button>
 
-<button
-class="buy"
+<button class="buy"
 onclick="openProduct('Caygram Hoodie',99)">
 Add to Cart
 </button>
@@ -976,8 +695,10 @@ Add to Cart
 </article>
 
 
+<!-- T SHIRT -->
+
 <article class="card searchable"
-data-search="t shirt tshirt caygram">
+data-search="tshirt t shirt caygram">
 
 <div class="productImage">
 
@@ -994,29 +715,18 @@ CAY<span>GRAM</span>
 <div class="info">
 
 <h3>👕 Caygram T-Shirt</h3>
-<p>Official Caygram shirt.</p>
+<p>Official Caygram T-shirt.</p>
 
-<div
-class="price"
-data-aed="49">
-AED 49
-</div>
+<div class="price" data-aed="49">AED 49</div>
 
-<span class="stock out">
-🔴 OUT OF STOCK
-</span>
+<span class="stock out">🔴 OUT OF STOCK</span>
 
 <div class="productActions">
 
-<button
-class="heart"
-onclick="favorite(this,'Caygram T-Shirt')">
-♡
-</button>
+<button class="heart"
+onclick="favorite(this,'Caygram T-Shirt')">♡</button>
 
-<button class="buy" disabled>
-OUT OF STOCK
-</button>
+<button class="buy" disabled>OUT OF STOCK</button>
 
 </div>
 
@@ -1024,8 +734,10 @@ OUT OF STOCK
 </article>
 
 
+<!-- FOOTBALL -->
+
 <article class="card searchable"
-data-search="football shirt jersey">
+data-search="football shirt jersey caygram">
 
 <div class="productImage">
 
@@ -1046,27 +758,16 @@ CAY<span>GRAM</span>
 <h3>⚽ Caygram Football Shirt</h3>
 <p>Red Caygram football shirt.</p>
 
-<div
-class="price"
-data-aed="35">
-AED 35
-</div>
+<div class="price" data-aed="35">AED 35</div>
 
-<span class="stock out">
-🔴 OUT OF STOCK
-</span>
+<span class="stock out">🔴 OUT OF STOCK</span>
 
 <div class="productActions">
 
-<button
-class="heart"
-onclick="favorite(this,'Caygram Football Shirt')">
-♡
-</button>
+<button class="heart"
+onclick="favorite(this,'Caygram Football Shirt')">♡</button>
 
-<button class="buy" disabled>
-OUT OF STOCK
-</button>
+<button class="buy" disabled>OUT OF STOCK</button>
 
 </div>
 
@@ -1083,7 +784,7 @@ OUT OF STOCK
 <div class="container">
 
 <div class="heading">
-<small>Questions</small>
+<small>Help</small>
 <h2>❓ FAQ</h2>
 </div>
 
@@ -1091,17 +792,17 @@ OUT OF STOCK
 
 <div class="card faq" onclick="toggleFAQ(this)">
 <h3>🛒 How does the cart work?</h3>
-<p>You can add available products to your cart and change quantities.</p>
+<p>Add an available product, choose a size and quantity, then open the cart.</p>
 </div>
 
 <div class="card faq" onclick="toggleFAQ(this)">
 <h3>📦 Can I track an order?</h3>
-<p>The website includes a demo order tracker. Real tracking requires a real store backend.</p>
+<p>The checkout creates a demo order number. Real shipping requires a real store backend.</p>
 </div>
 
 <div class="card faq" onclick="toggleFAQ(this)">
-<h3>💳 Can people pay here?</h3>
-<p>This GitHub version does not collect real card details. A payment provider must be connected for real purchases.</p>
+<h3>💳 Can I take real card payments?</h3>
+<p>Not with this simple GitHub-only version. A secure payment provider is required for real payments.</p>
 </div>
 
 </div>
@@ -1123,10 +824,8 @@ OUT OF STOCK
 <a class="card social"
 href="https://www.youtube.com/@CaygramYT"
 target="_blank">
-
 <strong>▶️ YouTube</strong>
 <span>@CaygramYT</span>
-
 </a>
 
 <a class="card social" href="#shop">
@@ -1145,50 +844,29 @@ target="_blank">
 
 
 <footer>
-© 2026 CAYGRAM · Official Website
+© 2026 <strong>Caygram</strong> · Official Website
 </footer>
 
 
 <!-- CART -->
 
-<button class="cartButton"
-onclick="toggleCart()">
-
+<button class="cartButton" onclick="toggleCart()">
 🛒
-
-<span
-class="badge"
-id="cartCount">
-0
-</span>
-
+<span class="badge" id="cartCount">0</span>
 </button>
-
 
 <div class="panel" id="cartPanel">
 
 <div class="panelTop">
-
 <h2>🛒 Cart</h2>
-
-<button
-class="close"
-onclick="toggleCart()">
-✕
-</button>
-
+<button class="close" onclick="toggleCart()">✕</button>
 </div>
 
 <div id="cartItems"></div>
 
-<div
-class="total"
-id="cartTotal">
-</div>
+<div class="total" id="cartTotal"></div>
 
-<button
-class="checkout"
-onclick="checkout()">
+<button class="checkout" onclick="checkout()">
 Continue to Checkout
 </button>
 
@@ -1203,15 +881,10 @@ Continue to Checkout
 
 <div class="panelTop">
 
-<h2 id="productTitle">
-Product
-</h2>
+<h2 id="productTitle">Product</h2>
 
-<button
-class="close"
-onclick="closeModal('productModal')">
-✕
-</button>
+<button class="close"
+onclick="closeModal('productModal')">✕</button>
 
 </div>
 
@@ -1243,22 +916,16 @@ onclick="closeModal('productModal')">
 
 </div>
 
-<div
-class="price"
-id="productPrice">
-</div>
+<div class="price" id="productPrice"></div>
 
 <div class="modalActions">
 
-<button
-class="cancel"
+<button class="cancel"
 onclick="closeModal('productModal')">
 Cancel
 </button>
 
-<button
-class="save"
-onclick="addSelected()">
+<button class="save" onclick="addSelected()">
 🛒 Add to Cart
 </button>
 
@@ -1276,15 +943,11 @@ onclick="addSelected()">
 
 <div class="accountHead">
 
-<div class="avatar" id="avatar">
-C
-</div>
+<div class="avatar" id="avatar">C</div>
 
 <h2>👤 Caygram Account</h2>
 
-<p class="muted">
-Your profile
-</p>
+<p class="muted">Local demo profile</p>
 
 </div>
 
@@ -1292,9 +955,7 @@ Your profile
 
 <label>Username</label>
 
-<input
-id="username"
-placeholder="CaygramFan">
+<input id="username" placeholder="CaygramFan">
 
 </div>
 
@@ -1302,28 +963,22 @@ placeholder="CaygramFan">
 
 <label>Email</label>
 
-<input
-id="email"
-type="email"
-placeholder="you@example.com">
+<input id="email" type="email" placeholder="you@example.com">
 
 </div>
 
 <div class="notice">
-Demo profile only. Your information stays in this browser.
+This demo saves your profile only in this browser.
 </div>
 
 <div class="modalActions">
 
-<button
-class="cancel"
+<button class="cancel"
 onclick="closeModal('accountModal')">
 Close
 </button>
 
-<button
-class="save"
-onclick="saveAccount()">
+<button class="save" onclick="saveAccount()">
 Save
 </button>
 
@@ -1343,11 +998,8 @@ Save
 
 <h2>⚙️ Settings</h2>
 
-<button
-class="close"
-onclick="closeModal('settingsModal')">
-✕
-</button>
+<button class="close"
+onclick="closeModal('settingsModal')">✕</button>
 
 </div>
 
@@ -1407,6 +1059,7 @@ onclick="closeModal('settingsModal')">
 
 </div>
 
+
 <div class="field">
 
 <label>💱 Currency</label>
@@ -1456,7 +1109,6 @@ onclick="closeModal('settingsModal')">
 <option>GHS</option>
 <option>MAD</option>
 <option>TND</option>
-<option>BRL</option>
 <option>CLP</option>
 <option>ARS</option>
 <option>UAH</option>
@@ -1464,12 +1116,13 @@ onclick="closeModal('settingsModal')">
 <option>BHD</option>
 <option>JOD</option>
 <option>LBP</option>
-<option>PKR</option>
 <option>BDT</option>
 <option>LKR</option>
+
 </select>
 
 </div>
+
 
 <div class="field">
 
@@ -1484,15 +1137,12 @@ onclick="closeModal('settingsModal')">
 
 <div class="modalActions">
 
-<button
-class="cancel"
+<button class="cancel"
 onclick="closeModal('settingsModal')">
 Cancel
 </button>
 
-<button
-class="save"
-onclick="saveSettings()">
+<button class="save" onclick="saveSettings()">
 Save Settings
 </button>
 
@@ -1502,7 +1152,7 @@ Save Settings
 </div>
 
 
-<!-- ORDER MODAL -->
+<!-- ORDER -->
 
 <div class="modal" id="orderModal">
 
@@ -1512,11 +1162,8 @@ Save Settings
 
 <h2>📦 Demo Order</h2>
 
-<button
-class="close"
-onclick="closeModal('orderModal')">
-✕
-</button>
+<button class="close"
+onclick="closeModal('orderModal')">✕</button>
 
 </div>
 
@@ -1535,25 +1182,21 @@ Order number:
 </div>
 
 <div class="notice">
-This is a demo order. Real orders require a real store and shipping/payment system.
+Demo only. Real payment and shipping need a secure store backend.
 </div>
 
 </div>
 </div>
 
 
-<div
-class="notification"
-id="notification">
+<div class="notification" id="notification">
 🔥 Welcome to Caygram!
 </div>
 
 
 <script>
 
-/* ===============================
-CURRENCY
-=============================== */
+/* CURRENCY RATES */
 
 const rates={
 AED:1,
@@ -1610,29 +1253,21 @@ BDT:33,
 LKR:82
 };
 
-let currency=
-localStorage.getItem("cayCurrency")||"AED";
+let currency=localStorage.getItem("cayCurrency")||"AED";
 
 
 function money(aed){
 
-let value=aed*(rates[currency]||1);
+const value=aed*(rates[currency]||1);
 
 try{
-
-return new Intl.NumberFormat(
-undefined,
-{
+return new Intl.NumberFormat(undefined,{
 style:"currency",
 currency:currency,
 maximumFractionDigits:value<10?2:0
-}
-).format(value);
-
-}catch(e){
-
+}).format(value);
+}catch(error){
 return value.toFixed(2)+" "+currency;
-
 }
 
 }
@@ -1640,22 +1275,13 @@ return value.toFixed(2)+" "+currency;
 
 function updatePrices(){
 
-document.querySelectorAll(
-".price[data-aed]"
-).forEach(el=>{
-
-el.textContent=
-money(Number(el.dataset.aed));
-
+document.querySelectorAll(".price[data-aed]").forEach(el=>{
+el.textContent=money(Number(el.dataset.aed));
 });
 
 if(selectedProduct){
-
-document.getElementById(
-"productPrice"
-).textContent=
+document.getElementById("productPrice").textContent=
 money(selectedProduct.price);
-
 }
 
 updateCart();
@@ -1663,14 +1289,11 @@ updateCart();
 }
 
 
-/* ===============================
-ACCOUNT
-=============================== */
+/* ACCOUNT */
 
 function openAccount(){
 
-let account=
-JSON.parse(
+const account=JSON.parse(
 localStorage.getItem("cayAccount")||"null"
 );
 
@@ -1683,30 +1306,27 @@ document.getElementById("email").value=
 account.email||"";
 
 document.getElementById("avatar").textContent=
-(account.username||"C")
-.charAt(0).toUpperCase();
+(account.username||"C").charAt(0).toUpperCase();
 
 }
 
-document.getElementById(
-"accountModal"
-).classList.add("show");
+document.getElementById("accountModal")
+.classList.add("show");
 
 }
 
 
 function saveAccount(){
 
-let username=
+const username=
 document.getElementById("username").value.trim();
 
-let email=
+const email=
 document.getElementById("email").value.trim();
 
 if(!username){
 
 alert("Please enter a username.");
-
 return;
 
 }
@@ -1719,8 +1339,7 @@ email:email
 })
 );
 
-document.getElementById("avatar")
-.textContent=
+document.getElementById("avatar").textContent=
 username.charAt(0).toUpperCase();
 
 closeModal("accountModal");
@@ -1730,14 +1349,11 @@ notify("👤 Profile saved!");
 }
 
 
-/* ===============================
-SETTINGS
-=============================== */
+/* SETTINGS */
 
 function openSettings(){
 
-document.getElementById("currency").value=
-currency;
+document.getElementById("currency").value=currency;
 
 document.getElementById("language").value=
 localStorage.getItem("cayLanguage")||"en";
@@ -1745,35 +1361,25 @@ localStorage.getItem("cayLanguage")||"en";
 document.getElementById("theme").value=
 localStorage.getItem("cayTheme")||"dark";
 
-document.getElementById(
-"settingsModal"
-).classList.add("show");
+document.getElementById("settingsModal")
+.classList.add("show");
 
 }
 
 
 function saveSettings(){
 
-currency=
-document.getElementById("currency").value;
+currency=document.getElementById("currency").value;
 
-let language=
+const language=
 document.getElementById("language").value;
 
-let theme=
+const theme=
 document.getElementById("theme").value;
 
-localStorage.setItem(
-"cayCurrency",currency
-);
-
-localStorage.setItem(
-"cayLanguage",language
-);
-
-localStorage.setItem(
-"cayTheme",theme
-);
+localStorage.setItem("cayCurrency",currency);
+localStorage.setItem("cayLanguage",language);
+localStorage.setItem("cayTheme",theme);
 
 document.body.classList.toggle(
 "light",
@@ -1789,9 +1395,7 @@ notify("⚙️ Settings saved!");
 }
 
 
-/* ===============================
-PRODUCT
-=============================== */
+/* PRODUCT */
 
 let selectedProduct=null;
 
@@ -1802,17 +1406,13 @@ name:name,
 price:price
 };
 
-document.getElementById(
-"productTitle"
-).textContent=name;
+document.getElementById("productTitle").textContent=name;
 
-document.getElementById(
-"productPrice"
-).textContent=money(price);
+document.getElementById("productPrice").textContent=
+money(price);
 
-document.getElementById(
-"productModal"
-).classList.add("show");
+document.getElementById("productModal")
+.classList.add("show");
 
 }
 
@@ -1821,16 +1421,12 @@ function addSelected(){
 
 if(!selectedProduct)return;
 
-let size=
-document.getElementById(
-"productSize"
-).value;
+const size=
+document.getElementById("productSize").value;
 
-let quantity=
+const quantity=
 Number(
-document.getElementById(
-"productQuantity"
-).value
+document.getElementById("productQuantity").value
 );
 
 addToCart(
@@ -1845,36 +1441,28 @@ closeModal("productModal");
 }
 
 
-/* ===============================
-CART
-=============================== */
+/* CART */
 
-let cart=
-JSON.parse(
+let cart=JSON.parse(
 localStorage.getItem("cayCart")||"[]"
 );
 
 
 function addToCart(name,price,size,qty){
 
-let item=
-cart.find(
+const item=cart.find(
 x=>x.name===name&&x.size===size
 );
 
 if(item){
-
 item.qty+=qty;
-
 }else{
-
 cart.push({
 name:name,
 price:price,
 size:size,
 qty:qty
 });
-
 }
 
 saveCart();
@@ -1898,7 +1486,7 @@ updateCart();
 
 function updateCart(){
 
-let container=
+const container=
 document.getElementById("cartItems");
 
 let total=0;
@@ -1909,13 +1497,11 @@ if(!cart.length){
 container.innerHTML=
 '<p class="muted">Your cart is empty.</p>';
 
-document.getElementById(
-"cartTotal"
-).textContent="";
+document.getElementById("cartTotal")
+.textContent="";
 
-document.getElementById(
-"cartCount"
-).textContent="0";
+document.getElementById("cartCount")
+.textContent="0";
 
 return;
 
@@ -1933,24 +1519,18 @@ html+=`
 <div class="cartItem">
 
 <div>
-<strong>${item.name}</strong>
+<strong>${escapeHTML(item.name)}</strong>
 <br>
-<small>
-Size ${item.size} · ${money(item.price)}
-</small>
+<small>Size ${escapeHTML(item.size)} · ${money(item.price)}</small>
 </div>
 
 <div class="qty">
 
-<button onclick="changeQty(${index},-1)">
-−
-</button>
+<button onclick="changeQty(${index},-1)">−</button>
 
 ${item.qty}
 
-<button onclick="changeQty(${index},1)">
-+
-</button>
+<button onclick="changeQty(${index},1)">+</button>
 
 </div>
 
@@ -1962,26 +1542,23 @@ ${item.qty}
 
 container.innerHTML=html;
 
-document.getElementById(
-"cartTotal"
-).textContent=
-"Total: "+money(total);
+document.getElementById("cartTotal")
+.textContent="Total: "+money(total);
 
-document.getElementById(
-"cartCount"
-).textContent=count;
+document.getElementById("cartCount")
+.textContent=count;
 
 }
 
 
 function changeQty(index,amount){
 
+if(!cart[index])return;
+
 cart[index].qty+=amount;
 
 if(cart[index].qty<=0){
-
 cart.splice(index,1);
-
 }
 
 saveCart();
@@ -1991,65 +1568,49 @@ saveCart();
 
 function toggleCart(){
 
-document.getElementById(
-"cartPanel"
-).classList.toggle("open");
+document.getElementById("cartPanel")
+.classList.toggle("open");
 
 }
 
 
-/* ===============================
-DEMO CHECKOUT
-=============================== */
+/* CHECKOUT */
 
 function checkout(){
 
 if(!cart.length){
 
 notify("🛒 Your cart is empty.");
-
 return;
 
 }
 
-let order=
+const order=
 "CAY-"+Math.floor(
 100000+Math.random()*900000
 );
 
-localStorage.setItem(
-"cayLastOrder",
-order
-);
+localStorage.setItem("cayLastOrder",order);
 
 cart=[];
-
 saveCart();
 
-document.getElementById(
-"orderNumber"
-).textContent=order;
+document.getElementById("orderNumber")
+.textContent=order;
 
-document.getElementById(
-"cartPanel"
-).classList.remove("open");
+document.getElementById("cartPanel")
+.classList.remove("open");
 
-document.getElementById(
-"orderModal"
-).classList.add("show");
+document.getElementById("orderModal")
+.classList.add("show");
 
 }
 
 
-/* ===============================
-FAVORITES
-=============================== */
+/* FAVORITES */
 
-let favorites=
-JSON.parse(
-localStorage.getItem(
-"cayFavorites"
-)||"[]"
+let favorites=JSON.parse(
+localStorage.getItem("cayFavorites")||"[]"
 );
 
 
@@ -2057,8 +1618,9 @@ function favorite(button,name){
 
 if(favorites.includes(name)){
 
-favorites=
-favorites.filter(x=>x!==name);
+favorites=favorites.filter(
+x=>x!==name
+);
 
 button.textContent="♡";
 button.classList.remove("liked");
@@ -2081,50 +1643,45 @@ localStorage.setItem(
 JSON.stringify(favorites)
 );
 
+}
 
-/* ===============================
-SEARCH
-=============================== */
+
+/* SEARCH */
 
 function searchSite(){
 
-let query=
-document.getElementById(
-"searchInput"
-).value.toLowerCase().trim();
+const query=
+document.getElementById("searchInput")
+.value.toLowerCase()
+.trim();
 
-let cards=
+const cards=
 document.querySelectorAll(".searchable");
 
 let found=0;
 
 cards.forEach(card=>{
 
-let text=
-(card.dataset.search||"")
-.toLowerCase();
+const text=(
+(card.dataset.search||"")+" "+
+card.textContent
+).toLowerCase();
 
-let show=
-!query||text.includes(query);
+const show=!query||text.includes(query);
 
-card.style.display=
-show?"block":"none";
+card.style.display=show?"block":"none";
 
 if(show)found++;
 
 });
 
-document.getElementById(
-"noResults"
-).style.display=
-found?"none":"block";
+document.getElementById("noResults")
+.style.display=found?"none":"block";
 
 }
 
 
-/* ===============================
-FAQ
-=============================== */
+/* FAQ */
 
 function toggleFAQ(element){
 
@@ -2133,30 +1690,27 @@ element.classList.toggle("open");
 }
 
 
-/* ===============================
-MODALS
-=============================== */
+/* MODAL */
 
 function closeModal(id){
 
-document.getElementById(id)
-.classList.remove("show");
+const modal=document.getElementById(id);
+
+if(modal){
+modal.classList.remove("show");
+}
 
 }
 
 
-/* ===============================
-NOTIFICATION
-=============================== */
+/* NOTIFICATION */
 
-let notificationTimer;
+let notificationTimer=null;
 
 function notify(message){
 
-let box=
-document.getElementById(
-"notification"
-);
+const box=
+document.getElementById("notification");
 
 box.textContent=message;
 
@@ -2164,8 +1718,7 @@ box.classList.add("show");
 
 clearTimeout(notificationTimer);
 
-notificationTimer=
-setTimeout(
+notificationTimer=setTimeout(
 ()=>{
 box.classList.remove("show");
 },
@@ -2175,28 +1728,35 @@ box.classList.remove("show");
 }
 
 
-/* ===============================
-STARTUP
-=============================== */
+/* SECURITY HELPER */
 
-let savedTheme=
-localStorage.getItem(
-"cayTheme"
-)||"dark";
+function escapeHTML(value){
 
-if(savedTheme==="light"){
-
-document.body.classList.add("light");
+return String(value)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
 
 }
+
+
+/* LOAD SETTINGS */
+
+const savedTheme=
+localStorage.getItem("cayTheme")||"dark";
+
+document.body.classList.toggle(
+"light",
+savedTheme==="light"
+);
 
 updatePrices();
 
 setTimeout(
-()=>{
-notify("🔥 Welcome to Caygram!");
-},
-900
+()=>notify("🔥 Welcome to Caygram!"),
+700
 );
 
 </script>
