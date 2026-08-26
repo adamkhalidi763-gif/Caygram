@@ -3,244 +3,842 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CAYGRAM</title>
+<title>CAYGRAM | Official Website</title>
+<meta name="description" content="The official Caygram website — Roblox, football, challenges, videos and merch.">
+
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:Arial,Helvetica,sans-serif;background:#07070b;color:#fff;line-height:1.5}
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:#07070b;
+color:white;
+line-height:1.5
+}
 a{text-decoration:none;color:inherit}
-nav{position:sticky;top:0;z-index:10;background:rgba(7,7,11,.85);backdrop-filter:blur(14px);border-bottom:1px solid #24242d}
-.nav{max-width:1100px;margin:auto;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;gap:15px}
-.logo{font-weight:900;letter-spacing:2px;font-size:1.3rem;background:linear-gradient(90deg,#9b5cff,#ff4fa3);-webkit-background-clip:text;color:transparent}
-.links{display:flex;gap:7px;flex-wrap:wrap;justify-content:center}
-.links a{padding:8px 10px;border-radius:9px;color:#bbb;font-size:.82rem}
-.links a:hover{background:#19191f;color:#fff}
-.hero{min-height:82vh;display:flex;align-items:center;text-align:center;padding:60px 18px;background:radial-gradient(circle at 50% 10%,#7c3aed33,transparent 40%)}
-.hero-inner{max-width:850px;margin:auto}
-.logo-box{width:100px;height:100px;margin:0 auto 24px;border:2px dashed #555;border-radius:25px;display:flex;align-items:center;justify-content:center;color:#888;font-size:.75rem}
-h1{font-size:clamp(4rem,15vw,8rem);line-height:.9;letter-spacing:-5px;background:linear-gradient(90deg,#fff,#c4b5fd,#f9a8d4);-webkit-background-clip:text;color:transparent}
-.hero p{max-width:650px;margin:25px auto;color:#aaa;font-size:1.1rem}
-.buttons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
-.btn{padding:13px 20px;border-radius:13px;font-weight:800;display:inline-block;border:1px solid #333}
-.primary{background:linear-gradient(135deg,#8b5cf6,#ec4899);border:0}
-.youtube{background:#ff0033;border-color:#ff0033}
-section{padding:70px 18px}
-.container{max-width:1050px;margin:auto}
-.heading{text-align:center;margin-bottom:35px}
-.heading small{color:#a78bfa;text-transform:uppercase;letter-spacing:3px;font-weight:800}
-.heading h2{font-size:clamp(2rem,6vw,3rem);margin:7px 0}
+
+nav{
+position:sticky;
+top:0;
+z-index:100;
+background:rgba(7,7,11,.94);
+backdrop-filter:blur(14px);
+border-bottom:1px solid #292932
+}
+
+.nav{
+max-width:1100px;
+margin:auto;
+padding:14px 18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:15px
+}
+
+.logo{
+font-size:1.4rem;
+font-weight:900;
+letter-spacing:2px;
+background:linear-gradient(90deg,#9b5cff,#ff4fa3);
+-webkit-background-clip:text;
+color:transparent
+}
+
+.links{
+display:flex;
+gap:6px;
+flex-wrap:wrap;
+justify-content:center
+}
+
+.links a{
+padding:9px 11px;
+border-radius:10px;
+color:#bbb;
+font-size:.85rem;
+font-weight:bold
+}
+
+.links a:hover{
+background:#1b1b22;
+color:white
+}
+
+section{padding:75px 18px}
+
+.container{
+max-width:1050px;
+margin:auto
+}
+
+.hero{
+min-height:82vh;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+background:
+radial-gradient(circle at 50% 10%,#7c3aed55,transparent 40%)
+}
+
+.hero-inner{
+max-width:850px;
+margin:auto
+}
+
+.logo-circle{
+width:125px;
+height:125px;
+margin:auto auto 25px;
+border-radius:30px;
+background:linear-gradient(145deg,#22222c,#09090d);
+border:2px solid #444;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:3rem;
+box-shadow:0 20px 60px #000
+}
+
+h1{
+font-size:clamp(4rem,15vw,8rem);
+line-height:.9;
+letter-spacing:-5px;
+background:linear-gradient(90deg,#fff,#c4b5fd,#f9a8d4);
+-webkit-background-clip:text;
+color:transparent
+}
+
+.hero p{
+max-width:650px;
+margin:25px auto;
+color:#aaa;
+font-size:1.1rem
+}
+
+.buttons{
+display:flex;
+justify-content:center;
+gap:12px;
+flex-wrap:wrap
+}
+
+.btn{
+display:inline-block;
+padding:14px 21px;
+border-radius:13px;
+font-weight:900;
+border:1px solid #444;
+margin:5px
+}
+
+.youtube{
+background:#ff0033;
+border-color:#ff0033
+}
+
+.primary{
+background:linear-gradient(135deg,#8b5cf6,#ec4899);
+border:0
+}
+
+.heading{
+text-align:center;
+margin-bottom:35px
+}
+
+.heading small{
+color:#a78bfa;
+text-transform:uppercase;
+letter-spacing:3px;
+font-weight:900
+}
+
+.heading h2{
+font-size:clamp(2rem,6vw,3rem);
+margin:7px 0
+}
+
 .heading p{color:#999}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.card{background:linear-gradient(145deg,#16161d,#0d0d11);border:1px solid #292932;border-radius:20px;overflow:hidden}
-.thumb{aspect-ratio:16/9;background:linear-gradient(135deg,#4c1d95,#831843);display:flex;align-items:center;justify-content:center;font-size:3rem;position:relative}
-.play{position:absolute;background:#000b;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem}
-.info{padding:17px}.info h3{margin-bottom:6px}.info p{color:#999;font-size:.9rem;margin-bottom:13px}.watch{background:#22222a;padding:8px 12px;border-radius:8px;font-size:.8rem;font-weight:bold}
-.category{min-height:220px;padding:25px;display:flex;flex-direction:column;justify-content:flex-end;position:relative}
-.category .icon{position:absolute;right:22px;top:18px;font-size:4rem}
-.category p{color:#aaa;font-size:.9rem}.roblox{background:radial-gradient(circle at 80% 20%,#8b5cf644,transparent 45%),#14141a}.football{background:radial-gradient(circle at 80% 20%,#22c55e33,transparent 45%),#121815}.challenge{background:radial-gradient(circle at 80% 20%,#ec489933,transparent 45%),#171217}
-.milestones{background:#ffffff06;border-top:1px solid #222;border-bottom:1px solid #222}
-.milestone{padding:25px;text-align:center;background:#ffffff06;border:1px solid #292932;border-radius:17px}
-.num{font-size:2.1rem;font-weight:900;background:linear-gradient(90deg,#a78bfa,#f9a8d4);-webkit-background-clip:text;color:transparent}
-.merch{padding:18px}.product-img{aspect-ratio:1;background:#101014;border:1px solid #292932;border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:5rem;margin-bottom:16px}.merch p{color:#999;font-size:.88rem;margin:5px 0 15px}.stock{display:block;text-align:center;padding:10px;background:#ef44441a;border:1px solid #ef444433;color:#ff9090;border-radius:9px;font-weight:900;font-size:.8rem;letter-spacing:1px}
-.social{max-width:700px;margin:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.social a{padding:17px;text-align:center;border:1px solid #292932;border-radius:14px;background:#ffffff06}.social span{display:block;color:#999;font-size:.8rem;margin-top:3px}
-.cta{text-align:center}.cta-box{padding:50px 20px;border:1px solid #7c3aed44;border-radius:25px;background:radial-gradient(circle at 50% 0,#8b5cf633,transparent 55%)}
-footer{text-align:center;padding:30px 18px;border-top:1px solid #222;color:#888}
-@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.nav{flex-direction:column}.social{grid-template-columns:1fr}}
-@media(max-width:550px){.grid{grid-template-columns:1fr}.links a{font-size:.7rem;padding:6px}.hero{min-height:75vh}.social{grid-template-columns:1fr}h1{letter-spacing:-3px}}
 
-<style>
-/* REALISTIC CAYGRAM MERCH MOCKUPS */
-.merch-visual{
-  aspect-ratio:1/1;
-  border-radius:15px;
-  margin-bottom:16px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  position:relative;
-  overflow:hidden;
-  background:radial-gradient(circle at 50% 25%,#30303a,transparent 35%),#0c0c10;
-  border:1px solid #292932;
+.grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:18px
 }
-.hoodie-shape{
-  width:58%;
-  height:70%;
-  background:#09090b;
-  position:relative;
-  clip-path:polygon(22% 7%,37% 0,50% 12%,63% 0,78% 7%,100% 27%,86% 40%,76% 29%,76% 100%,24% 100%,24% 29%,14% 40%,0 27%);
-  filter:drop-shadow(0 12px 12px #000);
-}
-.hoodie-shape:before{
-  content:"";
-  position:absolute;
-  width:31%;
-  height:13%;
-  left:34.5%;
-  top:5%;
-  border:3px solid #333;
-  border-radius:50%;
-}
-.cay-print{
-  position:absolute;
-  left:50%;
-  top:43%;
-  transform:translate(-50%,-50%);
-  font-size:1.05rem;
-  font-weight:1000;
-  letter-spacing:-1px;
-  color:white;
-  white-space:nowrap;
-}
-.cay-print b{color:#ef3340}
-.tshirt-shape{
-  width:58%;
-  height:64%;
-  background:#17171c;
-  position:relative;
-  clip-path:polygon(23% 0,39% 9%,50% 15%,61% 9%,77% 0,100% 25%,84% 39%,75% 29%,75% 100%,25% 100%,25% 29%,16% 39%,0 25%);
-  filter:drop-shadow(0 12px 12px #000);
-}
-.tshirt-shape .cay-print{top:47%}
-.spain-shirt{
-  width:58%;
-  height:64%;
-  background:linear-gradient(90deg,#b90e1a 0 16%,#d81724 16% 84%,#b90e1a 84%);
-  position:relative;
-  clip-path:polygon(23% 0,39% 9%,50% 15%,61% 9%,77% 0,100% 25%,84% 39%,75% 29%,75% 100%,25% 100%,25% 29%,16% 39%,0 25%);
-  filter:drop-shadow(0 12px 12px #000);
-}
-.spain-shirt:before{
-  content:"";
-  position:absolute;
-  inset:0 8%;
-  background:repeating-linear-gradient(90deg,transparent 0 13px,#f2c500 13px 16px,transparent 16px 30px);
-  opacity:.55;
-}
-.spain-shirt .cay-print{
-  top:39%;
-  font-size:.85rem;
-  text-shadow:0 2px 3px #000;
-}
-.spain-shirt .number{
-  position:absolute;
-  left:50%;
-  top:55%;
-  transform:translateX(-50%);
-  font-size:2.2rem;
-  font-weight:1000;
-  color:#f5c400;
-  text-shadow:2px 2px 2px #8a0000;
-}
-.merch-visual svg{width:100%;height:100%;display:block}
-</style>
 
+.card{
+background:linear-gradient(145deg,#17171f,#0d0d11);
+border:1px solid #292932;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 15px 40px #0004
+}
+
+.thumb{
+aspect-ratio:16/9;
+background:linear-gradient(135deg,#4c1d95,#831843);
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:4rem
+}
+
+.info{
+padding:18px
+}
+
+.info h3{margin-bottom:7px}
+.info p{color:#999;margin-bottom:15px}
+
+.watch{
+display:inline-block;
+background:#24242c;
+padding:9px 13px;
+border-radius:9px;
+font-size:.8rem;
+font-weight:bold
+}
+
+.category{
+min-height:220px;
+padding:25px;
+display:flex;
+flex-direction:column;
+justify-content:flex-end;
+position:relative
+}
+
+.category .icon{
+position:absolute;
+right:22px;
+top:18px;
+font-size:4rem
+}
+
+.category p{color:#aaa}
+
+.roblox{
+background:radial-gradient(circle at 80% 20%,#8b5cf655,transparent 45%),#14141a
+}
+
+.football{
+background:radial-gradient(circle at 80% 20%,#22c55e44,transparent 45%),#121815
+}
+
+.challenge{
+background:radial-gradient(circle at 80% 20%,#ec489944,transparent 45%),#171217
+}
+
+.milestones{
+background:#ffffff06;
+border-top:1px solid #222;
+border-bottom:1px solid #222
+}
+
+.milestone{
+padding:27px;
+text-align:center;
+background:#ffffff08;
+border:1px solid #292932;
+border-radius:17px
+}
+
+.num{
+font-size:2.4rem;
+font-weight:900;
+background:linear-gradient(90deg,#a78bfa,#f9a8d4);
+-webkit-background-clip:text;
+color:transparent
+}
+
+/* REALISTIC-STYLE MERCH */
+
+.merch{
+padding:18px
+}
+
+.product{
+height:330px;
+background:
+radial-gradient(circle at 50% 20%,#41414d,transparent 32%),
+linear-gradient(145deg,#101015,#08080c);
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+overflow:hidden;
+margin-bottom:18px
+}
+
+.product:after{
+content:"";
+position:absolute;
+bottom:18px;
+width:65%;
+height:20px;
+background:#000;
+filter:blur(12px);
+opacity:.7
+}
+
+.hoodie{
+width:190px;
+height:235px;
+position:relative;
+background:linear-gradient(145deg,#34343b,#080809 65%);
+clip-path:polygon(
+23% 7%,39% 0,50% 13%,61% 0,77% 7%,
+100% 28%,85% 43%,76% 32%,76% 100%,
+24% 100%,24% 32%,15% 43%,0 28%
+);
+filter:drop-shadow(0 20px 20px #000);
+z-index:2
+}
+
+.hoodie:before{
+content:"";
+position:absolute;
+width:70px;
+height:42px;
+left:60px;
+top:10px;
+border:5px solid #17171b;
+border-radius:50%
+}
+
+.tshirt{
+width:190px;
+height:215px;
+position:relative;
+background:linear-gradient(145deg,#35353d,#080809 70%);
+clip-path:polygon(
+23% 0,39% 9%,50% 15%,61% 9%,77% 0,
+100% 25%,84% 40%,75% 30%,75% 100%,
+25% 100%,25% 30%,16% 40%,0 25%
+);
+filter:drop-shadow(0 20px 20px #000);
+z-index:2
+}
+
+.football-shirt{
+width:190px;
+height:215px;
+position:relative;
+background:
+linear-gradient(90deg,#a70016 0 17%,#d71920 17% 83%,#a70016 83%);
+clip-path:polygon(
+23% 0,39% 9%,50% 15%,61% 9%,77% 0,
+100% 25%,84% 40%,75% 30%,75% 100%,
+25% 100%,25% 30%,16% 40%,0 25%
+);
+filter:drop-shadow(0 20px 20px #000);
+z-index:2
+}
+
+.print{
+position:absolute;
+top:43%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:23px;
+font-weight:1000;
+white-space:nowrap;
+text-shadow:0 2px 4px #000
+}
+
+.print span{color:#ef3340}
+
+.number{
+position:absolute;
+top:57%;
+left:50%;
+transform:translateX(-50%);
+font-size:50px;
+font-weight:1000;
+color:#f5c400;
+text-shadow:2px 3px 3px #76000a
+}
+
+.stock{
+display:block;
+text-align:center;
+padding:11px;
+margin-top:13px;
+background:#ef44441a;
+border:1px solid #ef444455;
+color:#ff8d8d;
+border-radius:10px;
+font-weight:900;
+font-size:.8rem;
+letter-spacing:1px
+}
+
+.merch p{
+color:#999;
+font-size:.9rem;
+margin-top:5px
+}
+
+.social{
+max-width:750px;
+margin:auto;
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:13px
+}
+
+.social a{
+padding:20px;
+text-align:center;
+border:1px solid #292932;
+border-radius:15px;
+background:#ffffff06
+}
+
+.social span{
+display:block;
+color:#999;
+font-size:.8rem;
+margin-top:4px
+}
+
+.cta{text-align:center}
+
+.cta-box{
+padding:55px 20px;
+border:1px solid #7c3aed55;
+border-radius:25px;
+background:
+radial-gradient(circle at 50% 0,#8b5cf644,transparent 55%)
+}
+
+footer{
+text-align:center;
+padding:35px 18px;
+border-top:1px solid #222;
+color:#888
+}
+
+@media(max-width:800px){
+.grid{grid-template-columns:repeat(2,1fr)}
+.nav{flex-direction:column}
+}
+
+@media(max-width:550px){
+.grid{grid-template-columns:1fr}
+.social{grid-template-columns:1fr}
+.links a{font-size:.72rem;padding:7px}
+h1{letter-spacing:-3px}
+}
 </style>
 </head>
+
 <body>
-<nav><div class="nav"><a class="logo" href="#home">CAYGRAM</a><div class="links"><a href="#home">Home</a><a href="#videos">Videos</a><a href="#content">Content</a><a href="#milestones">Milestones</a><a href="#shop">Shop</a><a href="#social">Social</a></div></div></nav>
 
-<section class="hero" id="home"><div class="hero-inner">
-<div class="logo-box">YOUR<br>LOGO<br>HERE</div>
+<nav>
+<div class="nav">
+
+<a class="logo" href="#home">CAYGRAM</a>
+
+<div class="links">
+<a href="#home">Home</a>
+<a href="#videos">Videos</a>
+<a href="#content">Content</a>
+<a href="#milestones">Milestones</a>
+<a href="#shop">Shop</a>
+<a href="#social">Social</a>
+</div>
+
+</div>
+</nav>
+
+
+<section class="hero" id="home">
+
+<div class="hero-inner">
+
+<div class="logo-circle">
+⚡
+</div>
+
 <h1>CAYGRAM</h1>
-<p>Welcome to Caygram! 🎮⚽🔥 Gaming, Roblox, football, challenges and crazy videos — all in one place.</p>
-<div class="buttons"><a class="btn youtube" href="https://www.youtube.com/@CaygramYT" target="_blank">▶ Watch on YouTube</a><a class="btn" href="#videos">🎬 Latest Videos</a></div>
-</div></section>
 
-<section id="videos"><div class="container"><div class="heading"><small>Caygram Content</small><h2>🎬 Latest Videos</h2><p>Replace these easy placeholders with your real videos later.</p></div><div class="grid">
-<article class="card"><div class="thumb">🎮<span class="play">▶</span></div><div class="info"><h3>Your Latest Video</h3><p>Add your newest Caygram video here.</p><a class="watch" href="https://www.youtube.com/@CaygramYT" target="_blank">Watch Video →</a></div></article>
-<article class="card"><div class="thumb">🔥<span class="play">▶</span></div><div class="info"><h3>Another Caygram Video</h3><p>Add another video and thumbnail here.</p><a class="watch" href="https://www.youtube.com/@CaygramYT" target="_blank">Watch Video →</a></div></article>
-<article class="card"><div class="thumb">😂<span class="play">▶</span></div><div class="info"><h3>New Challenge</h3><p>Show one of your funniest videos here.</p><a class="watch" href="https://www.youtube.com/@CaygramYT" target="_blank">Watch Video →</a></div></article>
-</div></div></section>
+<p>
+Welcome to the official Caygram website! 🎮⚽🔥
+<br>
+Roblox, football, challenges and crazy videos.
+</p>
 
-<section id="content"><div class="container"><div class="heading"><small>What We Make</small><h2>🎮 Caygram Content</h2><p>Gaming, football and challenges.</p></div><div class="grid">
-<a class="card category roblox" href="https://www.youtube.com/@CaygramYT" target="_blank"><span class="icon">🎮</span><h3>Roblox</h3><p>Gameplay, funny moments, challenges and more.</p></a>
-<a class="card category football" href="https://www.youtube.com/@CaygramYT" target="_blank"><span class="icon">⚽</span><h3>Football</h3><p>Skills, challenges and crazy football moments.</p></a>
-<a class="card category challenge" href="https://www.youtube.com/@CaygramYT" target="_blank"><span class="icon">😂</span><h3>Challenges</h3><p>Funny challenges and entertaining Caygram moments.</p></a>
-</div></div></section>
+<div class="buttons">
 
-<section id="milestones" class="milestones"><div class="container"><div class="heading"><small>The Journey</small><h2>🏆 Subscriber Milestones</h2><p>Every subscriber helps Caygram grow!</p></div><div class="grid">
-<div class="milestone"><div class="num">100</div><p>First 100 Subscribers</p></div><div class="milestone"><div class="num">1K</div><p>1,000 Subscribers</p></div><div class="milestone"><div class="num">10K</div><p>10,000 Subscribers</p></div><div class="milestone"><div class="num">100K</div><p>100,000 Subscribers</p></div>
-</div></div></section>
+<a class="btn youtube"
+href="https://www.youtube.com/@CaygramYT"
+target="_blank">
+▶ WATCH ON YOUTUBE
+</a>
 
-<section id="shop"><div class="container"><div class="heading"><small>Official Caygram Merch</small><h2>🛍️ Caygram Shop</h2><p>Merch coming soon!</p></div><div class="grid">
-<article class="card merch"><div class="merch-visual">
-<svg viewBox="0 0 400 400" role="img" aria-label="Caygram Black Hoodie">
-<defs><linearGradient id="hg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#22232a"/><stop offset=".55" stop-color="#08090b"/><stop offset="1" stop-color="#000"/></linearGradient></defs>
-<rect width="400" height="400" rx="28" fill="#0b0b10"/>
-<ellipse cx="200" cy="345" rx="125" ry="20" fill="#000" opacity=".55"/>
-<path d="M145 92 Q200 125 255 92 L335 145 L298 205 L268 183 L282 340 L118 340 L132 183 L102 205 L65 145 Z" fill="url(#hg)" stroke="#3a3b44" stroke-width="4"/>
-<path d="M145 92 Q200 155 255 92" fill="none" stroke="#444650" stroke-width="7"/>
-<path d="M158 104 Q200 78 242 104" fill="none" stroke="#111217" stroke-width="18"/>
-<text x="200" y="230" text-anchor="middle" font-family="Arial" font-weight="900" font-size="34" fill="white">CAY<tspan fill="#ef3340">GRAM</tspan></text>
-<path d="M160 250 Q200 266 240 250" fill="none" stroke="#555762" stroke-width="3"/>
-</svg></div><h3>Caygram Black Hoodie</h3><p>Official Caygram hoodie.</p><span class="stock">OUT OF STOCK</span></article>
-<article class="card merch"><div class="merch-visual">
-<svg viewBox="0 0 400 400" role="img" aria-label="Caygram T-Shirt">
-<defs><linearGradient id="tg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#303139"/><stop offset=".55" stop-color="#14151a"/><stop offset="1" stop-color="#08090b"/></linearGradient></defs>
-<rect width="400" height="400" rx="28" fill="#0b0b10"/>
-<ellipse cx="200" cy="340" rx="120" ry="20" fill="#000" opacity=".55"/>
-<path d="M145 82 L200 118 L255 82 L335 142 L300 205 L270 181 L278 335 L122 335 L130 181 L100 205 L65 142 Z" fill="url(#tg)" stroke="#454750" stroke-width="4"/>
-<path d="M165 93 Q200 123 235 93" fill="none" stroke="#555762" stroke-width="5"/>
-<text x="200" y="215" text-anchor="middle" font-family="Arial" font-weight="900" font-size="35" fill="white">CAY<tspan fill="#ef3340">GRAM</tspan></text>
-<text x="200" y="246" text-anchor="middle" font-family="Arial" font-size="13" fill="#aaa">OFFICIAL MERCH</text>
-</svg></div><h3>Caygram T-Shirt</h3><p>Official Caygram T-shirt.</p><span class="stock">OUT OF STOCK</span></article>
-<article class="card merch"><div class="merch-visual">
-<svg viewBox="0 0 400 400" role="img" aria-label="Caygram Spain Football Shirt">
-<rect width="400" height="400" rx="28" fill="#0b0b10"/>
-<ellipse cx="200" cy="345" rx="125" ry="20" fill="#000" opacity=".55"/>
-<path d="M145 78 L200 115 L255 78 L335 142 L300 205 L270 181 L278 340 L122 340 L130 181 L100 205 L65 142 Z" fill="#d71920" stroke="#8f0710" stroke-width="4"/>
-<path d="M145 78 L200 115 L255 78" fill="none" stroke="#f5c400" stroke-width="13"/>
-<path d="M145 88 L255 88" stroke="#f5c400" stroke-width="4"/>
-<path d="M130 130 L278 130 M124 165 L282 165 M121 200 L279 200 M120 235 L280 235 M120 270 L280 270" stroke="#ef3940" stroke-width="4" opacity=".65"/>
-<text x="200" y="205" text-anchor="middle" font-family="Arial" font-weight="900" font-size="27" fill="white">CAY<tspan fill="#f5c400">GRAM</tspan></text>
-<text x="200" y="258" text-anchor="middle" font-family="Arial" font-weight="900" font-size="64" fill="#f5c400" stroke="#8f0710" stroke-width="3">7</text>
-<text x="200" y="315" text-anchor="middle" font-family="Arial" font-weight="700" font-size="12" fill="#f5c400">SPAIN STYLE • CAYGRAM</text>
-</svg></div><h3>Caygram Spain Football Shirt</h3><p>Official Caygram football shirt.</p><span class="stock">OUT OF STOCK</span></article>
-</div></div></section>
+<a class="btn"
+href="#shop">
+🛍️ CAYGRAM SHOP
+</a>
 
-<section id="social"><div class="container"><div class="heading"><small>Stay Connected</small><h2>🔗 Social Links</h2><p>Follow Caygram and don't miss the next video!</p></div><div class="social">
-<a href="https://www.youtube.com/@CaygramYT" target="_blank"><strong>▶ YouTube</strong><span>@CaygramYT</span></a>
-<a href="#shop"><strong>🛍️ Shop</strong><span>Merch coming soon</span></a>
-<a href="#home"><strong>🔥 Caygram</strong><span>Back to top</span></a>
-</div></div></section>
+</div>
 
-<section class="cta"><div class="container"><div class="cta-box"><h2>Ready for Caygram? 🔥</h2><p>Watch the videos and join the Caygram journey!</p><a class="btn primary" href="https://www.youtube.com/@CaygramYT" target="_blank">▶ Visit Caygram on YouTube</a></div></div></section>
+</div>
+</section>
 
-<footer>© 2026 <strong>Caygram</strong> • All rights reserved.</footer>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const links = document.querySelectorAll('a[href^="#"]');
+<section id="videos">
 
-  links.forEach(function (link) {
-    link.addEventListener("click", function (event) {
-      const targetId = link.getAttribute("href");
+<div class="container">
 
-      if (!targetId || targetId === "#") return;
+<div class="heading">
+<small>Caygram Content</small>
+<h2>🎬 Latest Videos</h2>
+<p>Your newest videos can go here.</p>
+</div>
 
-      const target = document.querySelector(targetId);
+<div class="grid">
 
-      if (target) {
-        event.preventDefault();
+<div class="card">
+<div class="thumb">🎮</div>
 
-        const nav = document.querySelector("nav");
-        const navHeight = nav ? nav.offsetHeight : 0;
+<div class="info">
+<h3>Latest Caygram Video</h3>
+<p>Add your newest YouTube video here.</p>
 
-        const targetPosition =
-          target.getBoundingClientRect().top +
-          window.pageYOffset -
-          navHeight -
-          8;
+<a class="watch"
+href="https://www.youtube.com/@CaygramYT"
+target="_blank">
+WATCH →
+</a>
+</div>
+</div>
 
-        window.scrollTo({
-          top: Math.max(0, targetPosition),
-          behavior: "smooth"
-        });
-      }
-    });
-  });
-});
-</script>
+
+<div class="card">
+<div class="thumb">🔥</div>
+
+<div class="info">
+<h3>New Video</h3>
+<p>Add another Caygram video here.</p>
+
+<a class="watch"
+href="https://www.youtube.com/@CaygramYT"
+target="_blank">
+WATCH →
+</a>
+</div>
+</div>
+
+
+<div class="card">
+<div class="thumb">😂</div>
+
+<div class="info">
+<h3>Challenge</h3>
+<p>Put your funniest video here.</p>
+
+<a class="watch"
+href="https://www.youtube.com/@CaygramYT"
+target="_blank">
+WATCH →
+</a>
+</div>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<section id="content">
+
+<div class="container">
+
+<div class="heading">
+<small>What I Make</small>
+<h2>🎮 Caygram Content</h2>
+<p>Choose a category.</p>
+</div>
+
+<div class="grid">
+
+<a class="card category roblox"
+href="https://www.youtube.com/@CaygramYT"
+target="_blank">
+
+<span class="icon">🎮</span>
+
+<h3>Roblox</h3>
+
+<p>
+Gaming, funny moments and challenges.
+</p>
+
+</a>
+
+
+<a class="card category football"
+href="https://www.youtube.com/@CaygramYT"
+target="_blank">
+
+<span class="icon">⚽</span>
+
+<h3>Football</h3>
+
+<p>
+Skills, challenges and football videos.
+</p>
+
+</a>
+
+
+<a class="card category challenge"
+href="https://www.youtube.com/@CaygramYT"
+target="_blank">
+
+<span class="icon">😂</span>
+
+<h3>Challenges</h3>
+
+<p>
+Funny and crazy challenges.
+</p>
+
+</a>
+
+</div>
+</div>
+</section>
+
+
+<section id="milestones" class="milestones">
+
+<div class="container">
+
+<div class="heading">
+<small>The Journey</small>
+<h2>🏆 Caygram Milestones</h2>
+<p>Let's keep growing!</p>
+</div>
+
+<div class="grid">
+
+<div class="milestone">
+<div class="num">100</div>
+<p>Subscribers</p>
+</div>
+
+<div class="milestone">
+<div class="num">1K</div>
+<p>Subscribers</p>
+</div>
+
+<div class="milestone">
+<div class="num">10K</div>
+<p>Subscribers</p>
+</div>
+
+</div>
+
+</div>
+</section>
+
+
+<section id="shop">
+
+<div class="container">
+
+<div class="heading">
+<small>Official Caygram Merch</small>
+<h2>🛍️ Caygram Shop</h2>
+<p>Merch coming soon!</p>
+</div>
+
+
+<div class="grid">
+
+
+<div class="card merch">
+
+<div class="product">
+
+<div class="hoodie">
+
+<div class="print">
+CAY<span>GRAM</span>
+</div>
+
+</div>
+
+</div>
+
+<h3>🖤 Caygram Black Hoodie</h3>
+
+<p>
+Black hoodie with Caygram branding.
+</p>
+
+<span class="stock">
+OUT OF STOCK
+</span>
+
+</div>
+
+
+<div class="card merch">
+
+<div class="product">
+
+<div class="tshirt">
+
+<div class="print">
+CAY<span>GRAM</span>
+</div>
+
+</div>
+
+</div>
+
+<h3>👕 Caygram T-Shirt</h3>
+
+<p>
+Black Caygram T-shirt.
+</p>
+
+<span class="stock">
+OUT OF STOCK
+</span>
+
+</div>
+
+
+<div class="card merch">
+
+<div class="product">
+
+<div class="football-shirt">
+
+<div class="print">
+CAY<span>GRAM</span>
+</div>
+
+<div class="number">
+7
+</div>
+
+</div>
+
+</div>
+
+<h3>⚽ Caygram Football Shirt</h3>
+
+<p>
+Caygram football shirt.
+</p>
+
+<span class="stock">
+OUT OF STOCK
+</span>
+
+</div>
+
+</div>
+</div>
+</section>
+
+
+<section id="social">
+
+<div class="container">
+
+<div class="heading">
+
+<small>Stay Connected</small>
+
+<h2>🔗 Socials</h2>
+
+<p>
+Follow Caygram!
+</p>
+
+</div>
+
+<div class="social">
+
+<a
+href="https://www.youtube.com/@CaygramYT"
+target="_blank">
+
+<strong>▶ YouTube</strong>
+
+<span>@CaygramYT</span>
+
+</a>
+
+
+<a href="#shop">
+
+<strong>🛍️ Shop</strong>
+
+<span>Merch coming soon</span>
+
+</a>
+
+
+<a href="#home">
+
+<strong>🏠 Home</strong>
+
+<span>Back to top</span>
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<section class="cta">
+
+<div class="container">
+
+<div class="cta-box">
+
+<h2>Ready for Caygram? 🔥</h2>
+
+<p>
+Join the Caygram journey!
+</p>
+
+<br>
+
+<a
+class="btn primary"
+href="https://www.youtube.com/@CaygramYT"
+target="_blank">
+
+▶ VISIT CAYGRAM
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+
+<footer>
+
+© 2026 <strong>CAYGRAM</strong> • Official Website
+
+</footer>
 
 </body>
 </html>
