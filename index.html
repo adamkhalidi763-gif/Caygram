@@ -2,282 +2,150 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CAYGRAM | Official Website</title>
-<meta name="description" content="The official Caygram website.">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CAYGRAM</title>
+<meta name="description" content="Official Caygram website">
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{
-font-family:Arial,Helvetica,sans-serif;
-background:#07070b;color:#fff;line-height:1.5
-}
+body{font-family:Arial,sans-serif;background:#07070b;color:#fff;transition:.25s}
+body.light{background:#f4f4f7;color:#111}
 a{text-decoration:none;color:inherit}
-button{font-family:inherit;cursor:pointer}
+button,select,input{font:inherit}
+button{cursor:pointer}
 
-nav{
-position:sticky;top:0;z-index:100;
-background:rgba(7,7,11,.95);
-backdrop-filter:blur(14px);
-border-bottom:1px solid #292932
-}
-.nav{
-max-width:1100px;margin:auto;padding:14px 18px;
-display:flex;justify-content:space-between;align-items:center;
-gap:15px
-}
-.logo{
-font-size:1.4rem;font-weight:900;letter-spacing:2px;
+nav{position:sticky;top:0;z-index:100;background:#09090deF;
+backdrop-filter:blur(15px);border-bottom:1px solid #292932}
+.nav{max-width:1150px;margin:auto;padding:13px 16px;display:flex;
+align-items:center;justify-content:space-between;gap:12px}
+.logo{font-size:1.35rem;font-weight:900;letter-spacing:2px;
 background:linear-gradient(90deg,#9b5cff,#ff4fa3);
--webkit-background-clip:text;color:transparent
-}
-.links{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
-.links a{
-padding:9px 11px;border-radius:10px;color:#bbb;
-font-size:.85rem;font-weight:bold
-}
-.links a:hover{background:#1b1b22;color:#fff}
+-webkit-background-clip:text;color:transparent}
+.links{display:flex;gap:5px;flex-wrap:wrap;justify-content:center}
+.links a,.navBtn{border:0;background:none;color:#bbb;padding:8px 9px;
+border-radius:9px;font-size:.78rem;font-weight:bold}
+.links a:hover,.navBtn:hover{background:#202027;color:#fff}
 
-section{padding:75px 18px}
-.container{max-width:1050px;margin:auto}
-
-.hero{
-min-height:82vh;display:flex;align-items:center;
-justify-content:center;text-align:center;
-background:radial-gradient(circle at 50% 10%,#7c3aed55,transparent 40%)
-}
+section{padding:70px 17px}
+.container{max-width:1100px;margin:auto}
+.hero{min-height:82vh;display:flex;align-items:center;text-align:center;
+background:radial-gradient(circle at 50% 5%,#7c3aed55,transparent 43%)}
 .hero-inner{max-width:850px;margin:auto}
-
-.logo-circle{
-width:125px;height:125px;margin:0 auto 25px;
-border-radius:30px;
-background:linear-gradient(145deg,#22222c,#09090d);
-border:2px solid #444;
-display:flex;align-items:center;justify-content:center;
-font-size:3rem;box-shadow:0 20px 60px #000
-}
-
-h1{
-font-size:clamp(4rem,15vw,8rem);
-line-height:.9;letter-spacing:-5px;
+.logoBox{width:120px;height:120px;border-radius:28px;margin:0 auto 25px;
+display:flex;align-items:center;justify-content:center;font-size:3rem;
+background:linear-gradient(145deg,#252531,#09090d);
+border:1px solid #555;box-shadow:0 20px 60px #000}
+h1{font-size:clamp(4rem,15vw,8rem);line-height:.9;letter-spacing:-5px;
 background:linear-gradient(90deg,#fff,#c4b5fd,#f9a8d4);
--webkit-background-clip:text;color:transparent
-}
-.hero p{max-width:650px;margin:25px auto;color:#aaa;font-size:1.1rem}
+-webkit-background-clip:text;color:transparent}
+.hero p{color:#aaa;max-width:650px;margin:25px auto;font-size:1.1rem}
+.buttons{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.btn{display:inline-block;padding:13px 20px;border-radius:12px;
+font-weight:900;border:1px solid #444}
+.primary{background:linear-gradient(135deg,#8b5cf6,#ec4899);border:0}
+.youtube{background:#f03;border-color:#f03}
 
-.buttons{
-display:flex;justify-content:center;gap:12px;flex-wrap:wrap
-}
-.btn{
-display:inline-block;padding:14px 21px;border-radius:13px;
-font-weight:900;border:1px solid #444;margin:5px
-}
-.youtube{background:#ff0033;border-color:#ff0033}
-.primary{
-background:linear-gradient(135deg,#8b5cf6,#ec4899);
-border:0
-}
-
-.heading{text-align:center;margin-bottom:35px}
-.heading small{
-color:#a78bfa;text-transform:uppercase;
-letter-spacing:3px;font-weight:900
-}
-.heading h2{font-size:clamp(2rem,6vw,3rem);margin:7px 0}
+.heading{text-align:center;margin-bottom:32px}
+.heading small{color:#a78bfa;text-transform:uppercase;letter-spacing:3px;font-weight:900}
+.heading h2{font-size:clamp(2rem,6vw,3rem);margin:6px 0}
 .heading p{color:#999}
 
-.grid{
-display:grid;grid-template-columns:repeat(3,1fr);gap:18px
-}
-.card{
-background:linear-gradient(145deg,#17171f,#0d0d11);
-border:1px solid #292932;border-radius:20px;
-overflow:hidden;box-shadow:0 15px 40px #0004
-}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:linear-gradient(145deg,#17171f,#0d0d11);
+border:1px solid #292932;border-radius:20px;overflow:hidden}
+.light .card{background:#fff;border-color:#ddd}
+.thumb{aspect-ratio:16/9;display:flex;align-items:center;
+justify-content:center;font-size:4rem;background:linear-gradient(135deg,#4c1d95,#831843)}
+.info{padding:17px}
+.info p{color:#999;margin:7px 0 14px}
+.watch{background:#25252d;padding:9px 12px;border-radius:8px;font-weight:bold;font-size:.8rem}
 
-.thumb{
-aspect-ratio:16/9;
-background:linear-gradient(135deg,#4c1d95,#831843);
-display:flex;align-items:center;justify-content:center;
-font-size:4rem
-}
-.info{padding:18px}
-.info h3{margin-bottom:7px}
-.info p{color:#999;margin-bottom:15px}
-.watch{
-display:inline-block;background:#24242c;
-padding:9px 13px;border-radius:9px;font-size:.8rem;font-weight:bold
-}
-
-.category{
-min-height:220px;padding:25px;
-display:flex;flex-direction:column;justify-content:flex-end;
-position:relative
-}
-.category .icon{
-position:absolute;right:22px;top:18px;font-size:4rem
-}
+.category{min-height:210px;padding:25px;display:flex;flex-direction:column;
+justify-content:flex-end;position:relative}
+.category .icon{position:absolute;right:20px;top:15px;font-size:4rem}
 .category p{color:#aaa}
-.roblox{
-background:radial-gradient(circle at 80% 20%,#8b5cf655,transparent 45%),#14141a
-}
-.football{
-background:radial-gradient(circle at 80% 20%,#22c55e44,transparent 45%),#121815
-}
-.challenge{
-background:radial-gradient(circle at 80% 20%,#ec489944,transparent 45%),#171217
-}
+.roblox{background:radial-gradient(circle at 80% 20%,#8b5cf655,transparent 45%),#14141a}
+.football{background:radial-gradient(circle at 80% 20%,#22c55e44,transparent 45%),#121815}
+.challenge{background:radial-gradient(circle at 80% 20%,#ec489944,transparent 45%),#171217}
 
-.milestones{
-background:#ffffff06;border-top:1px solid #222;
-border-bottom:1px solid #222
-}
-.milestone{
-padding:27px;text-align:center;background:#ffffff08;
-border:1px solid #292932;border-radius:17px
-}
-.num{
-font-size:2.4rem;font-weight:900;
-background:linear-gradient(90deg,#a78bfa,#f9a8d4);
--webkit-background-clip:text;color:transparent
-}
+.milestones{background:#ffffff06;border-top:1px solid #222;border-bottom:1px solid #222}
+.milestone{text-align:center;padding:25px;border:1px solid #292932;border-radius:16px}
+.num{font-size:2.3rem;font-weight:900;background:linear-gradient(90deg,#a78bfa,#f9a8d4);
+-webkit-background-clip:text;color:transparent}
 
-/* MERCH */
-.merch{padding:18px}
-.product-image{
-height:300px;
-display:flex;align-items:center;justify-content:center;
-background:radial-gradient(circle at 50% 25%,#3d3d49,transparent 35%),#0c0c11;
-position:relative
-}
-.product-image:after{
-content:"";position:absolute;bottom:20px;
-width:65%;height:18px;background:#000;
-filter:blur(12px);opacity:.7
-}
-
-.clothes{
-position:relative;z-index:2;
-width:180px;height:220px;
-filter:drop-shadow(0 20px 18px #000)
-}
-
-.hoodie{
-background:linear-gradient(145deg,#36363d,#070708 70%);
-clip-path:polygon(22% 7%,38% 0,50% 14%,62% 0,78% 7%,100% 28%,85% 43%,76% 32%,76% 100%,24% 100%,24% 32%,15% 43%,0 28%)
-}
-.hoodie:before{
-content:"";position:absolute;width:65px;height:40px;
-left:57px;top:10px;border:5px solid #151519;border-radius:50%
-}
-
-.tshirt{
-background:linear-gradient(145deg,#3a3a42,#080809 70%);
-clip-path:polygon(23% 0,39% 9%,50% 15%,61% 9%,77% 0,100% 25%,84% 40%,75% 30%,75% 100%,25% 100%,25% 30%,16% 40%,0 25%)
-}
-
-.jersey{
-background:linear-gradient(90deg,#a70016 0 17%,#d71920 17% 83%,#a70016 83%);
-clip-path:polygon(23% 0,39% 9%,50% 15%,61% 9%,77% 0,100% 25%,84% 40%,75% 30%,75% 100%,25% 100%,25% 30%,16% 40%,0 25%)
-}
-.print{
-position:absolute;top:43%;left:50%;
-transform:translate(-50%,-50%);
-font-size:22px;font-weight:1000;
-white-space:nowrap;text-shadow:0 2px 4px #000
-}
+/* SHOP */
+.productImage{height:280px;background:radial-gradient(circle at 50% 20%,#393944,transparent 40%),#0d0d12;
+display:flex;align-items:center;justify-content:center;position:relative}
+.cloth{width:175px;height:215px;position:relative;filter:drop-shadow(0 20px 15px #000)}
+.hoodie{background:linear-gradient(145deg,#3b3b43,#060608);
+clip-path:polygon(22% 7%,38% 0,50% 14%,62% 0,78% 7%,100% 28%,85% 43%,76% 32%,76% 100%,24% 100%,24% 32%,15% 43%,0 28%)}
+.hoodie:before{content:"";position:absolute;width:65px;height:40px;left:55px;top:9px;border:5px solid #111;border-radius:50%}
+.tshirt{background:linear-gradient(145deg,#393941,#070708);
+clip-path:polygon(23% 0,39% 9%,50% 15%,61% 9%,77% 0,100% 25%,84% 40%,75% 30%,75% 100%,25% 100%,25% 30%,16% 40%,0 25%)}
+.jersey{background:linear-gradient(90deg,#a70016 0 17%,#d71920 17% 83%,#a70016 83%);
+clip-path:polygon(23% 0,39% 9%,50% 15%,61% 9%,77% 0,100% 25%,84% 40%,75% 30%,75% 100%,25% 100%,25% 30%,16% 40%,0 25%)}
+.print{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);
+font-weight:1000;font-size:20px;white-space:nowrap;text-shadow:0 2px 3px #000}
 .print span{color:#ef3340}
-.jnumber{
-position:absolute;top:57%;left:50%;
-transform:translateX(-50%);
-font-size:50px;font-weight:1000;
-color:#f5c400;text-shadow:2px 3px 3px #76000a
-}
+.number{position:absolute;left:50%;top:57%;transform:translateX(-50%);
+font-size:48px;font-weight:1000;color:#f5c400;text-shadow:2px 3px 3px #700}
 
-.price{
-font-size:1.25rem;font-weight:900;
-margin-top:8px
-}
-
-.stock{
-display:block;text-align:center;padding:11px;margin-top:13px;
-background:#ef44441a;border:1px solid #ef444455;
-color:#ff8d8d;border-radius:10px;
-font-weight:900;font-size:.8rem;letter-spacing:1px
-}
-
-.buy{
-width:100%;margin-top:12px;padding:12px;
-border:0;border-radius:10px;
-background:linear-gradient(135deg,#8b5cf6,#ec4899);
-color:white;font-weight:900
-}
-.buy:disabled{
-background:#29292f;color:#777;cursor:not-allowed
-}
+.price{font-size:1.3rem;font-weight:900;margin-top:8px}
+.stock{display:block;text-align:center;margin-top:12px;padding:10px;
+background:#ef44441a;color:#ff8c8c;border:1px solid #ef444455;
+border-radius:9px;font-weight:900;font-size:.8rem}
+.buy{width:100%;margin-top:10px;padding:12px;border:0;border-radius:10px;
+background:linear-gradient(135deg,#8b5cf6,#ec4899);color:#fff;font-weight:900}
+.buy:disabled{background:#29292f;color:#777;cursor:not-allowed}
 
 /* CART */
-.cart{
-margin:35px auto 0;
-max-width:700px;
-padding:25px;
-background:#111117;
-border:1px solid #333;
-border-radius:20px;
-display:none
-}
-.cart.show{display:block}
-.cart h3{margin-bottom:15px}
-.cart-row{
-display:flex;justify-content:space-between;
-padding:12px 0;border-bottom:1px solid #292932
-}
-.checkout{
-margin-top:20px;
-padding:15px;
-width:100%;
-border:0;border-radius:12px;
-background:#fff;color:#000;font-weight:900
-}
-.demo{
-margin-top:12px;color:#999;font-size:.8rem;text-align:center
-}
+.cartPanel{position:fixed;right:15px;bottom:15px;width:min(390px,calc(100% - 30px));
+z-index:200;background:#15151c;border:1px solid #444;border-radius:20px;
+padding:20px;box-shadow:0 20px 70px #000;display:none}
+.cartPanel.open{display:block}
+.cartTop{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.close{background:#292930;color:#fff;border:0;border-radius:8px;padding:6px 10px}
+.cartItem{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid #292932}
+.qty button{border:0;background:#292932;color:#fff;padding:4px 8px;border-radius:5px}
+.total{font-size:1.2rem;font-weight:900;margin-top:15px}
+.checkout{width:100%;margin-top:15px;padding:13px;border:0;border-radius:10px;
+background:#fff;color:#000;font-weight:900}
 
-.social{
-max-width:750px;margin:auto;
-display:grid;grid-template-columns:repeat(3,1fr);gap:13px
-}
-.social a{
-padding:20px;text-align:center;border:1px solid #292932;
-border-radius:15px;background:#ffffff06
-}
-.social span{
-display:block;color:#999;font-size:.8rem;margin-top:4px
-}
+.cartFloating{position:fixed;right:18px;bottom:18px;z-index:150;border:0;
+border-radius:50%;width:60px;height:60px;font-size:1.5rem;
+background:linear-gradient(135deg,#8b5cf6,#ec4899);color:#fff;
+box-shadow:0 10px 35px #000}
 
-.cta{text-align:center}
-.cta-box{
-padding:55px 20px;border:1px solid #7c3aed55;
-border-radius:25px;
-background:radial-gradient(circle at 50% 0,#8b5cf644,transparent 55%)
-}
+.badge{position:absolute;top:-5px;right:-3px;background:#f33;
+width:22px;height:22px;border-radius:50%;font-size:.7rem;
+display:flex;align-items:center;justify-content:center}
 
-footer{
-text-align:center;padding:35px 18px;
-border-top:1px solid #222;color:#888
-}
+/* SETTINGS */
+.modal{position:fixed;inset:0;background:#000b;z-index:300;display:none;
+align-items:center;justify-content:center;padding:18px}
+.modal.show{display:flex}
+.modalBox{width:min(500px,100%);background:#15151c;border:1px solid #444;
+border-radius:20px;padding:25px}
+.modalBox h2{margin-bottom:18px}
+.field{margin:12px 0}
+.field label{display:block;color:#aaa;margin-bottom:6px}
+.field select,.field input{width:100%;padding:11px;border-radius:9px;
+border:1px solid #444;background:#0b0b10;color:#fff}
+.modalActions{display:flex;gap:10px;margin-top:18px}
+.modalActions button{flex:1;padding:11px;border:0;border-radius:9px;font-weight:900}
+.save{background:linear-gradient(135deg,#8b5cf6,#ec4899);color:#fff}
+.cancel{background:#29292f;color:#fff}
 
-@media(max-width:800px){
-.grid{grid-template-columns:repeat(2,1fr)}
-.nav{flex-direction:column}
-}
-@media(max-width:550px){
-.grid{grid-template-columns:1fr}
-.social{grid-template-columns:1fr}
-.links a{font-size:.72rem;padding:7px}
-h1{letter-spacing:-3px}
-}
+.social{max-width:750px;margin:auto;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.social a{padding:18px;text-align:center;border:1px solid #292932;border-radius:14px}
+.social span{display:block;color:#999;font-size:.8rem;margin-top:4px}
+
+footer{text-align:center;padding:35px 18px;border-top:1px solid #222;color:#888}
+
+@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}.nav{flex-direction:column}}
+@media(max-width:550px){.grid{grid-template-columns:1fr}.social{grid-template-columns:1fr}
+.links a,.navBtn{font-size:.68rem;padding:6px}h1{letter-spacing:-3px}}
 </style>
 </head>
 
@@ -285,9 +153,7 @@ h1{letter-spacing:-3px}
 
 <nav>
 <div class="nav">
-
 <a class="logo" href="#home">CAYGRAM</a>
-
 <div class="links">
 <a href="#home">Home</a>
 <a href="#videos">Videos</a>
@@ -295,402 +161,463 @@ h1{letter-spacing:-3px}
 <a href="#milestones">Milestones</a>
 <a href="#shop">Shop</a>
 <a href="#social">Social</a>
+<button class="navBtn" onclick="openSettings()">⚙️ Settings</button>
+<button class="navBtn" onclick="openAccount()">👤 Account</button>
 </div>
-
 </div>
 </nav>
 
-
 <section class="hero" id="home">
 <div class="hero-inner">
-
-<div class="logo-circle">⚡</div>
-
+<div class="logoBox">⚡</div>
 <h1>CAYGRAM</h1>
-
-<p>
-Welcome to the official Caygram website! 🎮⚽🔥
-<br>
-Roblox, football, challenges and crazy videos.
-</p>
-
+<p id="heroText">Gaming, Roblox, football, challenges and crazy videos — all in one place! 🎮⚽🔥</p>
 <div class="buttons">
-
-<a class="btn youtube"
-href="https://www.youtube.com/@CaygramYT"
-target="_blank">
-▶ WATCH ON YOUTUBE
-</a>
-
-<a class="btn" href="#shop">
-🛍️ SHOP
-</a>
-
+<a class="btn youtube" href="https://www.youtube.com/@CaygramYT" target="_blank">▶ YouTube</a>
+<a class="btn primary" href="#shop">🛍️ Shop</a>
 </div>
-
 </div>
 </section>
-
 
 <section id="videos">
 <div class="container">
-
-<div class="heading">
-<small>Caygram Content</small>
-<h2>🎬 Latest Videos</h2>
-<p>Your newest videos can go here.</p>
-</div>
-
+<div class="heading"><small>Caygram Content</small><h2>🎬 Latest Videos</h2><p>Watch Caygram on YouTube.</p></div>
 <div class="grid">
-
-<div class="card">
-<div class="thumb">🎮</div>
-<div class="info">
-<h3>Latest Caygram Video</h3>
-<p>Add your newest YouTube video here.</p>
-<a class="watch" href="https://www.youtube.com/@CaygramYT" target="_blank">
-WATCH →
-</a>
-</div>
-</div>
-
-<div class="card">
-<div class="thumb">🔥</div>
-<div class="info">
-<h3>New Video</h3>
-<p>Add another Caygram video here.</p>
-<a class="watch" href="https://www.youtube.com/@CaygramYT" target="_blank">
-WATCH →
-</a>
-</div>
-</div>
-
-<div class="card">
-<div class="thumb">😂</div>
-<div class="info">
-<h3>Challenge</h3>
-<p>Put your funniest video here.</p>
-<a class="watch" href="https://www.youtube.com/@CaygramYT" target="_blank">
-WATCH →
-</a>
-</div>
-</div>
-
+<div class="card"><div class="thumb">🎮</div><div class="info"><h3>Latest Caygram Video</h3><p>Your newest video.</p><a class="watch" href="https://www.youtube.com/@CaygramYT" target="_blank">WATCH →</a></div></div>
+<div class="card"><div class="thumb">🔥</div><div class="info"><h3>New Video</h3><p>More Caygram content.</p><a class="watch" href="https://www.youtube.com/@CaygramYT" target="_blank">WATCH →</a></div></div>
+<div class="card"><div class="thumb">😂</div><div class="info"><h3>Challenge</h3><p>Funny Caygram moments.</p><a class="watch" href="https://www.youtube.com/@CaygramYT" target="_blank">WATCH →</a></div></div>
 </div>
 </div>
 </section>
-
 
 <section id="content">
 <div class="container">
-
-<div class="heading">
-<small>What I Make</small>
-<h2>🎮 Caygram Content</h2>
-<p>Choose a category.</p>
-</div>
-
+<div class="heading"><small>What I Make</small><h2>🎮 Caygram Content</h2></div>
 <div class="grid">
-
-<a class="card category roblox"
-href="https://www.youtube.com/@CaygramYT" target="_blank">
-<span class="icon">🎮</span>
-<h3>Roblox</h3>
-<p>Gaming, funny moments and challenges.</p>
-</a>
-
-<a class="card category football"
-href="https://www.youtube.com/@CaygramYT" target="_blank">
-<span class="icon">⚽</span>
-<h3>Football</h3>
-<p>Skills, challenges and football videos.</p>
-</a>
-
-<a class="card category challenge"
-href="https://www.youtube.com/@CaygramYT" target="_blank">
-<span class="icon">😂</span>
-<h3>Challenges</h3>
-<p>Funny and crazy challenges.</p>
-</a>
-
+<a class="card category roblox" href="https://www.youtube.com/@CaygramYT" target="_blank"><span class="icon">🎮</span><h3>Roblox</h3><p>Gaming and funny moments.</p></a>
+<a class="card category football" href="https://www.youtube.com/@CaygramYT" target="_blank"><span class="icon">⚽</span><h3>Football</h3><p>Skills and challenges.</p></a>
+<a class="card category challenge" href="https://www.youtube.com/@CaygramYT" target="_blank"><span class="icon">😂</span><h3>Challenges</h3><p>Crazy challenges.</p></a>
 </div>
 </div>
 </section>
-
 
 <section id="milestones" class="milestones">
 <div class="container">
-
-<div class="heading">
-<small>The Journey</small>
-<h2>🏆 Caygram Milestones</h2>
-<p>Let's keep growing!</p>
-</div>
-
+<div class="heading"><small>The Journey</small><h2>🏆 Milestones</h2></div>
 <div class="grid">
-
-<div class="milestone">
-<div class="num">100</div>
-<p>Subscribers</p>
-</div>
-
-<div class="milestone">
-<div class="num">1K</div>
-<p>Subscribers</p>
-</div>
-
-<div class="milestone">
-<div class="num">10K</div>
-<p>Subscribers</p>
-</div>
-
+<div class="milestone"><div class="num">100</div><p>Subscribers</p></div>
+<div class="milestone"><div class="num">1K</div><p>Subscribers</p></div>
+<div class="milestone"><div class="num">10K</div><p>Subscribers</p></div>
 </div>
 </div>
 </section>
-
 
 <section id="shop">
-
 <div class="container">
-
-<div class="heading">
-<small>Official Caygram Merch</small>
-<h2>🛍️ Caygram Shop</h2>
-<p>Merch coming soon!</p>
-</div>
+<div class="heading"><small>Official Caygram Merch</small><h2>🛍️ Shop</h2>
+<p id="currencyText">Prices shown in AED</p></div>
 
 <div class="grid">
 
-
-<!-- HOODIE -->
-<div class="card merch">
-
-<div class="product-image">
-<div class="clothes hoodie">
-<div class="print">CAY<span>GRAM</span></div>
+<div class="card">
+<div class="productImage"><div class="cloth hoodie"><div class="print">CAY<span>GRAM</span></div></div></div>
+<div class="info">
+<h3>🖤 Caygram Hoodie</h3><p>Black Caygram hoodie.</p>
+<div class="price" data-aed="99"></div>
+<span class="stock">OUT OF STOCK</span>
+<button class="buy" disabled>OUT OF STOCK</button>
 </div>
 </div>
 
-<h3>🖤 Caygram Black Hoodie</h3>
-<p>Premium black Caygram hoodie.</p>
-<div class="price">99 AED</div>
-
-<span class="stock" id="stock-hoodie">
-OUT OF STOCK
-</span>
-
-<button class="buy" disabled
-onclick="addToCart('Caygram Black Hoodie',99)">
-OUT OF STOCK
-</button>
-
-</div>
-
-
-<!-- T-SHIRT -->
-<div class="card merch">
-
-<div class="product-image">
-<div class="clothes tshirt">
-<div class="print">CAY<span>GRAM</span></div>
+<div class="card">
+<div class="productImage"><div class="cloth tshirt"><div class="print">CAY<span>GRAM</span></div></div></div>
+<div class="info">
+<h3>👕 Caygram T-Shirt</h3><p>Black Caygram T-shirt.</p>
+<div class="price" data-aed="49"></div>
+<span class="stock">OUT OF STOCK</span>
+<button class="buy" disabled>OUT OF STOCK</button>
 </div>
 </div>
 
-<h3>👕 Caygram T-Shirt</h3>
-<p>Premium black Caygram T-shirt.</p>
-<div class="price">49 AED</div>
-
-<span class="stock" id="stock-shirt">
-OUT OF STOCK
-</span>
-
-<button class="buy" disabled
-onclick="addToCart('Caygram T-Shirt',49)">
-OUT OF STOCK
-</button>
-
-</div>
-
-
-<!-- FOOTBALL SHIRT -->
-<div class="card merch">
-
-<div class="product-image">
-<div class="clothes jersey">
-<div class="print">CAY<span>GRAM</span></div>
-<div class="jnumber">7</div>
+<div class="card">
+<div class="productImage"><div class="cloth jersey"><div class="print">CAY<span>GRAM</span></div><div class="number">7</div></div></div>
+<div class="info">
+<h3>⚽ Caygram Football Shirt</h3><p>Red Caygram football shirt.</p>
+<div class="price" data-aed="35"></div>
+<span class="stock">OUT OF STOCK</span>
+<button class="buy" disabled>OUT OF STOCK</button>
 </div>
 </div>
 
-<h3>⚽ Caygram Football Shirt</h3>
-<p>Red Caygram football shirt.</p>
-<div class="price">35 AED</div>
-
-<span class="stock" id="stock-football">
-OUT OF STOCK
-</span>
-
-<button class="buy" disabled
-onclick="addToCart('Caygram Football Shirt',35)">
-OUT OF STOCK
-</button>
-
 </div>
-
-</div>
-
-
-<div class="cart" id="cart">
-
-<h3>🛒 Your Cart</h3>
-
-<div id="cartItems">
-Your cart is empty.
-</div>
-
-<button class="checkout" onclick="demoCheckout()">
-CHECKOUT
-</button>
-
-<div class="demo">
-Demo checkout only — no real payment is taken.
-</div>
-
-</div>
-
 </div>
 </section>
-
 
 <section id="social">
-
 <div class="container">
-
-<div class="heading">
-<small>Stay Connected</small>
-<h2>🔗 Socials</h2>
-<p>Follow Caygram!</p>
-</div>
-
+<div class="heading"><small>Stay Connected</small><h2>🔗 Social</h2></div>
 <div class="social">
-
-<a href="https://www.youtube.com/@CaygramYT" target="_blank">
-<strong>▶ YouTube</strong>
-<span>@CaygramYT</span>
-</a>
-
-<a href="#shop">
-<strong>🛍️ Shop</strong>
-<span>Merch coming soon</span>
-</a>
-
-<a href="#home">
-<strong>🏠 Home</strong>
-<span>Back to top</span>
-</a>
-
+<a href="https://www.youtube.com/@CaygramYT" target="_blank"><strong>▶ YouTube</strong><span>@CaygramYT</span></a>
+<a href="#shop"><strong>🛍️ Shop</strong><span>Merch coming soon</span></a>
+<a href="#home"><strong>🏠 Home</strong><span>Back to top</span></a>
 </div>
 </div>
 </section>
 
+<footer>© 2026 <strong>CAYGRAM</strong> • Official Website</footer>
 
-<section class="cta">
+<!-- CART -->
+<button class="cartFloating" onclick="toggleCart()">🛒<span class="badge" id="cartCount">0</span></button>
 
-<div class="container">
+<div class="cartPanel" id="cartPanel">
+<div class="cartTop"><h2>🛒 Cart</h2><button class="close" onclick="toggleCart()">✕</button></div>
+<div id="cartItems">Your cart is empty.</div>
+<div class="total" id="cartTotal"></div>
+<button class="checkout" onclick="checkout()">Checkout</button>
+</div>
 
-<div class="cta-box">
+<!-- SETTINGS -->
+<div class="modal" id="settingsModal">
+<div class="modalBox">
+<h2>⚙️ Settings</h2>
 
-<h2>Ready for Caygram? 🔥</h2>
+<div class="field">
+<label>🌍 Language</label>
+<select id="language"></select>
+</div>
 
-<p>Join the Caygram journey!</p>
+<div class="field">
+<label>💱 Currency</label>
+<select id="currency"></select>
+</div>
 
-<br>
+<div class="field">
+<label>🎨 Appearance</label>
+<select id="appearance">
+<option value="dark">Dark</option>
+<option value="light">Light</option>
+</select>
+</div>
 
-<a class="btn primary"
-href="https://www.youtube.com/@CaygramYT"
-target="_blank">
-▶ VISIT CAYGRAM
-</a>
-
+<div class="modalActions">
+<button class="cancel" onclick="closeSettings()">Cancel</button>
+<button class="save" onclick="saveSettings()">Save</button>
 </div>
 </div>
-</section>
+</div>
 
-
-<footer>
-© 2026 <strong>CAYGRAM</strong> • Official Website
-</footer>
-
+<!-- ACCOUNT -->
+<div class="modal" id="accountModal">
+<div class="modalBox">
+<h2>👤 Caygram Account</h2>
+<div class="field"><label>Name</label><input id="accountName" placeholder="Your name"></div>
+<div class="field"><label>Email</label><input id="accountEmail" type="email" placeholder="Your email"></div>
+<p style="color:#999;font-size:.8rem">Demo account only. Don't use a real password here.</p>
+<div class="modalActions">
+<button class="cancel" onclick="closeAccount()">Close</button>
+<button class="save" onclick="saveAccount()">Create Account</button>
+</div>
+</div>
+</div>
 
 <script>
 
-let cart = [];
+/* =========================
+   60+ LANGUAGES
+========================= */
 
-function addToCart(name, price){
+const languages={
+English:"en",Arabic:"ar",Spanish:"es",French:"fr",German:"de",
+Italian:"it",Portuguese:"pt",Dutch:"nl",Turkish:"tr",Russian:"ru",
+Ukrainian:"uk",Polish:"pl",Czech:"cs",Slovak:"sk",Hungarian:"hu",
+Romanian:"ro",Bulgarian:"bg",Greek:"el",Swedish:"sv",Norwegian:"no",
+Danish:"da",Finnish:"fi",Icelandic:"is",Irish:"ga",Welsh:"cy",
+Estonian:"et",Latvian:"lv",Lithuanian:"lt",Slovenian:"sl",
+Croatian:"hr",Serbian:"sr",Bosnian:"bs",Albanian:"sq",
+Macedonian:"mk",Hindi:"hi",Urdu:"ur",Bengali:"bn",Punjabi:"pa",
+Gujarati:"gu",Marathi:"mr",Tamil:"ta",Telugu:"te",Kannada:"kn",
+Malayalam:"ml",Nepali:"ne",Sinhala:"si",Indonesian:"id",
+Malay:"ms",Thai:"th",Vietnamese:"vi",Filipino:"tl",Chinese:"zh",
+Japanese:"ja",Korean:"ko",Hebrew:"he",Persian:"fa",Swahili:"sw",
+Afrikaans:"af",Amharic:"am",Georgian:"ka",Armenian:"hy",
+Azerbaijani:"az",Kazakh:"kk",Uzbek:"uz",Mongolian:"mn"
+};
 
-cart.push({
-name:name,
-price:price
+/* =========================
+   60+ CURRENCIES
+   Approximate AED rates.
+   Base price is always AED.
+========================= */
+
+const currencies={
+AED:["AED",1],
+USD:["USD",0.2723],
+EUR:["EUR",0.232],
+GBP:["GBP",0.198],
+SAR:["SAR",1.021],
+QAR:["QAR",0.991],
+KWD:["KWD",0.0838],
+BHD:["BHD",0.1028],
+OMR:["OMR",0.1049],
+JOD:["JOD",0.193],
+EGP:["EGP",14.1],
+INR:["INR",22.7],
+PKR:["PKR",76.0],
+BDT:["BDT",33.0],
+LKR:["LKR",82.0],
+NPR:["NPR",36.3],
+CNY:["CNY",1.96],
+JPY:["JPY",40.5],
+KRW:["KRW",370],
+HKD:["HKD",2.13],
+SGD:["SGD",0.346],
+MYR:["MYR",1.07],
+THB:["THB",9.25],
+VND:["VND",6900],
+IDR:["IDR",4320],
+PHP:["PHP",15.9],
+AUD:["AUD",0.421],
+NZD:["NZD",0.46],
+CAD:["CAD",0.371],
+CHF:["CHF",0.216],
+SEK:["SEK",2.98],
+NOK:["NOK",2.89],
+DKK:["DKK",1.73],
+PLN:["PLN",0.99],
+CZK:["CZK",5.65],
+HUF:["HUF",91],
+RON:["RON",1.16],
+BGN:["BGN",0.454],
+RSD:["RSD",27.3],
+TRY:["TRY",11.1],
+RUB:["RUB",24.5],
+UAH:["UAH",11.2],
+ILS:["ILS",0.988],
+ZAR:["ZAR",4.87],
+NGN:["NGN",410],
+GHS:["GHS",4.08],
+KES:["KES",35.2],
+MAD:["MAD",2.69],
+TND:["TND",0.85],
+DZD:["DZD",37.0],
+ETB:["ETB",34.0],
+TZS:["TZS",690],
+UGX:["UGX",1000],
+XOF:["XOF",156],
+XAF:["XAF",156],
+BRL:["BRL",1.47],
+MXN:["MXN",4.96],
+ARS:["ARS",380],
+CLP:["CLP",255],
+COP:["COP",1090],
+PEN:["PEN",0.94],
+UYU:["UYU",10.7],
+BOB:["BOB",1.88]
+};
+
+let selectedCurrency=localStorage.getItem("cayCurrency")||"AED";
+let cart=JSON.parse(localStorage.getItem("cayCart")||"[]");
+
+/* fill language list */
+const langSelect=document.getElementById("language");
+Object.keys(languages).forEach(name=>{
+let option=document.createElement("option");
+option.value=languages[name];
+option.textContent=name;
+langSelect.appendChild(option);
 });
 
-showCart();
+/* fill currencies */
+const curSelect=document.getElementById("currency");
+Object.keys(currencies).forEach(code=>{
+let option=document.createElement("option");
+option.value=code;
+option.textContent=code;
+curSelect.appendChild(option);
+});
+
+curSelect.value=selectedCurrency;
+
+/* currency formatting */
+function money(aed){
+
+let data=currencies[selectedCurrency];
+let value=aed*data[1];
+
+return new Intl.NumberFormat(undefined,{
+style:"currency",
+currency:data[0],
+maximumFractionDigits:value<10?2:0
+}).format(value);
 }
 
-function showCart(){
+function updatePrices(){
 
-const cartBox = document.getElementById("cart");
-const items = document.getElementById("cartItems");
+document.querySelectorAll(".price").forEach(el=>{
+el.textContent=money(Number(el.dataset.aed));
+});
 
-cartBox.classList.add("show");
+document.getElementById("currencyText").textContent=
+"Prices shown in "+selectedCurrency;
 
-if(cart.length === 0){
-items.innerHTML = "Your cart is empty.";
+updateCart();
+}
+
+function updateCart(){
+
+let items=document.getElementById("cartItems");
+let total=0;
+let count=0;
+
+if(cart.length===0){
+items.innerHTML="Your cart is empty.";
+document.getElementById("cartTotal").textContent="";
+document.getElementById("cartCount").textContent="0";
 return;
 }
 
-let total = 0;
-let html = "";
+let html="";
 
-cart.forEach(function(item){
+cart.forEach((item,index)=>{
 
-total += item.price;
+total+=item.price*item.qty;
+count+=item.qty;
 
-html += `
-<div class="cart-row">
-<span>${item.name}</span>
-<strong>${item.price} AED</strong>
+html+=`
+<div class="cartItem">
+<div>
+<strong>${item.name}</strong><br>
+<small>${money(item.price)}</small>
 </div>
-`;
-
+<div class="qty">
+<button onclick="changeQty(${index},-1)">−</button>
+${item.qty}
+<button onclick="changeQty(${index},1)">+</button>
+</div>
+</div>`;
 });
 
-html += `
-<div class="cart-row">
-<strong>Total</strong>
-<strong>${total} AED</strong>
-</div>
-`;
+items.innerHTML=html;
+document.getElementById("cartTotal").textContent=
+"Total: "+money(total);
+document.getElementById("cartCount").textContent=count;
 
-items.innerHTML = html;
+localStorage.setItem("cayCart",JSON.stringify(cart));
 }
 
-function demoCheckout(){
+function changeQty(index,amount){
 
-if(cart.length === 0){
+cart[index].qty+=amount;
 
-alert("Your cart is empty!");
+if(cart[index].qty<=0)
+cart.splice(index,1);
 
+updateCart();
+}
+
+function toggleCart(){
+
+document.getElementById("cartPanel").classList.toggle("open");
+}
+
+/* Settings */
+
+function openSettings(){
+
+document.getElementById("settingsModal").classList.add("show");
+curSelect.value=selectedCurrency;
+}
+
+function closeSettings(){
+
+document.getElementById("settingsModal").classList.remove("show");
+}
+
+function saveSettings(){
+
+selectedCurrency=curSelect.value;
+localStorage.setItem("cayCurrency",selectedCurrency);
+
+document.body.classList.toggle(
+"light",
+document.getElementById("appearance").value==="light"
+);
+
+localStorage.setItem(
+"cayAppearance",
+document.getElementById("appearance").value
+);
+
+updatePrices();
+closeSettings();
+
+alert("Settings saved! ⚙️");
+}
+
+/* Account */
+
+function openAccount(){
+
+document.getElementById("accountModal").classList.add("show");
+
+let saved=JSON.parse(localStorage.getItem("cayAccount")||"null");
+
+if(saved){
+document.getElementById("accountName").value=saved.name;
+document.getElementById("accountEmail").value=saved.email;
+}
+}
+
+function closeAccount(){
+
+document.getElementById("accountModal").classList.remove("show");
+}
+
+function saveAccount(){
+
+let name=document.getElementById("accountName").value.trim();
+let email=document.getElementById("accountEmail").value.trim();
+
+if(!name||!email){
+alert("Please enter your name and email.");
+return;
+}
+
+localStorage.setItem(
+"cayAccount",
+JSON.stringify({name:name,email:email})
+);
+
+alert("Account saved on this device! 👤");
+closeAccount();
+}
+
+/* Checkout */
+
+function checkout(){
+
+if(cart.length===0){
+alert("Your cart is empty.");
 return;
 }
 
 alert(
-"🛍️ Caygram Demo Checkout\n\n" +
-"This is only a demo right now.\n\n" +
-"No real payment has been taken.\n\n" +
-"When your merch is available, we can connect a real checkout system."
+"🛍️ Caygram Checkout\n\n"+
+"This is a DEMO checkout.\n\n"+
+"No real payment is taken and no card information is collected.\n\n"+
+"When Caygram merch is actually available, connect a secure payment provider."
 );
-
 }
+
+/* appearance */
+
+let appearance=localStorage.getItem("cayAppearance")||"dark";
+document.getElementById("appearance").value=appearance;
+
+if(appearance==="light")
+document.body.classList.add("light");
+
+updatePrices();
 
 </script>
 
