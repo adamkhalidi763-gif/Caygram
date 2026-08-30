@@ -589,7 +589,7 @@ Explore
 <div class="card bigcard">
 <div class="icon">👕</div>
 <h3>Official Merch</h3>
-<p class="muted">Caygram hoodies and tees.</p>
+<p class="muted">The official Caygram hoodie.</p>
 <button class="btn gradient" onclick="showPage('shop')">
 Shop
 </button>
@@ -1304,20 +1304,39 @@ function updateMapPreview(pid){
 }
 
 /* ====== PRODUCTS & STOCK ======
-   Stock defaults to 20 units each — tell me if you want different starting
-   numbers. Stock persists in this browser and decreases with every
-   confirmed purchase; once it hits 0 the item shows as out of stock. */
+   Stock is set to 0 (no real inventory yet) — change the number below
+   whenever you actually have real stock ready to sell. Note: since there's
+   no shared backend, this isn't a live counter across every customer —
+   each visitor's own browser counts down independently from this starting
+   number. It works correctly as an on/off switch (0 = closed), but once
+   it's above 0, treat it as "how many I'm willing to take orders for,"
+   not a guarantee against overselling — cross-check against the order
+   emails you're getting. Quantity is fixed at 1 per order so every
+   payment is exactly AED 50, matching your fixed-amount Ziina link. */
 
 const products=[
-{id:1,name:"Caygram Black Hoodie",price:50,type:"hoodie",stock:20},
-{id:2,name:"Caygram T-Shirt",price:50,type:"tshirt",stock:20}
+{id:1,name:"Caygram Black Hoodie",price:50,type:"hoodie",stock:0}
 ];
 
+// The exact numbers written in the code above — captured before anything
+// below can change them.
+const CODE_STOCK=Object.fromEntries(products.map(p=>[p.id,p.stock]));
+
 {
+ let savedBase=JSON.parse(localStorage.getItem("cayStockBase")||"{}");
  let savedStock=JSON.parse(localStorage.getItem("cayStock")||"{}");
+
  products.forEach(p=>{
-  if(typeof savedStock[p.id]==="number")p.stock=savedStock[p.id];
+  // Only reuse a saved running count if the code's starting number for
+  // this product hasn't changed since it was last saved in this browser —
+  // otherwise treat it as a fresh restock/update and start clean from
+  // whatever's written in the code now.
+  if(savedBase[p.id]===CODE_STOCK[p.id] && typeof savedStock[p.id]==="number"){
+   p.stock=savedStock[p.id];
+  }
  });
+
+ localStorage.setItem("cayStockBase",JSON.stringify(CODE_STOCK));
 }
 
 function saveStock(){
@@ -1325,6 +1344,8 @@ function saveStock(){
  products.forEach(p=>map[p.id]=p.stock);
  localStorage.setItem("cayStock",JSON.stringify(map));
 }
+
+saveStock();
 
 let orders=JSON.parse(localStorage.getItem("cayOrders")||"[]");
 
@@ -1570,6 +1591,15 @@ function showPage(id){
 
 /* ====== SHOP — buy directly from the product card, no cart ====== */
 
+function hasAlreadyOrdered(productId){
+ if(!currentUser)return false;
+ return orders.some(o=>
+  o.owner===currentUser.username &&
+  !o.cancelled &&
+  o.items.some(item=>item.id===productId)
+ );
+}
+
 function renderProducts(){
 
  let q=(document.getElementById("search")?.value||"").toLowerCase();
@@ -1580,9 +1610,7 @@ function renderProducts(){
  .map(p=>{
 
   let inStock=p.stock>0;
-  let maxQty=Math.min(4,p.stock);
-  let qtyOptions="";
-  for(let i=1;i<=maxQty;i++)qtyOptions+=`<option value="${i}">${i}</option>`;
+  let alreadyOrdered=hasAlreadyOrdered(p.id);
 
   let addr=(currentUser&&currentUser.addressParts)||{};
   let phoneParts=splitPhone(currentUser?currentUser.phone||"":"");
@@ -1606,7 +1634,13 @@ function renderProducts(){
   ${inStock?"🟢 "+currentLang.in_stock+" ("+p.stock+")":"🔴 "+currentLang.out_of_stock}
   </span>
 
-  ${!inStock?`
+  ${alreadyOrdered?`
+
+  <div class="notice" style="text-align:center">
+  ✅ You've already ordered this — limit one per person.
+  </div>
+
+  `:!inStock?`
 
   <div class="actions">
   <button class="fav" onclick="favorite(${p.id})">♡</button>
@@ -1626,13 +1660,6 @@ function renderProducts(){
   <label>Size</label>
   <select id="size_${p.id}">
   <option>XS</option><option>S</option><option selected>M</option><option>L</option><option>XL</option>
-  </select>
-  </div>
-
-  <div class="field">
-  <label>Quantity (max 4)</label>
-  <select id="qty_${p.id}" onchange="updateProductTotal(${p.id})">
-  ${qtyOptions}
   </select>
   </div>
 
@@ -1681,29 +1708,30 @@ function renderProducts(){
   <a id="mapLink_${p.id}" href="#" target="_blank" style="display:block;margin-top:4px;font-size:12px;color:#7c3aed;font-weight:bold">${currentLang.open_maps_label}</a>
   </div>
 
-  <div class="total" id="productTotal_${p.id}">${currentLang.total}: ${money(p.price)}</div>
+  <div class="total">${currentLang.total}: ${money(p.price)}</div>
 
   <div class="notice" style="font-size:12px">
   📩 Confirmation goes to ${escapeHTML(currentUser.email||"")}. ${currentLang.footer_norefund}
   </div>
 
   <a class="btn gradient" style="display:block;text-align:center" href="${ZIINA_LINK}" target="_blank">
-  🔗 Pay <span id="payAmt_${p.id}">${money(p.price)}</span> with Ziina
+  🔗 Pay ${money(p.price)} with Ziina
   </a>
 
   <div class="notice" style="font-size:12px">
-  After paying, Ziina shows you a payment reference — enter it below along with a
-  screenshot of that confirmation. We check every order against our own Ziina account
-  before shipping; orders that don't match get cancelled.
+  Required: after paying, Ziina shows you a payment reference — enter the exact
+  reference and a real screenshot of that confirmation below. Both are checked
+  against our own Ziina account before your order ships; orders that don't
+  match a real payment get cancelled.
   </div>
 
   <div class="field">
-  <label>Ziina payment reference</label>
+  <label>Ziina payment reference *</label>
   <input id="paymentRef_${p.id}" placeholder="e.g. ZN-8271-4930" oninput="checkPaymentProof(${p.id})">
   </div>
 
   <div class="field">
-  <label>Screenshot of the Ziina payment confirmation</label>
+  <label>Screenshot of the Ziina payment confirmation *</label>
   <input type="file" id="paymentProof_${p.id}" accept="image/*" onchange="checkPaymentProof(${p.id})">
   </div>
 
@@ -1722,18 +1750,6 @@ function renderProducts(){
  if(currentUser){
   products.forEach(p=>{ if(p.stock>0)updateMapPreview(p.id); });
  }
-}
-
-function updateProductTotal(id){
- let p=products.find(x=>x.id===id);
- if(!p)return;
- let qtyEl=document.getElementById("qty_"+id);
- let qty=qtyEl?Number(qtyEl.value):1;
- let total=p.price*qty;
- let totalEl=document.getElementById("productTotal_"+id);
- if(totalEl)totalEl.textContent=currentLang.total+": "+money(total);
- let payEl=document.getElementById("payAmt_"+id);
- if(payEl)payEl.textContent=money(total);
 }
 
 function checkPaymentProof(id){
@@ -1758,6 +1774,12 @@ async function buyNow(id){
   return;
  }
 
+ if(hasAlreadyOrdered(id)){
+  toast("You've already ordered this — limit one per person");
+  renderProducts();
+  return;
+ }
+
  let refInput=document.getElementById("paymentRef_"+id);
  let fileInput=document.getElementById("paymentProof_"+id);
  let reference=refInput?refInput.value.trim():"";
@@ -1767,7 +1789,7 @@ async function buyNow(id){
   return;
  }
 
- let qty=Number(document.getElementById("qty_"+id).value);
+ let qty=1;
  let size=document.getElementById("size_"+id).value;
  let name=document.getElementById("name_"+id).value.trim();
 
@@ -1786,13 +1808,9 @@ async function buyNow(id){
 
  let address=[building,street,city,country].filter(Boolean).join(", ");
 
- if(qty<1||qty>4){
-  toast("You can buy up to 4 per order");
-  return;
- }
-
  if(qty>p.stock){
-  toast("Only "+p.stock+" left in stock");
+  toast("Sorry, that item just sold out");
+  renderProducts();
   return;
  }
 
@@ -2495,10 +2513,10 @@ function getAIAnswer(q){
  return "Stock is shown right on each product card — once an item sells out it's marked Out of Stock until restocked.";
 
  if(/pay|payment|ziina|price|cost|how much|quantity|limit/i.test(q))
- return "Everything in the shop is AED 50, up to 4 per order. Pay with Ziina right on the product card, then enter your payment reference and a screenshot — we check every order against our own Ziina account before shipping.";
+ return "The Hoodie is AED 50, one per order. Pay with Ziina right on the product card, then enter your payment reference and a screenshot — we check every order against our own Ziina account before shipping.";
 
  if(/shop|shirt|hoodie|merch|buy/i.test(q))
- return "Head to the Shop tab for the Caygram Hoodie and T-Shirt — everything's AED 50, buy directly from the product card.";
+ return "Head to the Shop tab for the Caygram Hoodie — AED 50, buy directly from the product card.";
 
  if(/password|account|sign in|log ?in|sign ?up/i.test(q))
  return "Tap 👤 Account to sign in, create an account, update your details, or change your password.";
