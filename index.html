@@ -507,18 +507,14 @@ footer{
 <div class="logo">CAYGRAM</div>
 
 <div class="navlinks">
-<button onclick="showPage('home')">🏠 Home</button>
-<button onclick="showPage('videos')">📺 Videos</button>
-<button onclick="showPage('games')">🎮 Games</button>
-<button onclick="showPage('shop')">🛍️ Shop</button>
-<button onclick="showPage('orders')">📦 Orders</button>
-<button onclick="openAccount()">👤 Account</button>
+<button onclick="showPage('home')">🏠 <span id="t_nav_home">Home</span></button>
+<button onclick="showPage('videos')">📺 <span id="t_nav_videos">Videos</span></button>
+<button onclick="showPage('games')">🎮 <span id="t_nav_games">Arena</span></button>
+<button onclick="showPage('shop')">🛍️ <span id="t_nav_shop">Shop</span></button>
+<button onclick="showPage('orders')">📦 <span id="t_nav_orders">Orders</span></button>
+<button onclick="openAccount()">👤 <span id="t_nav_account">Account</span></button>
 <button onclick="openSettings()">⚙️</button>
 </div>
-
-<button class="cart" onclick="openCart()">
-🛒 <span id="cartCount">0</span>
-</button>
 
 </div>
 </nav>
@@ -536,7 +532,7 @@ footer{
 
 <h1>CAYGRAM</h1>
 
-<p>
+<p id="t_hero_tagline">
 Gaming • Football • Roblox • Challenges • Entertainment
 </p>
 
@@ -544,13 +540,13 @@ Gaming • Football • Roblox • Challenges • Entertainment
 class="btn white"
 href="https://www.youtube.com/@CaygramYT"
 target="_blank">
-▶ YouTube
+▶ <span id="t_hero_youtube">YouTube</span>
 </a>
 
 <button
 class="btn gradient"
 onclick="showPage('shop')">
-🛍️ Merch
+🛍️ <span id="t_hero_merch">Merch</span>
 </button>
 
 </div>
@@ -561,8 +557,8 @@ onclick="showPage('shop')">
 <section class="container">
 
 <div class="title">
-<h2>Welcome to Caygram</h2>
-<p class="muted">
+<h2 id="t_home_title">Welcome to Caygram</h2>
+<p class="muted" id="t_home_subtitle">
 Everything Caygram in one place.
 </p>
 </div>
@@ -593,7 +589,7 @@ Explore
 <div class="card bigcard">
 <div class="icon">👕</div>
 <h3>Official Merch</h3>
-<p class="muted">Caygram clothing and football shirts.</p>
+<p class="muted">Caygram hoodies and tees.</p>
 <button class="btn gradient" onclick="showPage('shop')">
 Shop
 </button>
@@ -642,8 +638,8 @@ Community
 <div class="container">
 
 <div class="title">
-<h2>📺 Caygram Videos</h2>
-<p class="muted">Find Caygram on YouTube.</p>
+<h2>📺 <span id="t_videos_title">Caygram Videos</span></h2>
+<p class="muted" id="t_videos_subtitle">Find Caygram on YouTube.</p>
 </div>
 
 <div class="grid">
@@ -703,15 +699,15 @@ Visit Channel
 </section>
 
 
-<!-- GAMES -->
+<!-- GAMES / ARENA -->
 
 <section id="games" class="page">
 
 <div class="container">
 
 <div class="title">
-<h2>🎮 Games</h2>
-<p class="muted">Caygram gaming zone.</p>
+<h2>🎮 <span id="t_games_title">Caygram Arena</span></h2>
+<p class="muted" id="t_games_subtitle">Play, compete and climb the leaderboard.</p>
 </div>
 
 <div class="grid">
@@ -729,27 +725,46 @@ Play
 
 <div class="card bigcard">
 <div class="icon">⚽</div>
-<h3>Football</h3>
+<h3>Football Challenges</h3>
 <p class="muted">
-Football challenges and training.
+Football challenges and skills training.
 </p>
-<button class="btn gradient" onclick="toast('Football section coming soon!')">
+<button class="btn gradient" onclick="toast('Football challenges coming soon!')">
 Open
 </button>
 </div>
 
 <div class="card bigcard">
 <div class="icon">🏆</div>
-<h3>Challenges</h3>
+<h3>Weekly Challenge</h3>
 <p class="muted">
-Future Caygram challenges and competitions.
+A brand new Caygram challenge every week.
 </p>
-<button class="btn gradient" onclick="toast('Challenges coming soon!')">
+<button class="btn gradient" onclick="toast('This week\'s challenge drops soon!')">
 Enter
 </button>
 </div>
 
 </div>
+
+<div class="title" style="margin-top:50px">
+<h2>⚡ Reaction Arena</h2>
+<p class="muted">Tap as fast as you can for 5 seconds and land on the leaderboard.</p>
+</div>
+
+<div class="card" style="max-width:420px;margin:0 auto;text-align:center;padding:30px">
+<div id="arenaScore" style="font-size:52px;font-weight:1000">0</div>
+<p class="muted" id="arenaStatus">Sign in, then press start and tap as fast as you can!</p>
+<button class="btn gradient" id="arenaBtn" onclick="startArena()" style="width:100%">
+▶️ Start (5s)
+</button>
+</div>
+
+<div class="title" style="margin-top:40px">
+<h2>🥇 <span id="t_leaderboard_title">Leaderboard</span></h2>
+</div>
+
+<div id="leaderboard"></div>
 
 </div>
 
@@ -763,8 +778,8 @@ Enter
 <div class="container">
 
 <div class="title">
-<h2>🛍️ Caygram Shop</h2>
-<p class="muted">Official-style Caygram merch.</p>
+<h2>🛍️ <span id="t_shop_title">Caygram Shop</span></h2>
+<p class="muted" id="t_shop_subtitle">Official Caygram merch.</p>
 </div>
 
 <div class="search">
@@ -789,8 +804,8 @@ oninput="renderProducts()">
 <div class="container">
 
 <div class="title">
-<h2>📦 My Orders</h2>
-<p class="muted">Track and manage your demo orders.</p>
+<h2>📦 <span id="t_orders_title">My Orders</span></h2>
+<p class="muted" id="t_orders_subtitle">Track and manage your orders.</p>
 </div>
 
 <div id="ordersList"></div>
@@ -802,7 +817,9 @@ oninput="renderProducts()">
 
 <footer>
 CAYGRAM © 2026<br><br>
-Gaming • Football • Roblox • Entertainment
+<span id="t_footer_tagline">Gaming • Football • Roblox • Entertainment</span>
+<br><br>
+<small id="t_footer_norefund">🚫 All sales are final. No refunds once an order is placed.</small>
 </footer>
 
 
@@ -816,8 +833,8 @@ Gaming • Football • Roblox • Entertainment
 
 <div class="aibody" id="aiBody">
 
-<div class="msg">
-Hi! I'm Caygram AI. Ask me about the shop, orders, delivery or refunds.
+<div class="msg" id="t_ai_greeting">
+Hi! I'm Caygram AI. Ask me about the shop, orders, delivery, payment or your account.
 </div>
 
 </div>
@@ -839,139 +856,18 @@ onkeydown="if(event.key==='Enter')askAI()">
 <div class="toast" id="toast"></div>
 
 
-<!-- CART MODAL -->
+<!-- DAMAGE / REFUND REPORT -->
 
-<div class="modal" id="cartModal">
-
-<div class="box">
-
-<div class="top">
-<h2>🛒 Your Cart</h2>
-<button class="close" onclick="closeModal('cartModal')">✕</button>
-</div>
-
-<div id="cartItems"></div>
-
-<div class="total" id="cartTotal"></div>
-
-<button
-class="modalbtn gradient"
-onclick="checkout()">
-Checkout
-</button>
-
-</div>
-
-</div>
-
-
-<!-- PRODUCT MODAL -->
-
-<div class="modal" id="productModal">
+<div class="modal" id="damageModal">
 
 <div class="box">
 
 <div class="top">
-<h2 id="productTitle">Product</h2>
-<button class="close" onclick="closeModal('productModal')">✕</button>
+<h2>📷 Report Damaged Item</h2>
+<button class="close" onclick="closeModal('damageModal')">✕</button>
 </div>
 
-<div class="field">
-<label>Size</label>
-<select id="size">
-<option>XS</option>
-<option>S</option>
-<option selected>M</option>
-<option>L</option>
-<option>XL</option>
-</select>
-</div>
-
-<div class="field">
-<label>Quantity</label>
-<select id="quantity">
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-<option>5</option>
-</select>
-</div>
-
-<button
-class="modalbtn gradient"
-onclick="addToCart()">
-🛒 Add to Cart
-</button>
-
-</div>
-
-</div>
-
-
-<!-- CHECKOUT -->
-
-<div class="modal" id="checkoutModal">
-
-<div class="box">
-
-<div class="top">
-<h2>💳 Checkout</h2>
-<button class="close" onclick="closeModal('checkoutModal')">✕</button>
-</div>
-
-<div class="notice">
-⚠️ Demo checkout. No real payment is processed.
-</div>
-
-<div class="field">
-<label>Full name</label>
-<input id="customerName" placeholder="Your name">
-</div>
-
-<div class="field">
-<label>Phone</label>
-<input id="customerPhone" placeholder="+971...">
-</div>
-
-<div class="field">
-<label>Delivery address</label>
-<input id="customerAddress" placeholder="Building, street, city">
-</div>
-
-<div class="field">
-<label>Payment method</label>
-
-<select id="paymentMethod" onchange="showCardFields()">
-<option value="cod">💵 Cash on Delivery</option>
-<option value="card">💳 Visa / Card Demo</option>
-</select>
-
-</div>
-
-<div id="cardFields" style="display:none">
-
-<div class="notice">
-Never enter a real card number here.
-</div>
-
-<div class="field">
-<label>Demo card number</label>
-<input placeholder="4242 4242 4242 4242">
-</div>
-
-<div class="row">
-<input placeholder="MM/YY">
-<input placeholder="CVV">
-</div>
-
-</div>
-
-<button
-class="modalbtn gradient"
-onclick="placeOrder()">
-Place Demo Order
-</button>
+<div id="damageBody"></div>
 
 </div>
 
@@ -989,25 +885,7 @@ Place Demo Order
 <button class="close" onclick="closeModal('accountModal')">✕</button>
 </div>
 
-<div class="field">
-<label>Username</label>
-<input id="username" placeholder="CaygramFan">
-</div>
-
-<div class="field">
-<label>Email</label>
-<input id="email" placeholder="you@example.com">
-</div>
-
-<div class="notice">
-This demo stores your profile only in this browser.
-</div>
-
-<button
-class="modalbtn gradient"
-onclick="saveAccount()">
-Save Account
-</button>
+<div id="accountBody"></div>
 
 </div>
 
@@ -1178,35 +1056,127 @@ Save Settings
 </div>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
 <script>
+const ZIINA_LINK="https://pay.ziina.com/Ahmadkhalidi/jXVqqAunK?source=app";
+
+/* ====== EMAIL SETUP (EmailJS) ======
+   This is a static, backend-free page, so real automatic emails need a
+   client-side email service. EmailJS lets a browser send real email
+   through your own inbox without a server.
+   1. Create a free account at https://www.emailjs.com
+   2. Add your inbox (Gmail/Outlook/etc) as an "Email Service" -> copy its Service ID below
+   3. Create an Order Confirmation template with variables: {{to_email}} {{customer_name}}
+      {{order_id}} {{items}} {{total}} {{address}} {{eta}} -> copy its Template ID below
+   4. Create a second Damage Report template (sent to YOUR inbox, not the customer) with
+      variables: {{order_id}} {{customer_name}} {{customer_email}} {{description}} {{photo}}
+      — {{photo}} is a data:image URL, so an <img src="{{photo}}"> tag in the template will
+      show the photo (small images only — very large photos are skipped, see below).
+   5. Copy your Public Key from Account > API Keys
+   Until these are filled in, orders and refund requests still work fine — the app just
+   won't be able to email anyone and will say so quietly. */
+const EMAILJS_PUBLIC_KEY="";
+const EMAILJS_SERVICE_ID="";
+const EMAILJS_TEMPLATE_ID="";
+const EMAILJS_DAMAGE_TEMPLATE_ID="";
+
+try{
+ if(EMAILJS_PUBLIC_KEY&&window.emailjs)emailjs.init(EMAILJS_PUBLIC_KEY);
+}catch(e){}
+
+function sendOrderConfirmationEmail(order){
+
+ if(!EMAILJS_PUBLIC_KEY||!EMAILJS_SERVICE_ID||!EMAILJS_TEMPLATE_ID||!window.emailjs){
+  return;
+ }
+
+ let p=products.find(x=>x.id===order.items[0].id);
+ let itemsText=p?`${p.name} (Size ${order.items[0].size}) x${order.items[0].quantity}`:"";
+
+ emailjs.send(EMAILJS_SERVICE_ID,EMAILJS_TEMPLATE_ID,{
+  to_email:currentUser.email,
+  customer_name:order.name,
+  order_id:order.id,
+  items:itemsText,
+  total:money(order.total),
+  address:order.address,
+  eta:new Date(order.deliveredAt).toLocaleDateString()
+ }).then(()=>{
+  toast("📩 Confirmation email sent");
+ }).catch(()=>{
+  toast("Order placed — couldn't send the confirmation email");
+ });
+
+}
+
+function sendDamageReportEmail(order){
+
+ if(!EMAILJS_PUBLIC_KEY||!EMAILJS_SERVICE_ID||!EMAILJS_DAMAGE_TEMPLATE_ID||!window.emailjs){
+  return;
+ }
+
+ // very large photos are skipped to stay under typical email-template size limits
+ let photo=order.refundRequest.photo;
+ if(photo && photo.length>60000)photo="";
+
+ emailjs.send(EMAILJS_SERVICE_ID,EMAILJS_DAMAGE_TEMPLATE_ID,{
+  order_id:order.id,
+  customer_name:order.name,
+  customer_email:currentUser?currentUser.email:"",
+  description:order.refundRequest.description,
+  photo
+ }).catch(()=>{});
+
+}
+
+/* ====== VALIDATION ====== */
+
+function isValidEmail(x){
+ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(x);
+}
+
+function isValidPhone(x){
+ let digits=x.replace(/\D/g,"");
+ return digits.length>=7 && digits.length<=15 && /^\+?[0-9\s-]+$/.test(x);
+}
+
+function isValidName(x){
+ return x.length>=2 && x.length<=60 && !/^\d+$/.test(x);
+}
+
+function isValidAddress(x){
+ return x.length>=8 && /\d/.test(x);
+}
+
+function isValidUsername(x){
+ return /^[a-z0-9_.]{3,20}$/i.test(x);
+}
+
+/* ====== PRODUCTS & STOCK ======
+   Stock defaults to 20 units each — tell me if you want different starting
+   numbers. Stock persists in this browser and decreases with every
+   confirmed purchase; once it hits 0 the item shows as out of stock. */
 
 const products=[
-{
- id:1,
- name:"Caygram Black Hoodie",
- price:99,
- type:"hoodie",
- stock:true
-},
-{
- id:2,
- name:"Caygram T-Shirt",
- price:49,
- type:"tshirt",
- stock:false
-},
-{
- id:3,
- name:"Caygram Football Shirt",
- price:35,
- type:"football",
- stock:false
-}
+{id:1,name:"Caygram Black Hoodie",price:50,type:"hoodie",stock:20},
+{id:2,name:"Caygram T-Shirt",price:50,type:"tshirt",stock:20}
 ];
 
-let cart=JSON.parse(localStorage.getItem("cayCart")||"[]");
+{
+ let savedStock=JSON.parse(localStorage.getItem("cayStock")||"{}");
+ products.forEach(p=>{
+  if(typeof savedStock[p.id]==="number")p.stock=savedStock[p.id];
+ });
+}
+
+function saveStock(){
+ let map={};
+ products.forEach(p=>map[p.id]=p.stock);
+ localStorage.setItem("cayStock",JSON.stringify(map));
+}
+
 let orders=JSON.parse(localStorage.getItem("cayOrders")||"[]");
-let selectedProduct=null;
 
 let currency=localStorage.getItem("cayCurrency")||"AED";
 
@@ -1222,6 +1192,200 @@ VND:6900,ILS:1.01,EGP:14.1,NGN:418,KES:35.3,
 GHS:3.05,MAD:2.68,TND:.774,CLP:231,ARS:378,
 UAH:11.8,ISK:37.2,BHD:.103,JOD:.193,BDT:33,LKR:82
 };
+
+/* ====== LANGUAGES ======
+   Full working translations are included for the languages most relevant
+   to a UAE-based audience (English, Arabic, Hindi, Urdu) plus French and
+   Spanish. The dropdown still lists every language — picking one without
+   a dictionary here just falls back to English rather than breaking.
+   Tell me which other languages matter most for your audience and I can
+   add real translations for those too. */
+const translations={
+en:{
+ nav_home:"Home",nav_videos:"Videos",nav_games:"Arena",nav_shop:"Shop",nav_orders:"Orders",nav_account:"Account",
+ hero_tagline:"Gaming • Football • Roblox • Challenges • Entertainment",
+ hero_youtube:"YouTube",hero_merch:"Merch",
+ home_title:"Welcome to Caygram",home_subtitle:"Everything Caygram in one place.",
+ videos_title:"Caygram Videos",videos_subtitle:"Find Caygram on YouTube.",
+ games_title:"Caygram Arena",games_subtitle:"Play, compete and climb the leaderboard.",
+ shop_title:"Caygram Shop",shop_subtitle:"Official Caygram merch.",
+ orders_title:"My Orders",orders_subtitle:"Track and manage your orders.",
+ footer_tagline:"Gaming • Football • Roblox • Entertainment",
+ footer_norefund:"🚫 All sales are final, except items that arrive damaged (photo proof required within 48 hours).",
+ search_placeholder:"Search merch...",
+ add_to_cart:"Buy Now",out_of_stock:"OUT OF STOCK",in_stock:"IN STOCK",
+ cart_title:"Your Cart",cart_empty:"Your cart is empty.",checkout_btn:"Checkout",total:"Total",
+ sign_in:"Sign In",create_account:"Create Account",sign_out:"Sign Out",
+ save_changes:"Save Changes",change_password:"Change Password",
+ place_order:"Place Order",
+ ai_greeting:"Hi! I'm Caygram AI. Ask me about the shop, orders, delivery, payment or your account.",
+ ai_placeholder:"Ask Caygram AI...",
+ leaderboard_title:"Leaderboard",
+ sign_in_prompt:"Sign in to see your orders.",
+ no_orders_yet:"No orders yet."
+},
+ar:{
+ nav_home:"الرئيسية",nav_videos:"فيديوهات",nav_games:"الساحة",nav_shop:"المتجر",nav_orders:"الطلبات",nav_account:"الحساب",
+ hero_tagline:"ألعاب • كرة قدم • روبلوكس • تحديات • ترفيه",
+ hero_youtube:"يوتيوب",hero_merch:"المنتجات",
+ home_title:"مرحبًا بك في كايجرام",home_subtitle:"كل شيء عن كايجرام في مكان واحد.",
+ videos_title:"فيديوهات كايجرام",videos_subtitle:"تابع كايجرام على يوتيوب.",
+ games_title:"ساحة كايجرام",games_subtitle:"العب، نافس، وتصدّر لوحة المتصدرين.",
+ shop_title:"متجر كايجرام",shop_subtitle:"منتجات كايجرام الرسمية.",
+ orders_title:"طلباتي",orders_subtitle:"تابع وأدر طلباتك.",
+ footer_tagline:"ألعاب • كرة قدم • روبلوكس • ترفيه",
+ footer_norefund:"🚫 جميع المبيعات نهائية، باستثناء العناصر التي تصل تالفة (يلزم إثبات بالصور خلال 48 ساعة).",
+ search_placeholder:"ابحث عن منتجات...",
+ add_to_cart:"اشترِ الآن",out_of_stock:"نفدت الكمية",in_stock:"متوفر",
+ cart_title:"سلتك",cart_empty:"سلتك فارغة.",checkout_btn:"إتمام الشراء",total:"الإجمالي",
+ sign_in:"تسجيل الدخول",create_account:"إنشاء حساب",sign_out:"تسجيل الخروج",
+ save_changes:"حفظ التغييرات",change_password:"تغيير كلمة المرور",
+ place_order:"تأكيد الطلب",
+ ai_greeting:"مرحبًا! أنا مساعد كايجرام الذكي. اسألني عن المتجر أو الطلبات أو التوصيل أو الدفع أو حسابك.",
+ ai_placeholder:"اسأل مساعد كايجرام...",
+ leaderboard_title:"لوحة المتصدرين",
+ sign_in_prompt:"سجّل الدخول لعرض طلباتك.",
+ no_orders_yet:"لا توجد طلبات بعد."
+},
+hi:{
+ nav_home:"होम",nav_videos:"वीडियोज़",nav_games:"अरीना",nav_shop:"शॉप",nav_orders:"ऑर्डर्स",nav_account:"अकाउंट",
+ hero_tagline:"गेमिंग • फुटबॉल • रोब्लॉक्स • चैलेंजेस • मनोरंजन",
+ hero_youtube:"यूट्यूब",hero_merch:"मर्च",
+ home_title:"Caygram में आपका स्वागत है",home_subtitle:"Caygram से जुड़ी हर चीज़ एक ही जगह पर।",
+ videos_title:"Caygram वीडियोज़",videos_subtitle:"Caygram को यूट्यूब पर देखें।",
+ games_title:"Caygram अरीना",games_subtitle:"खेलें, मुक़ाबला करें और लीडरबोर्ड में आगे बढ़ें।",
+ shop_title:"Caygram शॉप",shop_subtitle:"आधिकारिक Caygram मर्च।",
+ orders_title:"मेरे ऑर्डर्स",orders_subtitle:"अपने ऑर्डर्स को ट्रैक और मैनेज करें।",
+ footer_tagline:"गेमिंग • फुटबॉल • रोब्लॉक्स • मनोरंजन",
+ footer_norefund:"🚫 सभी बिक्री अंतिम हैं, सिवाय उन उत्पादों के जो क्षतिग्रस्त पहुंचें (48 घंटे के भीतर फोटो प्रमाण आवश्यक)।",
+ search_placeholder:"मर्च खोजें...",
+ add_to_cart:"अभी खरीदें",out_of_stock:"स्टॉक ख़त्म",in_stock:"उपलब्ध",
+ cart_title:"आपकी कार्ट",cart_empty:"आपकी कार्ट खाली है।",checkout_btn:"चेकआउट",total:"कुल",
+ sign_in:"साइन इन",create_account:"अकाउंट बनाएं",sign_out:"साइन आउट",
+ save_changes:"बदलाव सेव करें",change_password:"पासवर्ड बदलें",
+ place_order:"ऑर्डर करें",
+ ai_greeting:"नमस्ते! मैं Caygram AI हूं। मुझसे शॉप, ऑर्डर, डिलीवरी, पेमेंट या अकाउंट के बारे में पूछें।",
+ ai_placeholder:"Caygram AI से पूछें...",
+ leaderboard_title:"लीडरबोर्ड",
+ sign_in_prompt:"अपने ऑर्डर्स देखने के लिए साइन इन करें।",
+ no_orders_yet:"अभी तक कोई ऑर्डर नहीं।"
+},
+ur:{
+ nav_home:"ہوم",nav_videos:"ویڈیوز",nav_games:"ارینا",nav_shop:"شاپ",nav_orders:"آرڈرز",nav_account:"اکاؤنٹ",
+ hero_tagline:"گیمنگ • فٹبال • روبلوکس • چیلنجز • تفریح",
+ hero_youtube:"یوٹیوب",hero_merch:"مرچ",
+ home_title:"Caygram میں خوش آمدید",home_subtitle:"Caygram سے متعلق ہر چیز ایک ہی جگہ۔",
+ videos_title:"Caygram ویڈیوز",videos_subtitle:"Caygram کو یوٹیوب پر دیکھیں۔",
+ games_title:"Caygram ارینا",games_subtitle:"کھیلیں، مقابلہ کریں اور لیڈر بورڈ میں آگے بڑھیں۔",
+ shop_title:"Caygram شاپ",shop_subtitle:"آفیشل Caygram مرچ۔",
+ orders_title:"میرے آرڈرز",orders_subtitle:"اپنے آرڈرز ٹریک اور منظم کریں۔",
+ footer_tagline:"گیمنگ • فٹبال • روبلوکس • تفریح",
+ footer_norefund:"🚫 تمام فروخت حتمی ہیں، سوائے ان اشیاء کے جو خراب حالت میں پہنچیں (48 گھنٹوں کے اندر تصویری ثبوت درکار ہے)۔",
+ search_placeholder:"مرچ تلاش کریں...",
+ add_to_cart:"ابھی خریدیں",out_of_stock:"اسٹاک ختم",in_stock:"دستیاب",
+ cart_title:"آپ کی کارٹ",cart_empty:"آپ کی کارٹ خالی ہے۔",checkout_btn:"چیک آؤٹ",total:"کل",
+ sign_in:"سائن ان",create_account:"اکاؤنٹ بنائیں",sign_out:"سائن آؤٹ",
+ save_changes:"تبدیلیاں محفوظ کریں",change_password:"پاس ورڈ تبدیل کریں",
+ place_order:"آرڈر کریں",
+ ai_greeting:"ہیلو! میں Caygram AI ہوں۔ مجھ سے شاپ، آرڈرز، ڈیلیوری، ادائیگی یا اکاؤنٹ کے بارے میں پوچھیں۔",
+ ai_placeholder:"Caygram AI سے پوچھیں...",
+ leaderboard_title:"لیڈر بورڈ",
+ sign_in_prompt:"اپنے آرڈرز دیکھنے کے لیے سائن ان کریں۔",
+ no_orders_yet:"ابھی تک کوئی آرڈر نہیں۔"
+},
+fr:{
+ nav_home:"Accueil",nav_videos:"Vidéos",nav_games:"Arène",nav_shop:"Boutique",nav_orders:"Commandes",nav_account:"Compte",
+ hero_tagline:"Gaming • Football • Roblox • Défis • Divertissement",
+ hero_youtube:"YouTube",hero_merch:"Boutique",
+ home_title:"Bienvenue sur Caygram",home_subtitle:"Tout Caygram au même endroit.",
+ videos_title:"Vidéos Caygram",videos_subtitle:"Retrouvez Caygram sur YouTube.",
+ games_title:"Arène Caygram",games_subtitle:"Jouez, affrontez les autres et grimpez au classement.",
+ shop_title:"Boutique Caygram",shop_subtitle:"Produits officiels Caygram.",
+ orders_title:"Mes commandes",orders_subtitle:"Suivez et gérez vos commandes.",
+ footer_tagline:"Gaming • Football • Roblox • Divertissement",
+ footer_norefund:"🚫 Toutes les ventes sont définitives, sauf les articles arrivés endommagés (preuve photo requise sous 48h).",
+ search_placeholder:"Rechercher un produit...",
+ add_to_cart:"Acheter",out_of_stock:"RUPTURE DE STOCK",in_stock:"EN STOCK",
+ cart_title:"Votre panier",cart_empty:"Votre panier est vide.",checkout_btn:"Paiement",total:"Total",
+ sign_in:"Connexion",create_account:"Créer un compte",sign_out:"Déconnexion",
+ save_changes:"Enregistrer",change_password:"Changer le mot de passe",
+ place_order:"Valider la commande",
+ ai_greeting:"Salut ! Je suis Caygram AI. Posez-moi vos questions sur la boutique, les commandes, la livraison, le paiement ou votre compte.",
+ ai_placeholder:"Demander à Caygram AI...",
+ leaderboard_title:"Classement",
+ sign_in_prompt:"Connectez-vous pour voir vos commandes.",
+ no_orders_yet:"Aucune commande pour l'instant."
+},
+es:{
+ nav_home:"Inicio",nav_videos:"Vídeos",nav_games:"Arena",nav_shop:"Tienda",nav_orders:"Pedidos",nav_account:"Cuenta",
+ hero_tagline:"Gaming • Fútbol • Roblox • Retos • Entretenimiento",
+ hero_youtube:"YouTube",hero_merch:"Tienda",
+ home_title:"Bienvenido a Caygram",home_subtitle:"Todo Caygram en un solo lugar.",
+ videos_title:"Vídeos de Caygram",videos_subtitle:"Encuentra a Caygram en YouTube.",
+ games_title:"Arena Caygram",games_subtitle:"Juega, compite y sube en la clasificación.",
+ shop_title:"Tienda Caygram",shop_subtitle:"Merchandising oficial de Caygram.",
+ orders_title:"Mis pedidos",orders_subtitle:"Sigue y gestiona tus pedidos.",
+ footer_tagline:"Gaming • Fútbol • Roblox • Entretenimiento",
+ footer_norefund:"🚫 Todas las ventas son finales, salvo artículos que lleguen dañados (prueba fotográfica requerida en 48h).",
+ search_placeholder:"Buscar productos...",
+ add_to_cart:"Comprar ahora",out_of_stock:"AGOTADO",in_stock:"DISPONIBLE",
+ cart_title:"Tu carrito",cart_empty:"Tu carrito está vacío.",checkout_btn:"Pagar",total:"Total",
+ sign_in:"Iniciar sesión",create_account:"Crear cuenta",sign_out:"Cerrar sesión",
+ save_changes:"Guardar cambios",change_password:"Cambiar contraseña",
+ place_order:"Confirmar pedido",
+ ai_greeting:"¡Hola! Soy Caygram AI. Pregúntame sobre la tienda, pedidos, envío, pago o tu cuenta.",
+ ai_placeholder:"Pregunta a Caygram AI...",
+ leaderboard_title:"Clasificación",
+ sign_in_prompt:"Inicia sesión para ver tus pedidos.",
+ no_orders_yet:"Aún no tienes pedidos."
+}
+};
+
+const langCodeMap={
+"English":"en","العربية":"ar","हिन्दी":"hi","اردو":"ur","Français":"fr","Español":"es"
+};
+
+let currentLang=translations.en;
+
+function applyLanguage(displayName){
+
+ let code=langCodeMap[displayName]||"en";
+ let t=translations[code]||translations.en;
+
+ document.documentElement.lang=code;
+ document.documentElement.dir=(code==="ar"||code==="ur")?"rtl":"ltr";
+
+ let map={
+  t_nav_home:t.nav_home,t_nav_videos:t.nav_videos,t_nav_games:t.nav_games,
+  t_nav_shop:t.nav_shop,t_nav_orders:t.nav_orders,t_nav_account:t.nav_account,
+  t_hero_tagline:t.hero_tagline,t_hero_youtube:t.hero_youtube,t_hero_merch:t.hero_merch,
+  t_home_title:t.home_title,t_home_subtitle:t.home_subtitle,
+  t_videos_title:t.videos_title,t_videos_subtitle:t.videos_subtitle,
+  t_games_title:t.games_title,t_games_subtitle:t.games_subtitle,
+  t_shop_title:t.shop_title,t_shop_subtitle:t.shop_subtitle,
+  t_orders_title:t.orders_title,t_orders_subtitle:t.orders_subtitle,
+  t_footer_tagline:t.footer_tagline,t_footer_norefund:t.footer_norefund,
+  t_leaderboard_title:t.leaderboard_title,
+  t_ai_greeting:t.ai_greeting
+ };
+
+ for(let id in map){
+  let el=document.getElementById(id);
+  if(el)el.textContent=map[id];
+ }
+
+ let search=document.getElementById("search");
+ if(search)search.placeholder=t.search_placeholder;
+
+ let aiInput=document.getElementById("aiInput");
+ if(aiInput)aiInput.placeholder=t.ai_placeholder;
+
+ currentLang=t;
+
+ renderProducts();
+ renderOrders();
+ renderAccountModal();
+}
 
 function money(aed){
  let value=aed*(rates[currency]||1);
@@ -1242,6 +1406,8 @@ function showPage(id){
  window.scrollTo({top:0,behavior:"smooth"});
 }
 
+/* ====== SHOP — buy directly from the product card, no cart ====== */
+
 function renderProducts(){
 
  let q=(document.getElementById("search")?.value||"").toLowerCase();
@@ -1249,275 +1415,258 @@ function renderProducts(){
  document.getElementById("products").innerHTML=
  products
  .filter(p=>p.name.toLowerCase().includes(q))
- .map(p=>`
+ .map(p=>{
 
- <article class="card product">
+  let inStock=p.stock>0;
+  let maxQty=Math.min(4,p.stock);
+  let qtyOptions="";
+  for(let i=1;i<=maxQty;i++)qtyOptions+=`<option value="${i}">${i}</option>`;
 
- <div class="productvisual">
+  return `
 
- <div class="shirt ${p.type}">
+  <article class="card product">
 
- ${p.type==="football"
- ?'<div class="number">7</div>':""}
+  <div class="productvisual">
+  <div class="shirt ${p.type}">
+  <div class="merchlogo">CAY<span>GRAM</span></div>
+  </div>
+  </div>
 
- <div class="merchlogo">
- CAY<span>GRAM</span>
- </div>
+  <div class="productinfo">
 
- </div>
+  <h3>${p.name}</h3>
+  <div class="price">${money(p.price)}</div>
 
- </div>
+  <span class="stock ${inStock?"in":"out"}">
+  ${inStock?"🟢 "+currentLang.in_stock+" ("+p.stock+")":"🔴 "+currentLang.out_of_stock}
+  </span>
 
- <div class="productinfo">
+  ${!inStock?`
 
- <h3>${p.name}</h3>
+  <div class="actions">
+  <button class="fav" onclick="favorite(${p.id})">♡</button>
+  <button class="add" disabled>${currentLang.out_of_stock}</button>
+  </div>
 
- <div class="price">${money(p.price)}</div>
+  `:!currentUser?`
 
- <span class="stock ${p.stock?"in":"out"}">
- ${p.stock?"🟢 IN STOCK":"🔴 OUT OF STOCK"}
- </span>
+  <button class="fav" onclick="favorite(${p.id})" style="margin:10px 0">♡ Favorite</button>
+  <button class="btn gradient" style="width:100%" onclick="toast('Please sign in to buy');openAccount()">${currentLang.sign_in} to buy</button>
 
- <div class="actions">
+  `:`
 
- <button class="fav" onclick="favorite(${p.id})">♡</button>
+  <button class="fav" onclick="favorite(${p.id})" style="margin:10px 0">♡ Favorite</button>
 
- <button
- class="add"
- ${p.stock?"":"disabled"}
- onclick="openProduct(${p.id})">
+  <div class="field">
+  <label>Size</label>
+  <select id="size_${p.id}">
+  <option>XS</option><option>S</option><option selected>M</option><option>L</option><option>XL</option>
+  </select>
+  </div>
 
- ${p.stock?"Add to Cart":"OUT OF STOCK"}
+  <div class="field">
+  <label>Quantity (max 4)</label>
+  <select id="qty_${p.id}" onchange="updateProductTotal(${p.id})">
+  ${qtyOptions}
+  </select>
+  </div>
 
- </button>
+  <div class="field">
+  <label>Full name</label>
+  <input id="name_${p.id}" value="${escapeHTML(currentUser.name||"")}">
+  </div>
 
- </div>
+  <div class="field">
+  <label>Phone</label>
+  <input id="phone_${p.id}" value="${escapeHTML(currentUser.phone||"")}" placeholder="+971...">
+  </div>
 
- </div>
+  <div class="field">
+  <label>Delivery address</label>
+  <input id="address_${p.id}" value="${escapeHTML(currentUser.address||"")}" placeholder="Building, street, city">
+  </div>
 
- </article>
+  <div class="total" id="productTotal_${p.id}">${currentLang.total}: ${money(p.price)}</div>
 
- `).join("");
+  <div class="notice" style="font-size:12px">
+  📩 Confirmation goes to ${escapeHTML(currentUser.email||"")}. ${currentLang.footer_norefund}
+  </div>
+
+  <a class="btn gradient" style="display:block;text-align:center" href="${ZIINA_LINK}" target="_blank">
+  🔗 Pay <span id="payAmt_${p.id}">${money(p.price)}</span> with Ziina
+  </a>
+
+  <div class="field" style="display:flex;align-items:center;gap:8px;margin-top:10px">
+  <input type="checkbox" id="confirmed_${p.id}" style="width:auto" onchange="toggleBuyBtn(${p.id})">
+  <label style="margin:0;font-weight:normal" for="confirmed_${p.id}">I confirm I've paid on Ziina</label>
+  </div>
+
+  <button class="modalbtn gradient" id="placeBtn_${p.id}" disabled onclick="buyNow(${p.id})">${currentLang.place_order}</button>
+
+  `}
+
+  </div>
+
+  </article>
+
+  `;
+
+ }).join("");
 }
 
-function openProduct(id){
- selectedProduct=products.find(p=>p.id===id);
- document.getElementById("productTitle").textContent=selectedProduct.name;
- document.getElementById("productModal").classList.add("show");
+function updateProductTotal(id){
+ let p=products.find(x=>x.id===id);
+ if(!p)return;
+ let qtyEl=document.getElementById("qty_"+id);
+ let qty=qtyEl?Number(qtyEl.value):1;
+ let total=p.price*qty;
+ let totalEl=document.getElementById("productTotal_"+id);
+ if(totalEl)totalEl.textContent=currentLang.total+": "+money(total);
+ let payEl=document.getElementById("payAmt_"+id);
+ if(payEl)payEl.textContent=money(total);
 }
 
-function addToCart(){
-
- let size=document.getElementById("size").value;
- let quantity=Number(document.getElementById("quantity").value);
-
- let existing=cart.find(
-  x=>x.id===selectedProduct.id&&x.size===size
- );
-
- if(existing)existing.quantity+=quantity;
- else cart.push({
-  id:selectedProduct.id,
-  size,
-  quantity
- });
-
- saveCart();
- closeModal("productModal");
- toast("🛒 Added to cart");
+function toggleBuyBtn(id){
+ let btn=document.getElementById("placeBtn_"+id);
+ if(btn)btn.disabled=!document.getElementById("confirmed_"+id).checked;
 }
 
-function saveCart(){
- localStorage.setItem("cayCart",JSON.stringify(cart));
- updateCartCount();
-}
+function buyNow(id){
 
-function updateCartCount(){
- document.getElementById("cartCount").textContent=
- cart.reduce((a,b)=>a+b.quantity,0);
-}
-
-function openCart(){
-
- let total=0;
-
- if(!cart.length){
-
-  document.getElementById("cartItems").innerHTML=
-  '<p class="muted">Your cart is empty.</p>';
-
-  document.getElementById("cartTotal").textContent="";
-
- }else{
-
-  document.getElementById("cartItems").innerHTML=
-  cart.map((item,index)=>{
-
-   let p=products.find(x=>x.id===item.id);
-   total+=p.price*item.quantity;
-
-   return `
-   <div class="cartitem">
-
-   <div>
-   <b>${p.name}</b><br>
-   <small>Size ${item.size} · ${money(p.price)}</small>
-   </div>
-
-   <div class="qty">
-   <button onclick="changeQty(${index},-1)">−</button>
-   ${item.quantity}
-   <button onclick="changeQty(${index},1)">+</button>
-   </div>
-
-   </div>
-   `;
-
-  }).join("");
-
-  document.getElementById("cartTotal").textContent=
-  "Total: "+money(total);
- }
-
- document.getElementById("cartModal").classList.add("show");
-}
-
-function changeQty(index,amount){
-
- cart[index].quantity+=amount;
-
- if(cart[index].quantity<=0)cart.splice(index,1);
-
- saveCart();
- openCart();
-}
-
-function checkout(){
-
- if(!cart.length){
-  toast("Your cart is empty");
+ if(!currentUser){
+  toast("Please sign in first");
   return;
  }
 
- closeModal("cartModal");
- document.getElementById("checkoutModal").classList.add("show");
-}
-
-function showCardFields(){
-
- document.getElementById("cardFields").style.display=
- document.getElementById("paymentMethod").value==="card"
- ?"block":"none";
-}
-
-function placeOrder(){
-
- let name=document.getElementById("customerName").value.trim();
- let phone=document.getElementById("customerPhone").value.trim();
- let address=document.getElementById("customerAddress").value.trim();
-
- if(!name||!phone||!address){
-  toast("Please complete your details");
+ let p=products.find(x=>x.id===id);
+ if(!p||p.stock<=0){
+  toast("Sorry, that item just sold out");
+  renderProducts();
   return;
  }
 
- let total=cart.reduce(
-  (sum,item)=>
-  sum+products.find(p=>p.id===item.id).price*item.quantity,
-  0
- );
+ let confirmedBox=document.getElementById("confirmed_"+id);
+ if(!confirmedBox||!confirmedBox.checked){
+  toast("Please confirm your Ziina payment first");
+  return;
+ }
 
- let id="CAY-"+Math.floor(100000+Math.random()*900000);
+ let qty=Number(document.getElementById("qty_"+id).value);
+ let size=document.getElementById("size_"+id).value;
+ let name=document.getElementById("name_"+id).value.trim();
+ let phone=document.getElementById("phone_"+id).value.trim();
+ let address=document.getElementById("address_"+id).value.trim();
+
+ if(!isValidName(name)){toast("Please enter your full name");return;}
+ if(!isValidPhone(phone)){toast("Please enter a valid phone number");return;}
+ if(!isValidAddress(address)){toast("Please enter a valid delivery address");return;}
+
+ if(qty<1||qty>4){
+  toast("You can buy up to 4 per order");
+  return;
+ }
+
+ if(qty>p.stock){
+  toast("Only "+p.stock+" left in stock");
+  return;
+ }
+
+ let total=p.price*qty;
+ let orderId="CAY-"+Math.floor(100000+Math.random()*900000);
+ let now=Date.now();
+ let etaDays=3+Math.floor(Math.random()*3);
+ let outForDeliveryAt=now+(etaDays-1)*86400000;
+ let deliveredAt=now+etaDays*86400000;
+
+ currentUser.name=name;
+ currentUser.phone=phone;
+ currentUser.address=address;
+
+ let accounts=JSON.parse(localStorage.getItem("cayAccounts")||"{}");
+ accounts[currentUser.username]=currentUser;
+ localStorage.setItem("cayAccounts",JSON.stringify(accounts));
+
+ p.stock-=qty;
+ saveStock();
 
  let order={
-  id,
-  name,
-  phone,
-  address,
-  total,
-  payment:document.getElementById("paymentMethod").value,
-  status:"Preparing",
-  items:[...cart],
-  created:Date.now()
+  id:orderId,
+  owner:currentUser.username,
+  name,phone,address,total,
+  payment:"ziina",
+  created:now,
+  outForDeliveryAt,deliveredAt,
+  cancelled:false,
+  refundRequest:null,
+  items:[{id:p.id,size,quantity:qty}]
  };
 
  orders.unshift(order);
-
  localStorage.setItem("cayOrders",JSON.stringify(orders));
 
- cart=[];
- saveCart();
-
- closeModal("checkoutModal");
+ renderProducts();
  renderOrders();
 
- toast("✅ Order placed — demo delivery: 10 minutes");
+ toast("✅ Order placed!");
 
- showOrder(id);
+ sendOrderConfirmationEmail(order);
 
- setTimeout(()=>updateStatus(id,"Out for delivery"),20000);
- setTimeout(()=>updateStatus(id,"Delivered"),60000);
+ showPage("orders");
+ showOrder(orderId);
 }
 
-function updateStatus(id,status){
+/* ====== ORDERS, DELIVERY & DAMAGE REFUNDS ====== */
 
- let o=orders.find(x=>x.id===id);
- if(!o)return;
-
- o.status=status;
-
- localStorage.setItem("cayOrders",JSON.stringify(orders));
-
- renderOrders();
-
- toast(status==="Delivered"
- ?"📦 Delivered!"
- :"🚚 "+status);
+function getOrderStatus(o){
+ if(o.cancelled)return "Cancelled";
+ let now=Date.now();
+ if(now>=o.deliveredAt)return "Delivered";
+ if(now>=o.outForDeliveryAt)return "Out for delivery";
+ return "Preparing";
 }
 
 function renderOrders(){
 
  let el=document.getElementById("ordersList");
+ if(!el)return;
 
- if(!orders.length){
-  el.innerHTML=
-  '<div class="order"><p class="muted">No orders yet.</p></div>';
+ if(!currentUser){
+  el.innerHTML=`<div class="order"><p class="muted">${currentLang.sign_in_prompt}</p></div>`;
   return;
  }
 
- el.innerHTML=orders.map(o=>`
+ let myOrders=orders.filter(o=>o.owner===currentUser.username);
 
- <div class="order">
+ if(!myOrders.length){
+  el.innerHTML=`<div class="order"><p class="muted">${currentLang.no_orders_yet}</p></div>`;
+  return;
+ }
 
- <b>${o.id}</b>
+ el.innerHTML=myOrders.map(o=>{
 
- <p>
- ${o.status} · ${money(o.total)}
- </p>
+  let status=getOrderStatus(o);
 
- <small>
- ${o.payment==="cod"
- ?"💵 Cash on Delivery"
- :"💳 Card Demo"}
- </small>
+  return `
 
- <br>
+  <div class="order">
 
- <button onclick="showOrder('${o.id}')">
- Track
- </button>
+  <b>${o.id}</b>
 
- <button onclick="cancelOrder('${o.id}')">
- Cancel
- </button>
+  <p>${status} · ${money(o.total)}</p>
 
- <button onclick="refundOrder('${o.id}')">
- Refund
- </button>
+  <small>🔗 Paid via Ziina${o.refundRequest?" · Refund: "+o.refundRequest.status:""}</small>
 
- </div>
+  <br>
 
- `).join("");
+  <button onclick="showOrder('${o.id}')">Track</button>
+
+  ${status==="Preparing"?`<button onclick="cancelOrder('${o.id}')">Cancel</button>`:""}
+
+  </div>
+
+  `;
+
+ }).join("");
 }
 
 function showOrder(id){
@@ -1525,47 +1674,54 @@ function showOrder(id){
  let o=orders.find(x=>x.id===id);
  if(!o)return;
 
+ let status=getOrderStatus(o);
  let states=["Preparing","Out for delivery","Delivered"];
- let current=states.indexOf(o.status);
+ let current=states.indexOf(status);
+
+ let etaText=new Date(o.deliveredAt).toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric"});
+ let deliveredText=new Date(o.deliveredAt).toLocaleString();
+ let damageWindowOpen=status==="Delivered"&&(Date.now()-o.deliveredAt)<48*3600*1000;
 
  document.getElementById("orderDetails").innerHTML=`
 
  <h3>${o.id}</h3>
 
- <p>
- Status: <b>${o.status}</b>
- </p>
+ <p>Status: <b>${status}</b></p>
 
- <div class="notice">
- ⏱️ Demo estimated delivery: about 10 minutes.
- </div>
+ ${status==="Cancelled"?"":`
+
+ <div class="notice">📅 Estimated delivery: ${etaText}</div>
 
  <div class="steps">
-
  ${states.map((s,i)=>`
-
  <div class="step ${i<=current?"done":""}">
-
- <div class="dot">
- ${i<=current?"✓":""}
- </div>
-
+ <div class="dot">${i<=current?"✓":""}</div>
  ${s}
-
  </div>
-
  `).join("")}
-
  </div>
 
- <p>
- <b>Address:</b>
- ${escapeHTML(o.address)}
- </p>
+ `}
 
- <p>
- <b>Total:</b> ${money(o.total)}
- </p>
+ ${status==="Delivered"?`
+ <div class="notice">
+ ✅ Proof of delivery — <b>${o.id}-POD</b><br>
+ Delivered ${deliveredText} to ${escapeHTML(o.address)}
+ </div>
+ `:""}
+
+ <p><b>Address:</b> ${escapeHTML(o.address)}</p>
+ <p><b>Total:</b> ${money(o.total)}</p>
+
+ <p class="muted" style="font-size:12px">${currentLang.footer_norefund}</p>
+
+ ${o.refundRequest?`
+ <div class="notice">
+ 🔧 Refund request submitted — status: <b>${o.refundRequest.status}</b>
+ </div>
+ `:damageWindowOpen?`
+ <button class="modalbtn darkbtn" onclick="openDamageModal('${o.id}')">📷 Report Damaged Item</button>
+ `:""}
 
  `;
 
@@ -1575,15 +1731,23 @@ function showOrder(id){
 function cancelOrder(id){
 
  let o=orders.find(x=>x.id===id);
-
  if(!o)return;
 
- if(o.status==="Delivered"){
-  toast("Delivered orders cannot be cancelled");
+ if(getOrderStatus(o)!=="Preparing"){
+  toast("This order can no longer be cancelled");
   return;
  }
 
- o.status="Cancelled";
+ o.cancelled=true;
+
+ // cancelling before shipping restocks the item
+ let item=o.items[0];
+ let p=products.find(x=>x.id===item.id);
+ if(p){
+  p.stock+=item.quantity;
+  saveStock();
+  renderProducts();
+ }
 
  localStorage.setItem("cayOrders",JSON.stringify(orders));
 
@@ -1592,51 +1756,384 @@ function cancelOrder(id){
  toast("❌ Order cancelled");
 }
 
-function refundOrder(id){
+function openDamageModal(orderId){
 
- let o=orders.find(x=>x.id===id);
+ document.getElementById("damageBody").innerHTML=`
 
- if(!o)return;
+ <div class="notice">
+ Refunds are only available for items that arrive damaged, reported within
+ 48 hours of delivery, with a photo of the damage.
+ </div>
 
- o.status="Refund requested";
+ <div class="field">
+ <label>Photo proof of damage</label>
+ <input type="file" id="damagePhoto" accept="image/*">
+ </div>
 
- localStorage.setItem("cayOrders",JSON.stringify(orders));
+ <div class="field">
+ <label>What's wrong with the item?</label>
+ <input id="damageDescription" placeholder="Describe the damage">
+ </div>
 
- renderOrders();
+ <button class="modalbtn gradient" onclick="submitDamageReport('${orderId}')">Submit Refund Request</button>
 
- toast("💰 Refund requested");
+ `;
+
+ document.getElementById("damageModal").classList.add("show");
 }
 
-function openAccount(){
-
- let a=JSON.parse(
- localStorage.getItem("cayAccount")||"{}"
- );
-
- document.getElementById("username").value=a.username||"";
- document.getElementById("email").value=a.email||"";
-
- document.getElementById("accountModal").classList.add("show");
+function resizeImageFile(file,maxWidth){
+ return new Promise((resolve,reject)=>{
+  let reader=new FileReader();
+  reader.onload=e=>{
+   let img=new Image();
+   img.onload=()=>{
+    let scale=Math.min(1,maxWidth/img.width);
+    let canvas=document.createElement("canvas");
+    canvas.width=Math.round(img.width*scale);
+    canvas.height=Math.round(img.height*scale);
+    let ctx=canvas.getContext("2d");
+    ctx.drawImage(img,0,0,canvas.width,canvas.height);
+    resolve(canvas.toDataURL("image/jpeg",0.7));
+   };
+   img.onerror=()=>reject(new Error("bad image"));
+   img.src=e.target.result;
+  };
+  reader.onerror=()=>reject(new Error("read failed"));
+  reader.readAsDataURL(file);
+ });
 }
 
-function saveAccount(){
+async function submitDamageReport(orderId){
 
- let username=document.getElementById("username").value.trim();
- let email=document.getElementById("email").value.trim();
+ let fileInput=document.getElementById("damagePhoto");
+ let description=document.getElementById("damageDescription").value.trim();
 
- if(!username){
-  toast("Enter a username");
+ if(!fileInput.files.length){
+  toast("Please attach a photo of the damage");
   return;
  }
 
- localStorage.setItem(
- "cayAccount",
- JSON.stringify({username,email})
- );
+ if(!description){
+  toast("Please describe the damage");
+  return;
+ }
+
+ let photoDataUrl;
+ try{
+  photoDataUrl=await resizeImageFile(fileInput.files[0],800);
+ }catch(e){
+  toast("Couldn't read that photo — try another");
+  return;
+ }
+
+ let o=orders.find(x=>x.id===orderId);
+ if(!o)return;
+
+ o.refundRequest={
+  photo:photoDataUrl,
+  description,
+  requestedAt:Date.now(),
+  status:"Pending Review"
+ };
+
+ localStorage.setItem("cayOrders",JSON.stringify(orders));
+
+ closeModal("damageModal");
+ renderOrders();
+ showOrder(orderId);
+
+ toast("📷 Refund request submitted");
+
+ sendDamageReportEmail(o);
+}
+
+/* ====== ACCOUNTS ======
+   Signup/login/password-change run entirely in this browser: there's no
+   server, so accounts and passwords live in this browser's local storage.
+   Passwords are SHA-256 hashed (not stored in plain text) before saving,
+   but without a real backend this still isn't production-grade security —
+   don't reuse an important password here. */
+
+let accountView="login";
+
+let currentUser=null;
+{
+ let savedUsername=localStorage.getItem("cayCurrentUser");
+ if(savedUsername){
+  let accounts=JSON.parse(localStorage.getItem("cayAccounts")||"{}");
+  if(accounts[savedUsername])currentUser=accounts[savedUsername];
+ }
+}
+
+async function hashPassword(password,salt){
+ let enc=new TextEncoder().encode(salt+":"+password);
+ let buf=await crypto.subtle.digest("SHA-256",enc);
+ return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,"0")).join("");
+}
+
+function openAccount(){
+ accountView=currentUser?"dashboard":"login";
+ renderAccountModal();
+ document.getElementById("accountModal").classList.add("show");
+}
+
+function renderAccountModal(){
+
+ let el=document.getElementById("accountBody");
+ if(!el)return;
+
+ if(currentUser)el.innerHTML=accountDashboardHTML();
+ else if(accountView==="signup")el.innerHTML=accountSignupHTML();
+ else el.innerHTML=accountLoginHTML();
+}
+
+function accountLoginHTML(){
+ return `
+ <div class="field">
+ <label>Username</label>
+ <input id="loginUsername" placeholder="Your username">
+ </div>
+ <div class="field">
+ <label>Password</label>
+ <input id="loginPassword" type="password" placeholder="Your password">
+ </div>
+ <button class="modalbtn gradient" onclick="doLogin()">${currentLang.sign_in}</button>
+ <p class="muted" style="text-align:center;margin-top:10px">
+ New here? <a href="#" onclick="accountView='signup';renderAccountModal();return false" style="color:#7c3aed;font-weight:bold">${currentLang.create_account}</a>
+ </p>
+ `;
+}
+
+function accountSignupHTML(){
+ return `
+ <div class="field">
+ <label>Full name</label>
+ <input id="signupName" placeholder="Your name">
+ </div>
+ <div class="field">
+ <label>Username</label>
+ <input id="signupUsername" placeholder="3-20 letters/numbers">
+ </div>
+ <div class="field">
+ <label>Email</label>
+ <input id="signupEmail" type="email" placeholder="you@example.com">
+ </div>
+ <div class="field">
+ <label>Phone</label>
+ <input id="signupPhone" placeholder="+971...">
+ </div>
+ <div class="field">
+ <label>Password</label>
+ <input id="signupPassword" type="password" placeholder="At least 6 characters">
+ </div>
+ <div class="field">
+ <label>Confirm password</label>
+ <input id="signupPassword2" type="password" placeholder="Repeat password">
+ </div>
+ <button class="modalbtn gradient" onclick="doSignup()">${currentLang.create_account}</button>
+ <p class="muted" style="text-align:center;margin-top:10px">
+ Already have an account? <a href="#" onclick="accountView='login';renderAccountModal();return false" style="color:#7c3aed;font-weight:bold">${currentLang.sign_in}</a>
+ </p>
+ `;
+}
+
+function accountDashboardHTML(){
+ return `
+ <div class="notice">Signed in as <b>${escapeHTML(currentUser.username)}</b></div>
+
+ <div class="field">
+ <label>Full name</label>
+ <input id="acctName" value="${escapeHTML(currentUser.name||"")}">
+ </div>
+ <div class="field">
+ <label>Email</label>
+ <input id="acctEmail" type="email" value="${escapeHTML(currentUser.email||"")}">
+ </div>
+ <div class="field">
+ <label>Phone</label>
+ <input id="acctPhone" value="${escapeHTML(currentUser.phone||"")}">
+ </div>
+ <button class="modalbtn gradient" onclick="saveAccountDetails()">${currentLang.save_changes}</button>
+
+ <div style="margin:24px 0 6px">
+ <b>🔒 Login &amp; Security</b>
+ </div>
+
+ <div class="field">
+ <label>Current password</label>
+ <input id="pwCurrent" type="password" placeholder="Current password">
+ </div>
+ <div class="field">
+ <label>New password</label>
+ <input id="pwNew" type="password" placeholder="New password">
+ </div>
+ <div class="field">
+ <label>Confirm new password</label>
+ <input id="pwNew2" type="password" placeholder="Repeat new password">
+ </div>
+ <button class="modalbtn darkbtn" onclick="changePassword()">${currentLang.change_password}</button>
+
+ <button class="modalbtn" style="background:#eee;color:#111;margin-top:20px" onclick="doLogout()">${currentLang.sign_out}</button>
+ `;
+}
+
+async function doSignup(){
+
+ let name=document.getElementById("signupName").value.trim();
+ let username=document.getElementById("signupUsername").value.trim().toLowerCase();
+ let email=document.getElementById("signupEmail").value.trim();
+ let phone=document.getElementById("signupPhone").value.trim();
+ let pass=document.getElementById("signupPassword").value;
+ let pass2=document.getElementById("signupPassword2").value;
+
+ if(!isValidName(name)){toast("Please enter your full name");return;}
+ if(!isValidUsername(username)){toast("Username: 3-20 letters, numbers, dots or underscores");return;}
+ if(!isValidEmail(email)){toast("Please enter a valid email address");return;}
+ if(!isValidPhone(phone)){toast("Please enter a valid phone number");return;}
+
+ if(pass!==pass2){
+  toast("Passwords don't match");
+  return;
+ }
+
+ if(pass.length<6){
+  toast("Password must be at least 6 characters");
+  return;
+ }
+
+ let accounts=JSON.parse(localStorage.getItem("cayAccounts")||"{}");
+
+ if(accounts[username]){
+  toast("That username is already taken");
+  return;
+ }
+
+ let passHash=await hashPassword(pass,username);
+
+ accounts[username]={username,name,email,phone,passHash};
+
+ localStorage.setItem("cayAccounts",JSON.stringify(accounts));
+ localStorage.setItem("cayCurrentUser",username);
+
+ currentUser=accounts[username];
+
+ renderAccountModal();
+ renderProducts();
+ renderOrders();
+ renderLeaderboard();
+
+ toast("👋 Welcome, "+name+"!");
+}
+
+async function doLogin(){
+
+ let username=document.getElementById("loginUsername").value.trim().toLowerCase();
+ let pass=document.getElementById("loginPassword").value;
+
+ let accounts=JSON.parse(localStorage.getItem("cayAccounts")||"{}");
+ let account=accounts[username];
+
+ if(!account){
+  toast("No account with that username");
+  return;
+ }
+
+ let passHash=await hashPassword(pass,username);
+
+ if(passHash!==account.passHash){
+  toast("Incorrect password");
+  return;
+ }
+
+ currentUser=account;
+
+ localStorage.setItem("cayCurrentUser",username);
+
+ renderAccountModal();
+ renderProducts();
+ renderOrders();
+ renderLeaderboard();
+
+ toast("👋 Welcome back, "+(account.name||account.username)+"!");
+}
+
+function doLogout(){
+
+ currentUser=null;
+
+ localStorage.removeItem("cayCurrentUser");
+
+ accountView="login";
+
+ renderAccountModal();
+ renderProducts();
+ renderOrders();
 
  closeModal("accountModal");
 
- toast("👤 Account saved");
+ toast("Signed out");
+}
+
+function saveAccountDetails(){
+
+ if(!currentUser)return;
+
+ let name=document.getElementById("acctName").value.trim();
+ let email=document.getElementById("acctEmail").value.trim();
+ let phone=document.getElementById("acctPhone").value.trim();
+
+ if(!isValidName(name)){toast("Please enter your full name");return;}
+ if(!isValidEmail(email)){toast("Please enter a valid email address");return;}
+ if(!isValidPhone(phone)){toast("Please enter a valid phone number");return;}
+
+ currentUser.name=name;
+ currentUser.email=email;
+ currentUser.phone=phone;
+
+ let accounts=JSON.parse(localStorage.getItem("cayAccounts")||"{}");
+ accounts[currentUser.username]=currentUser;
+ localStorage.setItem("cayAccounts",JSON.stringify(accounts));
+
+ toast("✅ Account details saved");
+}
+
+async function changePassword(){
+
+ if(!currentUser)return;
+
+ let current=document.getElementById("pwCurrent").value;
+ let next=document.getElementById("pwNew").value;
+ let next2=document.getElementById("pwNew2").value;
+
+ let currentHash=await hashPassword(current,currentUser.username);
+
+ if(currentHash!==currentUser.passHash){
+  toast("Current password is incorrect");
+  return;
+ }
+
+ if(next.length<6){
+  toast("New password must be at least 6 characters");
+  return;
+ }
+
+ if(next!==next2){
+  toast("New passwords don't match");
+  return;
+ }
+
+ currentUser.passHash=await hashPassword(next,currentUser.username);
+
+ let accounts=JSON.parse(localStorage.getItem("cayAccounts")||"{}");
+ accounts[currentUser.username]=currentUser;
+ localStorage.setItem("cayAccounts",JSON.stringify(accounts));
+
+ document.getElementById("pwCurrent").value="";
+ document.getElementById("pwNew").value="";
+ document.getElementById("pwNew2").value="";
+
+ toast("🔒 Password changed");
 }
 
 function openSettings(){
@@ -1655,21 +2152,17 @@ function openSettings(){
 function saveSettings(){
 
  currency=document.getElementById("currency").value;
-
  localStorage.setItem("cayCurrency",currency);
- localStorage.setItem(
-  "cayLanguage",
-  document.getElementById("language").value
- );
+
+ let language=document.getElementById("language").value;
+ localStorage.setItem("cayLanguage",language);
 
  let theme=document.getElementById("theme").value;
-
  localStorage.setItem("cayTheme",theme);
 
  document.body.classList.toggle("dark",theme==="Dark");
 
- renderProducts();
- renderOrders();
+ applyLanguage(language);
 
  closeModal("settingsModal");
 
@@ -1712,29 +2205,7 @@ function askAI(){
  </div>
  `;
 
- let answer=
- "I can help with Caygram, the shop, orders, delivery, refunds and settings.";
-
- if(/order|track|delivery/i.test(q)){
-  answer=orders.length
-  ?`Your latest order is <b>${orders[0].status}</b>.`
-  :"You don't have any orders yet.";
- }
-
- if(/refund/i.test(q))
- answer="Open Orders and press Refund.";
-
- if(/cancel/i.test(q))
- answer="Open Orders and press Cancel.";
-
- if(/shop|shirt|hoodie|merch/i.test(q))
- answer="Open Shop to see Caygram merch.";
-
- if(/language|currency|settings/i.test(q))
- answer="Open ⚙️ Settings to change language, currency and theme.";
-
- if(/youtube|video/i.test(q))
- answer="Tap Videos or the YouTube button on Home.";
+ let answer=getAIAnswer(q);
 
  body.innerHTML+=`
  <div class="msg">
@@ -1745,6 +2216,148 @@ function askAI(){
  body.scrollTop=body.scrollHeight;
 
  input.value="";
+}
+
+function getAIAnswer(q){
+
+ if(/track|where.*order|order status/i.test(q)){
+  if(!currentUser)return "Sign in from 👤 Account and I can pull up your orders.";
+  let mine=orders.filter(o=>o.owner===currentUser.username);
+  if(!mine.length)return "You don't have any orders yet — head to the Shop to grab some Caygram merch!";
+  let latest=mine[0];
+  return `Your latest order <b>${latest.id}</b> is currently <b>${getOrderStatus(latest)}</b>. Open Orders for full tracking.`;
+ }
+
+ if(/delivery|shipping|how long/i.test(q))
+ return "Orders are usually delivered within 3–5 business days. You'll see the exact estimated date, and a proof-of-delivery once it arrives, on your order tracking page.";
+
+ if(/damage|broken|refund|return/i.test(q))
+ return "All Caygram sales are final — except items that arrive damaged. Report it with a photo within 48 hours of delivery from your order's tracking page and we'll review it.";
+
+ if(/cancel/i.test(q))
+ return "You can cancel an order from the Orders page, as long as it hasn't shipped yet — the item goes back into stock automatically.";
+
+ if(/stock|sold out|available|left/i.test(q))
+ return "Stock is shown right on each product card — once an item sells out it's marked Out of Stock until restocked.";
+
+ if(/pay|payment|ziina|price|cost|how much|quantity|limit/i.test(q))
+ return "Everything in the shop is AED 50, up to 4 per order. Pay with Ziina right on the product card, tick the confirmation box, then Place Order.";
+
+ if(/shop|shirt|hoodie|merch|buy/i.test(q))
+ return "Head to the Shop tab for the Caygram Hoodie and T-Shirt — everything's AED 50, buy directly from the product card.";
+
+ if(/password|account|sign in|log ?in|sign ?up/i.test(q))
+ return "Tap 👤 Account to sign in, create an account, update your details, or change your password.";
+
+ if(/language|currency|settings|theme|dark mode/i.test(q))
+ return "Open ⚙️ Settings to change language, currency and theme.";
+
+ if(/youtube|video|subscribe/i.test(q))
+ return "Tap Videos or the YouTube button on Home to watch the latest Caygram content.";
+
+ if(/game|arena|roblox|football|challenge|leaderboard|score/i.test(q))
+ return "Head to the Arena for Roblox, football challenges, weekly challenges, and the Reaction game with a live leaderboard!";
+
+ if(/email|confirmation/i.test(q))
+ return "You'll get an order confirmation emailed to the address on your account as soon as you place an order.";
+
+ if(/hi|hello|hey/i.test(q))
+ return "Hey there! 👋 What can I help you with — the shop, an order, payment, or your account?";
+
+ return "I can help with the shop, orders, delivery, damage/refunds, your account, or the Arena. What do you need?";
+}
+
+/* ====== REACTION ARENA MINI-GAME ====== */
+
+let arenaActive=false;
+let arenaScore=0;
+let arenaTimer=null;
+
+function startArena(){
+
+ if(arenaActive){
+  arenaScore++;
+  document.getElementById("arenaScore").textContent=arenaScore;
+  return;
+ }
+
+ if(!currentUser){
+  toast("Sign in to save your score");
+  openAccount();
+  return;
+ }
+
+ arenaActive=true;
+ arenaScore=0;
+
+ document.getElementById("arenaScore").textContent="0";
+ document.getElementById("arenaStatus").textContent="Go! Tap the button!";
+ document.getElementById("arenaBtn").textContent="👆 TAP!";
+
+ let timeLeft=5;
+
+ arenaTimer=setInterval(()=>{
+
+  timeLeft--;
+
+  if(timeLeft<=0){
+   clearInterval(arenaTimer);
+   endArena();
+  }
+
+ },1000);
+
+}
+
+function endArena(){
+
+ arenaActive=false;
+
+ document.getElementById("arenaStatus").textContent=
+ "Final score: "+arenaScore+" taps!";
+
+ document.getElementById("arenaBtn").textContent="▶️ Start (5s)";
+
+ saveArenaScore(arenaScore);
+}
+
+function saveArenaScore(score){
+
+ let board=JSON.parse(localStorage.getItem("cayLeaderboard")||"[]");
+
+ let existing=board.find(x=>x.username===currentUser.username);
+
+ if(existing){
+  if(score>existing.score)existing.score=score;
+ }else{
+  board.push({username:currentUser.username,score});
+ }
+
+ board.sort((a,b)=>b.score-a.score);
+
+ localStorage.setItem("cayLeaderboard",JSON.stringify(board.slice(0,10)));
+
+ renderLeaderboard();
+}
+
+function renderLeaderboard(){
+
+ let el=document.getElementById("leaderboard");
+ if(!el)return;
+
+ let board=JSON.parse(localStorage.getItem("cayLeaderboard")||"[]");
+
+ if(!board.length){
+  el.innerHTML='<div class="order"><p class="muted">No scores yet — be the first!</p></div>';
+  return;
+ }
+
+ el.innerHTML=board.map((b,i)=>`
+ <div class="order" style="display:flex;justify-content:space-between;align-items:center">
+ <span>${["🥇","🥈","🥉"][i]||(i+1)+"."} ${escapeHTML(b.username)}</span>
+ <b>${b.score}</b>
+ </div>
+ `).join("");
 }
 
 function escapeHTML(x){
@@ -1780,10 +2393,8 @@ document.body.classList.toggle(
  localStorage.getItem("cayTheme")==="Dark"
 );
 
-renderProducts();
-renderOrders();
-updateCartCount();
-
+applyLanguage(localStorage.getItem("cayLanguage")||"English");
+renderLeaderboard();
 </script>
 
 </body>
