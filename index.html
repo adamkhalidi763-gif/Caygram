@@ -1067,19 +1067,26 @@ const ZIINA_LINK="https://pay.ziina.com/Ahmadkhalidi/jXVqqAunK?source=app";
    through your own inbox without a server.
    1. Create a free account at https://www.emailjs.com
    2. Add your inbox (Gmail/Outlook/etc) as an "Email Service" -> copy its Service ID below
-   3. Create an Order Confirmation template with variables: {{to_email}} {{customer_name}}
-      {{order_id}} {{items}} {{total}} {{address}} {{eta}} -> copy its Template ID below
-   4. Create a second Damage Report template (sent to YOUR inbox, not the customer) with
-      variables: {{order_id}} {{customer_name}} {{customer_email}} {{description}} {{photo}}
-      — {{photo}} is a data:image URL, so an <img src="{{photo}}"> tag in the template will
-      show the photo (small images only — very large photos are skipped, see below).
-   5. Copy your Public Key from Account > API Keys
+   3. Create an Order Confirmation template (sent to the CUSTOMER) with variables:
+      {{to_email}} {{customer_name}} {{order_id}} {{items}} {{total}} {{address}} {{eta}}
+      -> copy its Template ID below
+   4. Create a Merchant Notification template (sent to YOU, ADMIN_EMAIL below) with variables:
+      {{order_id}} {{customer_name}} {{customer_email}} {{customer_phone}} {{address}}
+      {{items}} {{total}} {{payment_reference}} {{payment_screenshot}} — put
+      <img src="{{payment_screenshot}}"> in the template to see the proof of payment.
+      This is the email you check against your real Ziina "Get Paid" history before
+      shipping anything — see the note in buyNow() below for why that step still matters.
+   5. Create a Damage Report template (sent to YOU) with variables:
+      {{order_id}} {{customer_name}} {{customer_email}} {{description}} {{photo}}
+   6. Copy your Public Key from Account > API Keys, and put your own inbox in ADMIN_EMAIL
    Until these are filled in, orders and refund requests still work fine — the app just
    won't be able to email anyone and will say so quietly. */
-const EMAILJS_PUBLIC_KEY="";
-const EMAILJS_SERVICE_ID="";
+const EMAILJS_PUBLIC_KEY="UEPjB-ItXTYeYKD27";
+const EMAILJS_SERVICE_ID="service_s56a57c";
 const EMAILJS_TEMPLATE_ID="";
+const EMAILJS_MERCHANT_TEMPLATE_ID="template_jwb6jbf";
 const EMAILJS_DAMAGE_TEMPLATE_ID="";
+const ADMIN_EMAIL="ahmkhalidi83@gmail.com";
 
 try{
  if(EMAILJS_PUBLIC_KEY&&window.emailjs)emailjs.init(EMAILJS_PUBLIC_KEY);
@@ -1107,6 +1114,34 @@ function sendOrderConfirmationEmail(order){
  }).catch(()=>{
   toast("Order placed — couldn't send the confirmation email");
  });
+
+}
+
+function sendMerchantOrderNotification(order){
+
+ if(!EMAILJS_PUBLIC_KEY||!EMAILJS_SERVICE_ID||!EMAILJS_MERCHANT_TEMPLATE_ID||!ADMIN_EMAIL||!window.emailjs){
+  return;
+ }
+
+ let p=products.find(x=>x.id===order.items[0].id);
+ let itemsText=p?`${p.name} (Size ${order.items[0].size}) x${order.items[0].quantity}`:"";
+
+ // very large screenshots are skipped to stay under typical email-template size limits
+ let screenshot=order.paymentProof?order.paymentProof.screenshot:"";
+ if(screenshot && screenshot.length>60000)screenshot="";
+
+ emailjs.send(EMAILJS_SERVICE_ID,EMAILJS_MERCHANT_TEMPLATE_ID,{
+  to_email:ADMIN_EMAIL,
+  order_id:order.id,
+  customer_name:order.name,
+  customer_email:currentUser?currentUser.email:"",
+  customer_phone:order.phone,
+  address:order.address,
+  items:itemsText,
+  total:money(order.total),
+  payment_reference:order.paymentProof?order.paymentProof.reference:"",
+  payment_screenshot:screenshot
+ }).catch(()=>{});
 
 }
 
@@ -1145,12 +1180,127 @@ function isValidName(x){
  return x.length>=2 && x.length<=60 && !/^\d+$/.test(x);
 }
 
-function isValidAddress(x){
- return x.length>=8 && /\d/.test(x);
+function isValidAddressParts(building,street,city){
+ return building.trim().length>=2 && street.trim().length>=2 && city.trim().length>=2;
 }
 
 function isValidUsername(x){
  return /^[a-z0-9_.]{3,20}$/i.test(x);
+}
+
+/* ====== COUNTRIES, PHONE CODES & GOOGLE MAPS ======
+   A curated list covering the Gulf, South Asia and other major regions —
+   tell me if a country you need is missing and I'll add it.
+   The map preview uses Google's key-free embed (maps.google.com/maps?...
+   &output=embed), so no Google Maps API key is needed or configured here. */
+
+const countries=[
+{name:"United Arab Emirates",code:"+971"},
+{name:"Saudi Arabia",code:"+966"},
+{name:"Qatar",code:"+974"},
+{name:"Kuwait",code:"+965"},
+{name:"Bahrain",code:"+973"},
+{name:"Oman",code:"+968"},
+{name:"India",code:"+91"},
+{name:"Pakistan",code:"+92"},
+{name:"Bangladesh",code:"+880"},
+{name:"Sri Lanka",code:"+94"},
+{name:"Nepal",code:"+977"},
+{name:"Philippines",code:"+63"},
+{name:"Indonesia",code:"+62"},
+{name:"Malaysia",code:"+60"},
+{name:"Thailand",code:"+66"},
+{name:"Vietnam",code:"+84"},
+{name:"Egypt",code:"+20"},
+{name:"Jordan",code:"+962"},
+{name:"Lebanon",code:"+961"},
+{name:"Iraq",code:"+964"},
+{name:"Iran",code:"+98"},
+{name:"Turkey",code:"+90"},
+{name:"Nigeria",code:"+234"},
+{name:"Kenya",code:"+254"},
+{name:"Ghana",code:"+233"},
+{name:"South Africa",code:"+27"},
+{name:"Morocco",code:"+212"},
+{name:"Tunisia",code:"+216"},
+{name:"United States",code:"+1"},
+{name:"Canada",code:"+1"},
+{name:"United Kingdom",code:"+44"},
+{name:"Ireland",code:"+353"},
+{name:"France",code:"+33"},
+{name:"Germany",code:"+49"},
+{name:"Spain",code:"+34"},
+{name:"Italy",code:"+39"},
+{name:"Netherlands",code:"+31"},
+{name:"Portugal",code:"+351"},
+{name:"Sweden",code:"+46"},
+{name:"Norway",code:"+47"},
+{name:"Denmark",code:"+45"},
+{name:"Poland",code:"+48"},
+{name:"Russia",code:"+7"},
+{name:"Ukraine",code:"+380"},
+{name:"China",code:"+86"},
+{name:"Japan",code:"+81"},
+{name:"South Korea",code:"+82"},
+{name:"Hong Kong",code:"+852"},
+{name:"Singapore",code:"+65"},
+{name:"Australia",code:"+61"},
+{name:"New Zealand",code:"+64"},
+{name:"Brazil",code:"+55"},
+{name:"Mexico",code:"+52"},
+{name:"Argentina",code:"+54"},
+{name:"Afghanistan",code:"+93"},
+{name:"Yemen",code:"+967"},
+{name:"Sudan",code:"+249"},
+{name:"Ethiopia",code:"+251"}
+];
+
+function countryOptionsHTML(selectedName){
+ return countries.map(c=>
+ `<option value="${escapeHTML(c.name)}" ${c.name===selectedName?"selected":""}>${escapeHTML(c.name)}</option>`
+ ).join("");
+}
+
+function phoneCodeOptionsHTML(selectedCode){
+ return countries.map(c=>
+ `<option value="${c.code}" ${c.code===selectedCode?"selected":""}>${c.code} ${escapeHTML(c.name)}</option>`
+ ).join("");
+}
+
+function splitPhone(fullPhone){
+ fullPhone=fullPhone||"";
+ let sorted=[...countries].sort((a,b)=>b.code.length-a.code.length);
+ for(let c of sorted){
+  if(fullPhone.startsWith(c.code)){
+   return {code:c.code,local:fullPhone.slice(c.code.length).trim()};
+  }
+ }
+ return {code:"+971",local:fullPhone.replace(/^\+/,"")};
+}
+
+function combinePhone(code,local){
+ return (code+" "+local.trim()).trim();
+}
+
+function updateMapPreview(pid){
+
+ let b=document.getElementById("building_"+pid);
+ let s=document.getElementById("street_"+pid);
+ let c=document.getElementById("city_"+pid);
+ let co=document.getElementById("country_"+pid);
+
+ if(!b||!s||!c||!co)return;
+
+ let query=[b.value.trim(),s.value.trim(),c.value.trim(),co.value].filter(Boolean).join(", ");
+ if(!query)query=co.value||"United Arab Emirates";
+
+ let encoded=encodeURIComponent(query);
+
+ let iframe=document.getElementById("mapPreview_"+pid);
+ if(iframe)iframe.src="https://maps.google.com/maps?q="+encoded+"&z=14&output=embed";
+
+ let link=document.getElementById("mapLink_"+pid);
+ if(link)link.href="https://www.google.com/maps/search/?api=1&query="+encoded;
 }
 
 /* ====== PRODUCTS & STOCK ======
@@ -1222,7 +1372,9 @@ en:{
  ai_placeholder:"Ask Caygram AI...",
  leaderboard_title:"Leaderboard",
  sign_in_prompt:"Sign in to see your orders.",
- no_orders_yet:"No orders yet."
+ no_orders_yet:"No orders yet.",
+ building_label:"Building / Villa / Apt",street_label:"Street",city_label:"City",country_label:"Country",
+ phone_label:"Phone",confirm_map_label:"Confirm location on the map",open_maps_label:"Open in Google Maps ↗"
 },
 ar:{
  nav_home:"الرئيسية",nav_videos:"فيديوهات",nav_games:"الساحة",nav_shop:"المتجر",nav_orders:"الطلبات",nav_account:"الحساب",
@@ -1245,7 +1397,9 @@ ar:{
  ai_placeholder:"اسأل مساعد كايجرام...",
  leaderboard_title:"لوحة المتصدرين",
  sign_in_prompt:"سجّل الدخول لعرض طلباتك.",
- no_orders_yet:"لا توجد طلبات بعد."
+ no_orders_yet:"لا توجد طلبات بعد.",
+ building_label:"المبنى / الفيلا / الشقة",street_label:"الشارع",city_label:"المدينة",country_label:"الدولة",
+ phone_label:"الهاتف",confirm_map_label:"تأكيد الموقع على الخريطة",open_maps_label:"افتح في خرائط جوجل ↗"
 },
 hi:{
  nav_home:"होम",nav_videos:"वीडियोज़",nav_games:"अरीना",nav_shop:"शॉप",nav_orders:"ऑर्डर्स",nav_account:"अकाउंट",
@@ -1268,7 +1422,9 @@ hi:{
  ai_placeholder:"Caygram AI से पूछें...",
  leaderboard_title:"लीडरबोर्ड",
  sign_in_prompt:"अपने ऑर्डर्स देखने के लिए साइन इन करें।",
- no_orders_yet:"अभी तक कोई ऑर्डर नहीं।"
+ no_orders_yet:"अभी तक कोई ऑर्डर नहीं।",
+ building_label:"बिल्डिंग / विला / अपार्टमेंट",street_label:"सड़क",city_label:"शहर",country_label:"देश",
+ phone_label:"फ़ोन",confirm_map_label:"मानचित्र पर स्थान की पुष्टि करें",open_maps_label:"गूगल मैप्स में खोलें ↗"
 },
 ur:{
  nav_home:"ہوم",nav_videos:"ویڈیوز",nav_games:"ارینا",nav_shop:"شاپ",nav_orders:"آرڈرز",nav_account:"اکاؤنٹ",
@@ -1291,7 +1447,9 @@ ur:{
  ai_placeholder:"Caygram AI سے پوچھیں...",
  leaderboard_title:"لیڈر بورڈ",
  sign_in_prompt:"اپنے آرڈرز دیکھنے کے لیے سائن ان کریں۔",
- no_orders_yet:"ابھی تک کوئی آرڈر نہیں۔"
+ no_orders_yet:"ابھی تک کوئی آرڈر نہیں۔",
+ building_label:"بلڈنگ / ولا / اپارٹمنٹ",street_label:"سڑک",city_label:"شہر",country_label:"ملک",
+ phone_label:"فون",confirm_map_label:"نقشے پر مقام کی تصدیق کریں",open_maps_label:"گوگل میپس میں کھولیں ↗"
 },
 fr:{
  nav_home:"Accueil",nav_videos:"Vidéos",nav_games:"Arène",nav_shop:"Boutique",nav_orders:"Commandes",nav_account:"Compte",
@@ -1314,7 +1472,9 @@ fr:{
  ai_placeholder:"Demander à Caygram AI...",
  leaderboard_title:"Classement",
  sign_in_prompt:"Connectez-vous pour voir vos commandes.",
- no_orders_yet:"Aucune commande pour l'instant."
+ no_orders_yet:"Aucune commande pour l'instant.",
+ building_label:"Bâtiment / Villa / Appt",street_label:"Rue",city_label:"Ville",country_label:"Pays",
+ phone_label:"Téléphone",confirm_map_label:"Confirmez l'emplacement sur la carte",open_maps_label:"Ouvrir dans Google Maps ↗"
 },
 es:{
  nav_home:"Inicio",nav_videos:"Vídeos",nav_games:"Arena",nav_shop:"Tienda",nav_orders:"Pedidos",nav_account:"Cuenta",
@@ -1337,7 +1497,9 @@ es:{
  ai_placeholder:"Pregunta a Caygram AI...",
  leaderboard_title:"Clasificación",
  sign_in_prompt:"Inicia sesión para ver tus pedidos.",
- no_orders_yet:"Aún no tienes pedidos."
+ no_orders_yet:"Aún no tienes pedidos.",
+ building_label:"Edificio / Villa / Apto",street_label:"Calle",city_label:"Ciudad",country_label:"País",
+ phone_label:"Teléfono",confirm_map_label:"Confirma la ubicación en el mapa",open_maps_label:"Abrir en Google Maps ↗"
 }
 };
 
@@ -1422,6 +1584,9 @@ function renderProducts(){
   let qtyOptions="";
   for(let i=1;i<=maxQty;i++)qtyOptions+=`<option value="${i}">${i}</option>`;
 
+  let addr=(currentUser&&currentUser.addressParts)||{};
+  let phoneParts=splitPhone(currentUser?currentUser.phone||"":"");
+
   return `
 
   <article class="card product">
@@ -1477,13 +1642,43 @@ function renderProducts(){
   </div>
 
   <div class="field">
-  <label>Phone</label>
-  <input id="phone_${p.id}" value="${escapeHTML(currentUser.phone||"")}" placeholder="+971...">
+  <label>${currentLang.phone_label}</label>
+  <div class="row">
+  <select id="phoneCode_${p.id}" style="max-width:145px">
+  ${phoneCodeOptionsHTML(phoneParts.code)}
+  </select>
+  <input id="phoneLocal_${p.id}" value="${escapeHTML(phoneParts.local||"")}" placeholder="50 123 4567">
+  </div>
   </div>
 
   <div class="field">
-  <label>Delivery address</label>
-  <input id="address_${p.id}" value="${escapeHTML(currentUser.address||"")}" placeholder="Building, street, city">
+  <label>${currentLang.building_label}</label>
+  <input id="building_${p.id}" value="${escapeHTML(addr.building||"")}" placeholder="Building 4, Apt 302" onblur="updateMapPreview(${p.id})">
+  </div>
+
+  <div class="field">
+  <label>${currentLang.street_label}</label>
+  <input id="street_${p.id}" value="${escapeHTML(addr.street||"")}" placeholder="Street name" onblur="updateMapPreview(${p.id})">
+  </div>
+
+  <div class="row">
+  <div class="field">
+  <label>${currentLang.city_label}</label>
+  <input id="city_${p.id}" value="${escapeHTML(addr.city||"")}" placeholder="City" onblur="updateMapPreview(${p.id})">
+  </div>
+
+  <div class="field">
+  <label>${currentLang.country_label}</label>
+  <select id="country_${p.id}" onchange="updateMapPreview(${p.id})">
+  ${countryOptionsHTML(addr.country||"United Arab Emirates")}
+  </select>
+  </div>
+  </div>
+
+  <div class="field">
+  <label>📍 ${currentLang.confirm_map_label}</label>
+  <iframe id="mapPreview_${p.id}" style="width:100%;height:170px;border:0;border-radius:9px" loading="lazy"></iframe>
+  <a id="mapLink_${p.id}" href="#" target="_blank" style="display:block;margin-top:4px;font-size:12px;color:#7c3aed;font-weight:bold">${currentLang.open_maps_label}</a>
   </div>
 
   <div class="total" id="productTotal_${p.id}">${currentLang.total}: ${money(p.price)}</div>
@@ -1496,9 +1691,20 @@ function renderProducts(){
   🔗 Pay <span id="payAmt_${p.id}">${money(p.price)}</span> with Ziina
   </a>
 
-  <div class="field" style="display:flex;align-items:center;gap:8px;margin-top:10px">
-  <input type="checkbox" id="confirmed_${p.id}" style="width:auto" onchange="toggleBuyBtn(${p.id})">
-  <label style="margin:0;font-weight:normal" for="confirmed_${p.id}">I confirm I've paid on Ziina</label>
+  <div class="notice" style="font-size:12px">
+  After paying, Ziina shows you a payment reference — enter it below along with a
+  screenshot of that confirmation. We check every order against our own Ziina account
+  before shipping; orders that don't match get cancelled.
+  </div>
+
+  <div class="field">
+  <label>Ziina payment reference</label>
+  <input id="paymentRef_${p.id}" placeholder="e.g. ZN-8271-4930" oninput="checkPaymentProof(${p.id})">
+  </div>
+
+  <div class="field">
+  <label>Screenshot of the Ziina payment confirmation</label>
+  <input type="file" id="paymentProof_${p.id}" accept="image/*" onchange="checkPaymentProof(${p.id})">
   </div>
 
   <button class="modalbtn gradient" id="placeBtn_${p.id}" disabled onclick="buyNow(${p.id})">${currentLang.place_order}</button>
@@ -1512,6 +1718,10 @@ function renderProducts(){
   `;
 
  }).join("");
+
+ if(currentUser){
+  products.forEach(p=>{ if(p.stock>0)updateMapPreview(p.id); });
+ }
 }
 
 function updateProductTotal(id){
@@ -1526,12 +1736,15 @@ function updateProductTotal(id){
  if(payEl)payEl.textContent=money(total);
 }
 
-function toggleBuyBtn(id){
+function checkPaymentProof(id){
  let btn=document.getElementById("placeBtn_"+id);
- if(btn)btn.disabled=!document.getElementById("confirmed_"+id).checked;
+ let ref=document.getElementById("paymentRef_"+id);
+ let file=document.getElementById("paymentProof_"+id);
+ if(!btn||!ref||!file)return;
+ btn.disabled=!(ref.value.trim().length>=4 && file.files.length>0);
 }
 
-function buyNow(id){
+async function buyNow(id){
 
  if(!currentUser){
   toast("Please sign in first");
@@ -1545,21 +1758,33 @@ function buyNow(id){
   return;
  }
 
- let confirmedBox=document.getElementById("confirmed_"+id);
- if(!confirmedBox||!confirmedBox.checked){
-  toast("Please confirm your Ziina payment first");
+ let refInput=document.getElementById("paymentRef_"+id);
+ let fileInput=document.getElementById("paymentProof_"+id);
+ let reference=refInput?refInput.value.trim():"";
+
+ if(reference.length<4||!fileInput||!fileInput.files.length){
+  toast("Please add your Ziina payment reference and a screenshot");
   return;
  }
 
  let qty=Number(document.getElementById("qty_"+id).value);
  let size=document.getElementById("size_"+id).value;
  let name=document.getElementById("name_"+id).value.trim();
- let phone=document.getElementById("phone_"+id).value.trim();
- let address=document.getElementById("address_"+id).value.trim();
+
+ let phoneCode=document.getElementById("phoneCode_"+id).value;
+ let phoneLocal=document.getElementById("phoneLocal_"+id).value.trim();
+ let phone=combinePhone(phoneCode,phoneLocal);
+
+ let building=document.getElementById("building_"+id).value.trim();
+ let street=document.getElementById("street_"+id).value.trim();
+ let city=document.getElementById("city_"+id).value.trim();
+ let country=document.getElementById("country_"+id).value;
 
  if(!isValidName(name)){toast("Please enter your full name");return;}
  if(!isValidPhone(phone)){toast("Please enter a valid phone number");return;}
- if(!isValidAddress(address)){toast("Please enter a valid delivery address");return;}
+ if(!isValidAddressParts(building,street,city)){toast("Please complete your building, street and city");return;}
+
+ let address=[building,street,city,country].filter(Boolean).join(", ");
 
  if(qty<1||qty>4){
   toast("You can buy up to 4 per order");
@@ -1568,6 +1793,14 @@ function buyNow(id){
 
  if(qty>p.stock){
   toast("Only "+p.stock+" left in stock");
+  return;
+ }
+
+ let screenshot;
+ try{
+  screenshot=await resizeImageFile(fileInput.files[0],800);
+ }catch(e){
+  toast("Couldn't read that screenshot — try another");
   return;
  }
 
@@ -1581,6 +1814,7 @@ function buyNow(id){
  currentUser.name=name;
  currentUser.phone=phone;
  currentUser.address=address;
+ currentUser.addressParts={building,street,city,country};
 
  let accounts=JSON.parse(localStorage.getItem("cayAccounts")||"{}");
  accounts[currentUser.username]=currentUser;
@@ -1594,6 +1828,7 @@ function buyNow(id){
   owner:currentUser.username,
   name,phone,address,total,
   payment:"ziina",
+  paymentProof:{reference,screenshot},
   created:now,
   outForDeliveryAt,deliveredAt,
   cancelled:false,
@@ -1607,9 +1842,10 @@ function buyNow(id){
  renderProducts();
  renderOrders();
 
- toast("✅ Order placed!");
+ toast("✅ Order placed — we'll verify your payment before shipping");
 
  sendOrderConfirmationEmail(order);
+ sendMerchantOrderNotification(order);
 
  showPage("orders");
  showOrder(orderId);
@@ -1712,6 +1948,7 @@ function showOrder(id){
 
  <p><b>Address:</b> ${escapeHTML(o.address)}</p>
  <p><b>Total:</b> ${money(o.total)}</p>
+ ${o.paymentProof?`<p><b>Payment reference:</b> ${escapeHTML(o.paymentProof.reference)}</p>`:""}
 
  <p class="muted" style="font-size:12px">${currentLang.footer_norefund}</p>
 
@@ -1920,8 +2157,13 @@ function accountSignupHTML(){
  <input id="signupEmail" type="email" placeholder="you@example.com">
  </div>
  <div class="field">
- <label>Phone</label>
- <input id="signupPhone" placeholder="+971...">
+ <label>${currentLang.phone_label}</label>
+ <div class="row">
+ <select id="signupPhoneCode" style="max-width:145px">
+ ${phoneCodeOptionsHTML("+971")}
+ </select>
+ <input id="signupPhoneLocal" placeholder="50 123 4567">
+ </div>
  </div>
  <div class="field">
  <label>Password</label>
@@ -1939,6 +2181,7 @@ function accountSignupHTML(){
 }
 
 function accountDashboardHTML(){
+ let phoneParts=splitPhone(currentUser.phone||"");
  return `
  <div class="notice">Signed in as <b>${escapeHTML(currentUser.username)}</b></div>
 
@@ -1951,8 +2194,13 @@ function accountDashboardHTML(){
  <input id="acctEmail" type="email" value="${escapeHTML(currentUser.email||"")}">
  </div>
  <div class="field">
- <label>Phone</label>
- <input id="acctPhone" value="${escapeHTML(currentUser.phone||"")}">
+ <label>${currentLang.phone_label}</label>
+ <div class="row">
+ <select id="acctPhoneCode" style="max-width:145px">
+ ${phoneCodeOptionsHTML(phoneParts.code)}
+ </select>
+ <input id="acctPhoneLocal" value="${escapeHTML(phoneParts.local||"")}">
+ </div>
  </div>
  <button class="modalbtn gradient" onclick="saveAccountDetails()">${currentLang.save_changes}</button>
 
@@ -1983,7 +2231,10 @@ async function doSignup(){
  let name=document.getElementById("signupName").value.trim();
  let username=document.getElementById("signupUsername").value.trim().toLowerCase();
  let email=document.getElementById("signupEmail").value.trim();
- let phone=document.getElementById("signupPhone").value.trim();
+ let phone=combinePhone(
+  document.getElementById("signupPhoneCode").value,
+  document.getElementById("signupPhoneLocal").value.trim()
+ );
  let pass=document.getElementById("signupPassword").value;
  let pass2=document.getElementById("signupPassword2").value;
 
@@ -2081,7 +2332,10 @@ function saveAccountDetails(){
 
  let name=document.getElementById("acctName").value.trim();
  let email=document.getElementById("acctEmail").value.trim();
- let phone=document.getElementById("acctPhone").value.trim();
+ let phone=combinePhone(
+  document.getElementById("acctPhoneCode").value,
+  document.getElementById("acctPhoneLocal").value.trim()
+ );
 
  if(!isValidName(name)){toast("Please enter your full name");return;}
  if(!isValidEmail(email)){toast("Please enter a valid email address");return;}
@@ -2241,7 +2495,7 @@ function getAIAnswer(q){
  return "Stock is shown right on each product card — once an item sells out it's marked Out of Stock until restocked.";
 
  if(/pay|payment|ziina|price|cost|how much|quantity|limit/i.test(q))
- return "Everything in the shop is AED 50, up to 4 per order. Pay with Ziina right on the product card, tick the confirmation box, then Place Order.";
+ return "Everything in the shop is AED 50, up to 4 per order. Pay with Ziina right on the product card, then enter your payment reference and a screenshot — we check every order against our own Ziina account before shipping.";
 
  if(/shop|shirt|hoodie|merch|buy/i.test(q))
  return "Head to the Shop tab for the Caygram Hoodie and T-Shirt — everything's AED 50, buy directly from the product card.";
