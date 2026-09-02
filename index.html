@@ -1063,7 +1063,14 @@ Save Settings
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <script>
-const ZIINA_LINK="https://pay.ziina.com/Ahmadkhalidi/jXVqqAunK?source=app";
+const ZIINA_LINK="https://pay.ziina.com/Ahmadkhalidi/jXVqqAunK?source=app"; // old flat link — no longer used for checkout
+
+/* ====== ZIINA API CHECKOUT ======
+   PAYMENT_API_BASE is the URL of your Ziina payment proxy (the Cloudflare
+   Worker in ziina-worker.js). That proxy is the only thing that ever holds
+   your Ziina API key — the key must NEVER be written into this page.
+   Paste your worker URL below: no trailing slash, and definitely no key. */
+const PAYMENT_API_BASE="https://REPLACE-WITH-YOUR-WORKER.workers.dev";
 
 /* ====== EMAIL SETUP (EmailJS) ======
    This is a static, backend-free page, so real automatic emails need a
@@ -1078,8 +1085,10 @@ const ZIINA_LINK="https://pay.ziina.com/Ahmadkhalidi/jXVqqAunK?source=app";
       {{order_id}} {{customer_name}} {{customer_email}} {{customer_phone}} {{address}}
       {{items}} {{total}} {{payment_reference}} {{payment_screenshot}} — put
       <img src="{{payment_screenshot}}"> in the template to see the proof of payment.
-      This is the email you check against your real Ziina "Get Paid" history before
-      shipping anything — see the note in buyNow() below for why that step still matters.
+      With the Ziina API flow, {{payment_reference}} is now the VERIFIED Ziina
+      payment intent id and {{payment_screenshot}} is empty (no screenshots needed).
+      You can still cross-check {{payment_reference}} in your Ziina dashboard before
+      shipping if you want the extra reassurance.
    5. Create a Damage Report template (sent to YOU) with variables:
       {{order_id}} {{customer_name}} {{customer_email}} {{description}} {{photo}}
    6. Copy your Public Key from Account > API Keys, and put your own inbox in ADMIN_EMAIL
@@ -1718,28 +1727,13 @@ function renderProducts(){
   📩 Confirmation goes to ${escapeHTML(currentUser.email||"")}. ${currentLang.footer_norefund}
   </div>
 
-  <a class="btn gradient" style="display:block;text-align:center" href="${ZIINA_LINK}" target="_blank">
-  🔗 Pay ${money(p.price)} with Ziina
-  </a>
+  <button class="modalbtn gradient" id="payBtn_${p.id}" onclick="startZiinaCheckout(${p.id})">
+  🔒 Pay ${money(p.price)} with Ziina
+  </button>
 
-  <div class="notice" style="font-size:12px">
-  Required: after paying, Ziina shows you a payment reference — enter the exact
-  reference and a real screenshot of that confirmation below. Both are checked
-  against our own Ziina account before your order ships; orders that don't
-  match a real payment get cancelled.
-  </div>
-
-  <div class="field">
-  <label>Ziina payment reference *</label>
-  <input id="paymentRef_${p.id}" placeholder="e.g. ZN-8271-4930" oninput="checkPaymentProof(${p.id})">
-  </div>
-
-  <div class="field">
-  <label>Screenshot of the Ziina payment confirmation *</label>
-  <input type="file" id="paymentProof_${p.id}" accept="image/*" onchange="checkPaymentProof(${p.id})">
-  </div>
-
-  <button class="modalbtn gradient" id="placeBtn_${p.id}" disabled onclick="buyNow(${p.id})">${currentLang.place_order}</button>
+  <p class="muted" style="font-size:11px;text-align:center;margin-top:6px">
+  You'll be taken to Ziina's secure page to pay by card, Apple Pay or Google Pay, then brought back here automatically.
+  </p>
 
   `}
 
@@ -1756,51 +1750,37 @@ function renderProducts(){
  }
 }
 
-function checkPaymentProof(id){
- let btn=document.getElementById("placeBtn_"+id);
- let ref=document.getElementById("paymentRef_"+id);
- let file=document.getElementById("paymentProof_"+id);
- if(!btn||!ref||!file)return;
- btn.disabled=!(ref.value.trim().length>=4 && file.files.length>0);
+/* ====== ZIINA API CHECKOUT ======
+   Flow:
+   1. startZiinaCheckout() validates the form, stashes a "pending order" in
+      this browser, asks the payment proxy to create a Ziina payment intent,
+      and sends the customer to Ziina's secure hosted page.
+   2. The customer pays there (card / Apple Pay / Google Pay).
+   3. Ziina redirects them back to this page with ?ziina=success&pi=...
+   4. handleZiinaReturn() asks the proxy to verify that payment straight from
+      Ziina. Only if the status is "completed" is the order actually created.
+   No payment reference or screenshot to type — the payment proves itself. */
+
+const PENDING_KEY="cayPendingOrder";
+
+function apiBase(){
+ return PAYMENT_API_BASE.replace(/\/+$/,"");
 }
 
-async function buyNow(id){
+async function startZiinaCheckout(id){
 
- if(!currentUser){
-  toast("Please sign in first");
-  return;
- }
+ if(!currentUser){toast("Please sign in first");openAccount();return;}
 
  let p=products.find(x=>x.id===id);
- if(!p||p.stock<=0){
-  toast("Sorry, that item just sold out");
-  renderProducts();
-  return;
- }
+ if(!p||p.stock<=0){toast("Sorry, that item just sold out");renderProducts();return;}
+ if(hasAlreadyOrdered(id)){toast("You've already ordered this — limit one per person");renderProducts();return;}
 
- if(hasAlreadyOrdered(id)){
-  toast("You've already ordered this — limit one per person");
-  renderProducts();
-  return;
- }
-
- let refInput=document.getElementById("paymentRef_"+id);
- let fileInput=document.getElementById("paymentProof_"+id);
- let reference=refInput?refInput.value.trim():"";
-
- if(reference.length<4||!fileInput||!fileInput.files.length){
-  toast("Please add your Ziina payment reference and a screenshot");
-  return;
- }
-
- let qty=1;
  let size=document.getElementById("size_"+id).value;
  let name=document.getElementById("name_"+id).value.trim();
-
- let phoneCode=document.getElementById("phoneCode_"+id).value;
- let phoneLocal=document.getElementById("phoneLocal_"+id).value.trim();
- let phone=combinePhone(phoneCode,phoneLocal);
-
+ let phone=combinePhone(
+  document.getElementById("phoneCode_"+id).value,
+  document.getElementById("phoneLocal_"+id).value.trim()
+ );
  let building=document.getElementById("building_"+id).value.trim();
  let street=document.getElementById("street_"+id).value.trim();
  let city=document.getElementById("city_"+id).value.trim();
@@ -1812,65 +1792,145 @@ async function buyNow(id){
 
  let address=[building,street,city,country].filter(Boolean).join(", ");
 
- if(qty>p.stock){
-  toast("Sorry, that item just sold out");
-  renderProducts();
-  return;
- }
-
- let screenshot;
- try{
-  screenshot=await resizeImageFile(fileInput.files[0],800);
- }catch(e){
-  toast("Couldn't read that screenshot — try another");
-  return;
- }
-
- let total=p.price*qty;
- let orderId="CAY-"+Math.floor(100000+Math.random()*900000);
- let now=Date.now();
- let etaDays=3+Math.floor(Math.random()*3);
- let outForDeliveryAt=now+(etaDays-1)*86400000;
- let deliveredAt=now+etaDays*86400000;
-
+ // remember the buyer's details for next time
  currentUser.name=name;
  currentUser.phone=phone;
  currentUser.address=address;
  currentUser.addressParts={building,street,city,country};
-
  let accounts=JSON.parse(localStorage.getItem("cayAccounts")||"{}");
  accounts[currentUser.username]=currentUser;
  localStorage.setItem("cayAccounts",JSON.stringify(accounts));
 
- p.stock-=qty;
- saveStock();
+ // everything we need to build the order once payment is confirmed
+ let pending={
+  owner:currentUser.username,
+  productId:p.id,
+  size,quantity:1,
+  name,phone,address,
+  total:p.price,
+  createdAt:Date.now()
+ };
+
+ let btn=document.getElementById("payBtn_"+id);
+ if(btn){btn.disabled=true;btn.textContent="Starting secure payment…";}
+
+ try{
+  let base=location.origin+location.pathname;
+  let res=await fetch(apiBase()+"/create",{
+   method:"POST",
+   headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({
+    productId:p.id,
+    successUrl:base+"?ziina=success&pi={PAYMENT_INTENT_ID}",
+    cancelUrl:base+"?ziina=cancel",
+    failureUrl:base+"?ziina=failure"
+   })
+  });
+  let data=await res.json();
+  if(!res.ok||!data.redirect_url)throw new Error(data.error||"could not start payment");
+
+  pending.paymentIntentId=data.id;
+  localStorage.setItem(PENDING_KEY,JSON.stringify(pending));
+
+  location.href=data.redirect_url;   // hand off to Ziina's secure page
+ }catch(e){
+  if(btn){btn.disabled=false;btn.textContent="🔒 Pay "+money(p.price)+" with Ziina";}
+  toast("Couldn't reach the payment service — please try again");
+ }
+}
+
+async function handleZiinaReturn(){
+
+ let params=new URLSearchParams(location.search);
+ let outcome=params.get("ziina");
+ if(!outcome)return;
+
+ // clean the address bar so a refresh can't re-trigger this
+ history.replaceState({},"",location.origin+location.pathname);
+
+ let pending=JSON.parse(localStorage.getItem(PENDING_KEY)||"null");
+
+ if(outcome!=="success"){
+  localStorage.removeItem(PENDING_KEY);
+  toast(outcome==="cancel"?"Payment cancelled — no order placed":"Payment didn't go through");
+  return;
+ }
+
+ if(!pending){toast("Payment received, but we couldn't match it to an order");return;}
+
+ let pi=params.get("pi")||pending.paymentIntentId;
+ toast("Confirming your payment…");
+
+ try{
+  let res=await fetch(apiBase()+"/verify?id="+encodeURIComponent(pi));
+  let data=await res.json();
+
+  if(data.status==="completed"){
+   finalizeOrder(pending,pi);
+  }else if(data.status==="pending"||data.status==="requires_user_action"){
+   toast("Payment is still processing — check your Orders shortly");
+  }else{
+   localStorage.removeItem(PENDING_KEY);
+   toast("Payment not completed — no order was created");
+  }
+ }catch(e){
+  toast("Couldn't confirm the payment automatically — please contact us");
+ }
+}
+
+function finalizeOrder(pending,paymentIntentId){
+
+ // make sure we're acting as the account that started the payment
+ if(!currentUser||currentUser.username!==pending.owner){
+  let accounts=JSON.parse(localStorage.getItem("cayAccounts")||"{}");
+  if(accounts[pending.owner])currentUser=accounts[pending.owner];
+ }
+
+ let p=products.find(x=>x.id===pending.productId);
+ if(!p){localStorage.removeItem(PENDING_KEY);return;}
+
+ // guard against a double redirect / already-created order
+ if(hasAlreadyOrdered(pending.productId)){
+  localStorage.removeItem(PENDING_KEY);
+  showPage("orders");
+  return;
+ }
+
+ if(p.stock>0){p.stock-=pending.quantity;saveStock();}
+
+ let now=Date.now();
+ let etaDays=3+Math.floor(Math.random()*3);
 
  let order={
-  id:orderId,
-  owner:currentUser.username,
-  name,phone,address,total,
+  id:"CAY-"+Math.floor(100000+Math.random()*900000),
+  owner:pending.owner,
+  name:pending.name,phone:pending.phone,address:pending.address,
+  total:pending.total,
   payment:"ziina",
-  paymentProof:{reference,screenshot},
+  // the verified Ziina payment intent id is the payment record now
+  paymentProof:{reference:paymentIntentId,screenshot:""},
   created:now,
-  outForDeliveryAt,deliveredAt,
+  outForDeliveryAt:now+(etaDays-1)*86400000,
+  deliveredAt:now+etaDays*86400000,
   cancelled:false,
   refundRequest:null,
-  items:[{id:p.id,size,quantity:qty}]
+  items:[{id:pending.productId,size:pending.size,quantity:pending.quantity}]
  };
 
  orders.unshift(order);
  localStorage.setItem("cayOrders",JSON.stringify(orders));
+ localStorage.removeItem(PENDING_KEY);
 
  renderProducts();
  renderOrders();
 
- toast("✅ Order placed — we'll verify your payment before shipping");
+ toast("✅ Payment confirmed — order placed!");
 
  sendOrderConfirmationEmail(order);
  sendMerchantOrderNotification(order);
 
  showPage("orders");
- showOrder(orderId);
+ showOrder(order.id);
 }
 
 /* ====== ORDERS, DELIVERY & DAMAGE REFUNDS ====== */
@@ -2517,7 +2577,7 @@ function getAIAnswer(q){
  return "Stock is shown right on each product card — once an item sells out it's marked Out of Stock until restocked.";
 
  if(/pay|payment|ziina|price|cost|how much|quantity|limit/i.test(q))
- return "The Hoodie is AED 50, one per order. Pay with Ziina right on the product card, then enter your payment reference and a screenshot — we check every order against our own Ziina account before shipping.";
+ return "The Hoodie is AED 50, one per order. Tap Pay with Ziina on the product card — you'll pay securely by card, Apple Pay or Google Pay and come straight back. Your payment is confirmed automatically, so there's nothing to upload.";
 
  if(/shop|shirt|hoodie|merch|buy/i.test(q))
  return "Head to the Shop tab for the Caygram Hoodie — AED 50, buy directly from the product card.";
@@ -2671,6 +2731,7 @@ document.body.classList.toggle(
 
 applyLanguage(localStorage.getItem("cayLanguage")||"English");
 renderLeaderboard();
+handleZiinaReturn();   // finish any Ziina payment the customer is returning from
 </script>
 
 </body>
